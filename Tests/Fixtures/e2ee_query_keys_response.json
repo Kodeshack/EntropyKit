@@ -1,0 +1,97 @@
+{
+    "failures": {},
+    "device_keys": {
+        "@NotBob:kodeshack": {
+            "LPUUCBBOJP": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:LPUUCBBOJP": "ZLd1QJnwy746jhpyWDifgRTjMuToX18/eWGwjQp39QtDZyvclFBIhsOYSFzuTOyFyh8Lv2I1cSh4W1pNTUBOAg"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:LPUUCBBOJP": "vXAWJiziiTAGuNSjY3/mX76WxqRg/iBpyfD4xwLKy2A",
+                    "curve25519:LPUUCBBOJP": "zxQXu5mT2lK+XdLUlaGl7E+YKFrt79/FWCXmJHSK3GQ"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "LPUUCBBOJP"
+            },
+            "VJFVNTNZZE": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:VJFVNTNZZE": "9vB43awa+AjrTARc/7JDGT79H5sNlRkyY2tLTIoSWu2aazknykHeKK2AH5hCwPYXIKAaaQe9G8+vFgiC6/GdAw"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:VJFVNTNZZE": "SBYIgpwdR7pEPKkKR8l/wgujfUH4SCmCG5nWwlWhXhw",
+                    "curve25519:VJFVNTNZZE": "Jv5MW28R1BKQIYTWDEEseCcxJBnF0HZBijmQTqcsw24"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "VJFVNTNZZE"
+            },
+            "SFPFPZKETI": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:SFPFPZKETI": "yJJcKsJfhB0WMwTXYbsJISyJ2/o8I2lHR0j9KZB11W3JT0VyD/qT5wcT//Jl5fHbI9bEbfTgPFJukTXW1oqrBg"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:SFPFPZKETI": "TCnQ4nvQmZvi+eokaLmeavOEKV8Geh7BvOaj2tkgO5A",
+                    "curve25519:SFPFPZKETI": "jDuVZyjFM/p6HQArLu+liyX0wAzy1GrwLi4P/6JBdQA"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "SFPFPZKETI"
+            },
+            "RABVEVPSEW": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:RABVEVPSEW": "Euz7zZBovOP7huYtnK6nADrA9EzcPdbglfyyupp808u/NXb4q8gNG+Ec5dCjbFMFbcHCkCL+u5LUCN/bb1NWBQ"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:RABVEVPSEW": "N/o+Xah28/78HKlkSDQMGECnDUKtqNzieJVPVhMi/Ys",
+                    "curve25519:RABVEVPSEW": "VAG0KLdeqo/4nA9zh3FV/4BzKNx5evMDyjjVm+F1yWk"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "RABVEVPSEW"
+            },
+            "TRBFZFLQLJ": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:TRBFZFLQLJ": "YAHFjT5dK9N4v+lJpoCsokFMan9wkfzavtLYoBDtOeMhckJNUJQ60PtwFk7+ogGir+muHemRMvu1BERf/+6uAg"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:TRBFZFLQLJ": "j4rjsEBnbXIL0R/QQRyu8ETyQJJz/7YvKKKHNO2TtUE",
+                    "curve25519:TRBFZFLQLJ": "cGcQ83W/Tw6mz2dox5gsUsj9BJRfdXChy6gwaNRlJiU"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "TRBFZFLQLJ"
+            }
+        }
+    }
+}

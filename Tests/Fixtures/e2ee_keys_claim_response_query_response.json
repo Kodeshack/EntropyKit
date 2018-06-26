@@ -1,0 +1,26 @@
+
+{
+    "failures": {},
+    "device_keys": {
+        "@NotBob:kodeshack": {
+            "LPUUCBBOJP": {
+                "signatures": {
+                    "@NotBob:kodeshack": {
+                        "ed25519:LPUUCBBOJP": "jyCX8To8zPfcxGjmGcnK5NncMbd6C+3HnYJriBBe5RaUt8d/pZma11rlYKRqob+G6FndyJiZNA580r7kjFngBA"
+                    }
+                },
+                "user_id": "@NotBob:kodeshack",
+                "keys": {
+                    "ed25519:LPUUCBBOJP": "nD+ycerK+wWVDfcMt8CPlqthIW95Yss6YWIzkqmoqf8",
+                    "curve25519:LPUUCBBOJP": "2Wt5GjmxsqjcsiXaOPn0GvBD8I6EuSm9NBsI9aBQzFg"
+                },
+                "unsigned": {},
+                "algorithms": [
+                    "m.olm.v1.curve25519-aes-sha2",
+                    "m.megolm.v1.aes-sha2"
+                ],
+                "device_id": "LPUUCBBOJP"
+            }
+        }
+    }
+}

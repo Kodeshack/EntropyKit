@@ -1,0 +1,17 @@
+{
+    "failures": {},
+    "one_time_keys": {
+        "@NotBob:kodeshack": {
+            "LPUUCBBOJP": {
+                "signed_curve25519:AAAAAQ": {
+                    "signatures": {
+                        "@NotBob:kodeshack": {
+                            "ed25519:LPUUCBBOJP": "ESUi8kK4wWN3QN9FNZqX25vLNYsucwa01os6tEWKVqVQwIu8zSVQprqgdrZu7CuiPOKDGGxFtp6FSaWJXbq8Bg"
+                        }
+                    },
+                    "key": "+KR5nzKm9uJZvZsj7pRSA/4BNRM9BoRTtaOv19R0QCc"
+                }
+            } 
+        }
+    }
+}

@@ -1,0 +1,1 @@
+typealias JSONCodable = JSONEncodable & JSONDecodable

@@ -1,0 +1,611 @@
+{
+    "next_batch": "s2083_14017_186_2207_51_12_180",
+    "device_one_time_keys_count": {
+        "signed_curve25519": 10
+    },
+    "rooms": {
+        "leave": {
+
+        },
+        "join": {
+            "!wsIayKkSKATnZVhkUb:kodeshack": {
+                "unread_notifications": {
+
+                },
+                "timeline": {
+                    "limited": true,
+                    "prev_batch": "t5-1985_14017_186_2207_51_12_180",
+                    "events": [
+                               {
+                               "origin_server_ts": 1481374273895,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742736fqKTo:kodeshack",
+                               "unsigned": {
+                               "age": 15096763
+                               },
+                               "state_key": "",
+                               "content": {
+                               "history_visibility": "shared"
+                               },
+                               "type": "m.room.history_visibility"
+                               },
+                               {
+                               "origin_server_ts": 1481374274065,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742747OIATT:kodeshack",
+                               "unsigned": {
+                               "age": 15096593
+                               },
+                               "state_key": "",
+                               "content": {
+                               "guest_access": "can_join"
+                               },
+                               "type": "m.room.guest_access"
+                               },
+                               {
+                               "origin_server_ts": 1481374274247,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742748OPikK:kodeshack",
+                               "unsigned": {
+                               "age": 15096411
+                               },
+                               "state_key": "",
+                               "content": {
+                               "name": "entropy_test"
+                               },
+                               "type": "m.room.name"
+                               },
+                               {
+                               "origin_server_ts": 1481374302317,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813743029WtwpC:kodeshack",
+                               "unsigned": {
+                               "age": 15068341
+                               },
+                               "state_key": "@bob:kodeshack",
+                               "content": {
+                               "membership": "invite",
+                               "avatar_url": null,
+                               "displayname": "Bob"
+                               },
+                               "membership": "invite",
+                               "type": "m.room.member"
+                               },
+                               {
+                               "origin_server_ts": 1481374302586,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$148137430210ujcMg:kodeshack",
+                               "unsigned": {
+                               "age": 15068072
+                               },
+                               "state_key": "@Tobi:kodeshack",
+                               "content": {
+                               "membership": "invite",
+                               "avatar_url": "mxc:\/\/kodeshack\/rDswGwoGpoEjshcYBrZKzbXv",
+                               "displayname": "Tob"
+                               },
+                               "membership": "invite",
+                               "type": "m.room.member"
+                               },
+                               {
+                               "origin_server_ts": 1481374302813,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$148137430211MQHAJ:kodeshack",
+                               "unsigned": {
+                               "age": 15067845
+                               },
+                               "state_key": "@NotBob:kodeshack",
+                               "content": {
+                               "membership": "invite",
+                               "avatar_url": null,
+                               "displayname": "NotBob"
+                               },
+                               "membership": "invite",
+                               "type": "m.room.member"
+                               },
+                               {
+                               "origin_server_ts": 1481374306756,
+                               "sender": "@Tobi:kodeshack",
+                               "event_id": "$148137430612MbHdo:kodeshack",
+                               "unsigned": {
+                               "prev_content": {
+                               "membership": "invite",
+                               "avatar_url": "mxc:\/\/kodeshack\/rDswGwoGpoEjshcYBrZKzbXv",
+                               "displayname": "Tob"
+                               },
+                               "prev_sender": "@Robin:kodeshack",
+                               "replaces_state": "$148137430210ujcMg:kodeshack",
+                               "age": 15063902
+                               },
+                               "state_key": "@Tobi:kodeshack",
+                               "content": {
+                               "membership": "join",
+                               "avatar_url": "mxc:\/\/kodeshack\/rDswGwoGpoEjshcYBrZKzbXv",
+                               "displayname": "Tob"
+                               },
+                               "membership": "join",
+                               "type": "m.room.member"
+                               },
+                               {
+                               "origin_server_ts": 1481374332005,
+                               "sender": "@NotBob:kodeshack",
+                               "event_id": "$148137433213Sqeht:kodeshack",
+                               "unsigned": {
+                               "prev_content": {
+                               "membership": "invite",
+                               "avatar_url": null,
+                               "displayname": "NotBob"
+                               },
+                               "prev_sender": "@Robin:kodeshack",
+                               "replaces_state": "$148137430211MQHAJ:kodeshack",
+                               "age": 15038653
+                               },
+                               "state_key": "@NotBob:kodeshack",
+                               "content": {
+                               "membership": "join",
+                               "avatar_url": null,
+                               "displayname": "NotBob"
+                               },
+                               "membership": "join",
+                               "type": "m.room.member"
+                               },
+                               {
+                               "origin_server_ts": 1481374336341,
+                               "sender": "@NotBob:kodeshack",
+                               "event_id": "$148137433614jYgah:kodeshack",
+                               "unsigned": {
+                               "age": 15034317
+                               },
+                               "content": {
+                               "body": "Hallo",
+                               "msgtype": "m.text"
+                               },
+                               "type": "m.room.message"
+                               },
+                               {
+                               "origin_server_ts": 1481375278020,
+                               "sender": "@bob:kodeshack",
+                               "event_id": "$148137527815Kioww:kodeshack",
+                               "unsigned": {
+                               "prev_content": {
+                               "membership": "invite",
+                               "avatar_url": null,
+                               "displayname": "Bob"
+                               },
+                               "prev_sender": "@Robin:kodeshack",
+                               "replaces_state": "$14813743029WtwpC:kodeshack",
+                               "age": 14092638
+                               },
+                               "state_key": "@bob:kodeshack",
+                               "content": {
+                               "membership": "join",
+                               "avatar_url": null,
+                               "displayname": "Bob"
+                               },
+                               "membership": "join",
+                               "type": "m.room.member"
+                               }
+                               ]
+                },
+                "state": {
+                    "events": [
+                               {
+                               "origin_server_ts": 1481374273727,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742735XvSag:kodeshack",
+                               "unsigned": {
+                               "age": 15096931
+                               },
+                               "state_key": "",
+                               "content": {
+                               "join_rule": "invite"
+                               },
+                               "type": "m.room.join_rules"
+                               },
+                               {
+                               "origin_server_ts": 1481374273306,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742732YEkKq:kodeshack",
+                               "unsigned": {
+                               "age": 15097352
+                               },
+                               "state_key": "",
+                               "content": {
+                               "creator": "@Robin:kodeshack"
+                               },
+                               "type": "m.room.create"
+                               },
+                               {
+                               "origin_server_ts": 1481374273598,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742734hrVlS:kodeshack",
+                               "unsigned": {
+                               "age": 15097060
+                               },
+                               "state_key": "",
+                               "content": {
+                               "redact": 50,
+                               "events_default": 0,
+                               "users": {
+                               "@Robin:kodeshack": 100
+                               },
+                               "invite": 0,
+                               "ban": 50,
+                               "state_default": 50,
+                               "events": {
+                               "m.room.avatar": 50,
+                               "m.room.history_visibility": 100,
+                               "m.room.canonical_alias": 50,
+                               "m.room.name": 50,
+                               "m.room.power_levels": 100
+                               },
+                               "kick": 50,
+                               "users_default": 0
+                               },
+                               "type": "m.room.power_levels"
+                               },
+                               {
+                               "origin_server_ts": 1481374273444,
+                               "sender": "@Robin:kodeshack",
+                               "event_id": "$14813742733rFsPF:kodeshack",
+                               "unsigned": {
+                               "age": 15097214
+                               },
+                               "state_key": "@Robin:kodeshack",
+                               "content": {
+                               "membership": "join",
+                               "avatar_url": "mxc:\/\/kodeshack\/ZnrSwPdhbcTVQstQMWqSKMaO",
+                               "displayname": "Rob"
+                               },
+                               "membership": "join",
+                               "type": "m.room.member"
+                               }
+                               ]
+                },
+                "ephemeral": {
+                    "events": [
+                               {
+                               "content": {
+                               "user_ids": [
+
+                               ]
+                               },
+                               "type": "m.typing"
+                               },
+                               {
+                               "content": {
+                               "$148137527815Kioww:kodeshack": {
+                               "m.read": {
+                               "@Robin:kodeshack": {
+                               "ts": 1481376273251
+                               },
+                               "@Tobi:kodeshack": {
+                               "ts": 1481375744714
+                               }
+                               }
+                               },
+                               "$148137433614jYgah:kodeshack": {
+                               "m.read": {
+                               "@bob:kodeshack": {
+                               "ts": 1481375279332
+                               }
+                               }
+                               }
+                               },
+                               "type": "m.receipt"
+                               }
+                               ]
+                },
+                "account_data": {
+                    "events": [
+
+                    ]
+                }
+            }
+        },
+        "invite": {
+
+        }
+    },
+    "account_data": {
+        "events": [
+                   {
+                   "content": {
+                   "device": {
+
+                   },
+                   "global": {
+                   "content": [
+                               {
+                               "default": true,
+                               "pattern": "NotBob",
+                               "enabled": true,
+                               "rule_id": ".m.rule.contains_user_name",
+                               "actions": [
+                                           "notify",
+                                           {
+                                           "set_tweak": "sound",
+                                           "value": "default"
+                                           },
+                                           {
+                                           "set_tweak": "highlight"
+                                           }
+                                           ]
+                               }
+                               ],
+                   "override": [
+                                {
+                                "default": true,
+                                "enabled": false,
+                                "conditions": [
+
+                                ],
+                                "rule_id": ".m.rule.master",
+                                "actions": [
+                                            "dont_notify"
+                                            ]
+                                },
+                                {
+                                "default": true,
+                                "enabled": true,
+                                "conditions": [
+                                               {
+                                               "pattern": "m.notice",
+                                               "kind": "event_match",
+                                               "key": "content.msgtype"
+                                               }
+                                               ],
+                                "rule_id": ".m.rule.suppress_notices",
+                                "actions": [
+                                            "dont_notify"
+                                            ]
+                                },
+                                {
+                                "default": true,
+                                "enabled": true,
+                                "conditions": [
+                                               {
+                                               "pattern": "m.room.member",
+                                               "kind": "event_match",
+                                               "key": "type"
+                                               },
+                                               {
+                                               "pattern": "invite",
+                                               "kind": "event_match",
+                                               "key": "content.membership"
+                                               },
+                                               {
+                                               "pattern": "@NotBob:kodeshack",
+                                               "kind": "event_match",
+                                               "key": "state_key"
+                                               }
+                                               ],
+                                "rule_id": ".m.rule.invite_for_me",
+                                "actions": [
+                                            "notify",
+                                            {
+                                            "set_tweak": "sound",
+                                            "value": "default"
+                                            },
+                                            {
+                                            "set_tweak": "highlight",
+                                            "value": false
+                                            }
+                                            ]
+                                },
+                                {
+                                "default": true,
+                                "enabled": true,
+                                "conditions": [
+                                               {
+                                               "pattern": "m.room.member",
+                                               "kind": "event_match",
+                                               "key": "type"
+                                               }
+                                               ],
+                                "rule_id": ".m.rule.member_event",
+                                "actions": [
+                                            "dont_notify"
+                                            ]
+                                },
+                                {
+                                "default": true,
+                                "enabled": true,
+                                "conditions": [
+                                               {
+                                               "kind": "contains_display_name"
+                                               }
+                                               ],
+                                "rule_id": ".m.rule.contains_display_name",
+                                "actions": [
+                                            "notify",
+                                            {
+                                            "set_tweak": "sound",
+                                            "value": "default"
+                                            },
+                                            {
+                                            "set_tweak": "highlight"
+                                            }
+                                            ]
+                                }
+                                ],
+                   "sender": [
+                   
+                   ],
+                   "room": [
+                   
+                   ],
+                   "underride": [
+                                 {
+                                 "default": true,
+                                 "enabled": true,
+                                 "conditions": [
+                                                {
+                                                "pattern": "m.call.invite",
+                                                "kind": "event_match",
+                                                "key": "type"
+                                                }
+                                                ],
+                                 "rule_id": ".m.rule.call",
+                                 "actions": [
+                                             "notify",
+                                             {
+                                             "set_tweak": "sound",
+                                             "value": "ring"
+                                             },
+                                             {
+                                             "set_tweak": "highlight",
+                                             "value": false
+                                             }
+                                             ]
+                                 },
+                                 {
+                                 "default": true,
+                                 "enabled": true,
+                                 "conditions": [
+                                                {
+                                                "kind": "room_member_count",
+                                                "is": "2"
+                                                },
+                                                {
+                                                "pattern": "m.room.message",
+                                                "kind": "event_match",
+                                                "key": "type"
+                                                }
+                                                ],
+                                 "rule_id": ".m.rule.room_one_to_one",
+                                 "actions": [
+                                             "notify",
+                                             {
+                                             "set_tweak": "sound",
+                                             "value": "default"
+                                             },
+                                             {
+                                             "set_tweak": "highlight",
+                                             "value": false
+                                             }
+                                             ]
+                                 },
+                                 {
+                                 "default": true,
+                                 "enabled": true,
+                                 "conditions": [
+                                                {
+                                                "kind": "room_member_count",
+                                                "is": "2"
+                                                },
+                                                {
+                                                "pattern": "m.room.encrypted",
+                                                "kind": "event_match",
+                                                "key": "type"
+                                                }
+                                                ],
+                                 "rule_id": ".m.rule.encrypted_room_one_to_one",
+                                 "actions": [
+                                             "notify",
+                                             {
+                                             "set_tweak": "sound",
+                                             "value": "default"
+                                             },
+                                             {
+                                             "set_tweak": "highlight",
+                                             "value": false
+                                             }
+                                             ]
+                                 },
+                                 {
+                                 "default": true,
+                                 "enabled": true,
+                                 "conditions": [
+                                                {
+                                                "pattern": "m.room.message",
+                                                "kind": "event_match",
+                                                "key": "type"
+                                                }
+                                                ],
+                                 "rule_id": ".m.rule.message",
+                                 "actions": [
+                                             "notify",
+                                             {
+                                             "set_tweak": "highlight",
+                                             "value": false
+                                             }
+                                             ]
+                                 },
+                                 {
+                                 "default": true,
+                                 "enabled": true,
+                                 "conditions": [
+                                                {
+                                                "pattern": "m.room.encrypted",
+                                                "kind": "event_match",
+                                                "key": "type"
+                                                }
+                                                ],
+                                 "rule_id": ".m.rule.encrypted",
+                                 "actions": [
+                                             "notify",
+                                             {
+                                             "set_tweak": "highlight",
+                                             "value": false
+                                             }
+                                             ]
+                                 }
+                                 ]
+                   }
+                   },
+                   "type": "m.push_rules"
+                   }
+                   ]
+    },
+    "to_device": {
+        "events": [
+        
+        ]
+    },
+    "presence": {
+        "events": [
+                   {
+                   "content": {
+                   "presence": "online",
+                   "last_active_ago": 23,
+                   "currently_active": true
+                   },
+                   "type": "m.presence",
+                   "sender": "@Tobi:kodeshack"
+                   },
+                   {
+                   "content": {
+                   "presence": "online",
+                   "last_active_ago": 95,
+                   "currently_active": true
+                   },
+                   "type": "m.presence",
+                   "sender": "@NotBob:kodeshack"
+                   },
+                   {
+                   "content": {
+                   "presence": "online",
+                   "last_active_ago": 37,
+                   "currently_active": true
+                   },
+                   "type": "m.presence",
+                   "sender": "@Robin:kodeshack"
+                   },
+                   {
+                   "content": {
+                   "presence": "online",
+                   "last_active_ago": 1425,
+                   "currently_active": true
+                   },
+                   "type": "m.presence",
+                   "sender": "@bob:kodeshack"
+                   }
+                   ]
+    },
+    "device_lists": {
+        "changed": [
+            "@alice:example.com"
+        ],
+    }
+}

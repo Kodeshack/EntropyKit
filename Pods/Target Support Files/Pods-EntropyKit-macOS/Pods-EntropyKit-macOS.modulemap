@@ -1,0 +1,6 @@
+framework module Pods_EntropyKit_macOS {
+  umbrella header "Pods-EntropyKit-macOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

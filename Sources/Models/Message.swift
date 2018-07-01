@@ -153,7 +153,7 @@ extension Message {
             JOIN \(usersTable) ON \(usersTable).\(usersIDColumn) = \(messagesTable).\(messagesSenderIDColumn)
             LEFT JOIN \(mediaTable) ON \(mediaTable).\(mediaMessageID) = \(messagesTable).\(messageID)
             WHERE \(messageRoomIDColumn) = ?
-            ORDER BY \(messagesDateColumn) DESC
+            ORDER BY \(messagesDateColumn) ASC
             LIMIT ? OFFSET ?
             """
 

@@ -7,7 +7,6 @@ public class Room: Record, Hashable, Equatable {
     public var name: String?
     public var encrypted: Bool
 
-    var users: [String: User]
     var messages: [Message]
     var oldestState: String?
     var unreadCount = UInt(0)
@@ -25,13 +24,13 @@ public class Room: Record, Hashable, Equatable {
     }
 
     /// The room's smart name. Either the room name or a concatenation of the users' displaynames if the room name is `nil`. Returns "Empty Room" if no users are present.
-    var smartName: String {
-        return name ?? (users.count > 0 ? users.values.map({ $0.displayname }).sorted().joined(separator: ", ") : "Empty Room")
+    /// - Bug: [Issue #5](https://github.com/Kodeshack/EntropyKit/issues/5).
+    public var smartName: String {
+        return name ?? "Empty Room"
     }
 
     init(id: RoomID) {
         self.id = id
-        users = [String: User]()
         messages = [Message]()
         encrypted = false
         encryptionAlgorithm = nil
@@ -52,7 +51,6 @@ public class Room: Record, Hashable, Equatable {
             encryptionAlgorithm = CryptoEngine.Algorithm(rawValue: algorithm)
         }
 
-        users = [String: User]()
         messages = [Message]()
         super.init(row: row)
     }

@@ -15,13 +15,6 @@ public class ObservablePersistedList<T: Record> {
     private var observerTokens = Set<ObserverToken>()
     private var counter = UInt(0)
 
-//    init(database: Database, sql: String, callbackQueue: DispatchQueue = DispatchQueue.main) throws {
-//        self.database = database
-//        recordsController = try FetchedRecordsController(database.dbQueue, sql: sql, queue: callbackQueue)
-//        try setup()
-//    }
-//
-
     init(database: Database, sql: String, arguments: StatementArguments?, adapater: RowAdapter?, callbackQueue: DispatchQueue = DispatchQueue.main) throws {
         self.database = database
         recordsController = try FetchedRecordsController(database.dbQueue, sql: sql, arguments: arguments, adapter: adapater, queue: callbackQueue)
@@ -55,16 +48,6 @@ public class ObservablePersistedList<T: Record> {
 
         try recordsController.performFetch()
     }
-
-//    public subscript(section: Int, row: Int) -> T {
-//        get {
-//            return recordsController.record(at: IndexPath(row: row, section: section))
-//        }
-//    }
-//
-//    public func numberOfRecords(section: Int) -> Int {
-//        return recordsController.sections[section].numberOfRecords
-//    }
 
     func changeRequest(_ request: QueryInterfaceRequest<T>) throws {
         try recordsController.setRequest(request)

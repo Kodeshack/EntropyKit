@@ -7,7 +7,6 @@ public class Room: Record, Hashable, Equatable {
     public var name: String?
     public var encrypted: Bool
 
-    var messages: [Message]
     var oldestState: String?
     var unreadCount = UInt(0)
     var encryptionAlgorithm: CryptoEngine.Algorithm?
@@ -31,7 +30,6 @@ public class Room: Record, Hashable, Equatable {
 
     init(id: RoomID) {
         self.id = id
-        messages = [Message]()
         encrypted = false
         encryptionAlgorithm = nil
         announced = false
@@ -51,7 +49,6 @@ public class Room: Record, Hashable, Equatable {
             encryptionAlgorithm = CryptoEngine.Algorithm(rawValue: algorithm)
         }
 
-        messages = [Message]()
         super.init(row: row)
     }
 

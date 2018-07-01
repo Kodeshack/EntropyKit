@@ -136,7 +136,7 @@ extension ObservablePersistedList {
         }
 
     #elseif canImport(AppKit)
-        public func addObserver<V: NSTableCellView>(for tableView: NSTableView, configureCell: @escaping (V, IndexPath) -> Void) -> ObserverToken {
+        public func addObserver<V: NSTableCellView>(for tableView: NSTableView, configureCell: @escaping (V, Int) -> Void) -> ObserverToken {
             return addObserver(
                 willChange: { [unowned tableView] in
                     tableView.beginUpdates()
@@ -144,17 +144,19 @@ extension ObservablePersistedList {
                 onChange: { [unowned tableView] _, change in
                     switch change {
                     case let .insertion(indexPath):
-                        tableView.insertRows(at: IndexSet(indexPath), withAnimation: .effectFade)
+                        let row = IndexSet(arrayLiteral: indexPath.item)
+                        tableView.insertRows(at: row, withAnimation: .effectFade)
                     case let .deletion(indexPath):
-                        tableView.removeRows(at: IndexSet(indexPath), withAnimation: .effectFade)
+                        let row = IndexSet(arrayLiteral: indexPath.item)
+                        tableView.removeRows(at: row, withAnimation: .effectFade)
                     case let .move(indexPath, newIndexPath, _):
                         tableView.moveRow(at: indexPath.item, to: newIndexPath.item)
                         if let cell = tableView.view(atColumn: indexPath.section, row: indexPath.item, makeIfNecessary: true) as? V {
-                            configureCell(cell, newIndexPath)
+                            configureCell(cell, newIndexPath.item)
                         }
                     case let .update(indexPath, _):
                         if let cell = tableView.view(atColumn: indexPath.section, row: indexPath.item, makeIfNecessary: true) as? V {
-                            configureCell(cell, indexPath)
+                            configureCell(cell, indexPath.item)
                         }
                     }
                 },

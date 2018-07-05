@@ -1,35 +1,7 @@
-import CoreGraphics
-import Foundation
 import GRDB
 
 class Settings {
-    static var avatarURL: URL {
-        let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        return url.appendingPathComponent("avatars/")
-    }
-
-    static let maxBigEmojiLength = 5
-    static let bigEmojiSizeFactor = CGFloat(integerLiteral: 3)
-
     private static let userDefaults = UserDefaults.standard
-
-    static var notificationsEnabled: Bool {
-        get {
-            return userDefaults.bool(forKey: Keys.notificationsEnabled)
-        }
-        set {
-            userDefaults.set(newValue, forKey: Keys.notificationsEnabled)
-        }
-    }
-
-    static var notificationSoundsEnabled: Bool {
-        get {
-            return userDefaults.bool(forKey: Keys.notificationSoundsEnabled)
-        }
-        set {
-            userDefaults.set(newValue, forKey: Keys.notificationSoundsEnabled)
-        }
-    }
 
     static var userAgent: String? {
         get {
@@ -55,19 +27,8 @@ class Settings {
         }
     }
 
-    static func registerDefaults() {
-        let defaults = [
-            Keys.notificationsEnabled: true,
-            Keys.notificationSoundsEnabled: true,
-        ]
-
-        userDefaults.register(defaults: defaults)
-    }
-
-    struct Keys {
+    private struct Keys {
         static let homeserver = "homeserver"
-        static let notificationsEnabled = "NotificationsEnabled"
-        static let notificationSoundsEnabled = "NotificationSoundsEnabled"
         static let userAgent = "UserAgent"
     }
 }

@@ -88,7 +88,7 @@ extension EncryptedJSON {
         try container.encodeIfPresent(sessionID, forKey: .sessionID)
         try container.encodeIfPresent(deviceID, forKey: .deviceID)
 
-        switch self.ciphertext {
+        switch ciphertext {
         case let .olmCiphertext(ciphertext):
             try container.encode(ciphertext, forKey: .ciphertext)
         case let .megolmCiphertext(ciphertext):

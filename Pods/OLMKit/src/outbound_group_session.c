@@ -16,7 +16,6 @@
 #include "olm/outbound_group_session.h"
 
 #include <string.h>
-#include <sys/time.h>
 
 #include "olm/base64.h"
 #include "olm/cipher.h"
@@ -44,7 +43,7 @@ struct OlmOutboundGroupSession {
 };
 
 
-size_t olm_outbound_group_session_size() {
+size_t olm_outbound_group_session_size(void) {
     return sizeof(OlmOutboundGroupSession);
 }
 

@@ -2,8 +2,8 @@ Olm
 ===
 
 An implementation of the Double Ratchet cryptographic ratchet described by
-https://github.com/trevp/double_ratchet/wiki, written in C and C++11 and
-exposed as a C API.
+https://whispersystems.org/docs/specifications/doubleratchet/, written in C and
+C++11 and exposed as a C API.
 
 The specification of the Olm ratchet can be found in `<docs/olm.rst>`_.
 
@@ -46,10 +46,16 @@ To build the Xcode workspace for Objective-C bindings, run:
     pod install
     open OLMKit.xcworkspace
 
+To build olm as a static library (which still needs libstdc++ dynamically) run:
+
+.. code:: bash
+
+    make static
+
 Release process
 ---------------
 
-First: bump version numbers in ``Makefile``, ``javascript/package.json``,
+First: bump version numbers in ``common.mk``, ``javascript/package.json``,
 ``OLMKit.podspec``, and ``android/olm-sdk/build.gradle`` (``versionCode``,
 ``versionName`` and ``version``).
 
@@ -72,7 +78,7 @@ by convention), and merge back to master once the release is complete.
     npm pack javascript
 
     VERSION=x.y.z
-    scp olm-$VERSION.tgz packages@ldc-prd-matrix-001:/sites/matrix/packages/npm/olm/
+    scp olm-$VERSION.tgz packages@ares.matrix.org:packages/npm/olm/
     git tag $VERSION -s
     git push --tags
 
@@ -133,6 +139,19 @@ to compile the library for different architectures.
 Contributing
 ------------
 Please see `<CONTRIBUTING.rst>`_ when making contributions to the library.
+
+Security assessment
+-------------------
+
+Olm 1.3.0 was independently assessed by NCC Group's Cryptography Services
+Practive in September 2016 to check for security issues: you can read all
+about it at
+https://www.nccgroup.trust/us/our-research/matrix-olm-cryptographic-review/
+and https://matrix.org/blog/2016/11/21/matrixs-olm-end-to-end-encryption-security-assessment-released-and-implemented-cross-platform-on-riot-at-last/
+
+Bug reports
+-----------
+Please file bug reports at https://github.com/matrix-org/olm/issues
 
 What's an olm?
 --------------

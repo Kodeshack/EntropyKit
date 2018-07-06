@@ -7,4 +7,4 @@ PODS_ROOT = ${SRCROOT}
 PODS_TARGET_SRCROOT = ${PODS_ROOT}/OLMKit
 PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
 SKIP_INSTALL = YES
-USER_HEADER_SEARCH_PATHS = ${PODS_ROOT}/OLMKit/include ${PODS_ROOT}/OLMKit/lib ./include ./lib
+USER_HEADER_SEARCH_PATHS = ${PODS_ROOT}/OLMKit/include ${PODS_ROOT}/OLMKit/lib /Users/stevebarre/Documents/New_Vector/Projets/OLM/include /Users/stevebarre/Documents/New_Vector/Projets/OLM/lib

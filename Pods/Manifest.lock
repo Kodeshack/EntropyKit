@@ -14,11 +14,11 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (6.1.0)
   - OHHTTPStubs/Swift (6.1.0):
     - OHHTTPStubs/Default
-  - OLMKit (2.2.2):
-    - OLMKit/olmc (= 2.2.2)
-    - OLMKit/olmcpp (= 2.2.2)
-  - OLMKit/olmc (2.2.2)
-  - OLMKit/olmcpp (2.2.2)
+  - OLMKit (2.3.0):
+    - OLMKit/olmc (= 2.3.0)
+    - OLMKit/olmcpp (= 2.3.0)
+  - OLMKit/olmc (2.3.0)
+  - OLMKit/olmcpp (2.3.0)
   - SwiftFormat/CLI (0.33.11)
 
 DEPENDENCIES:
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   GRDB.swift: 6a0e323257fdfa75a0eed9c74d5f2f60428bef1a
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
-  OLMKit: b9d8c0ffee9ea8c45bc0aaa9afb47f93fba7efbd
+  OLMKit: dd79cdc5fab9ec04c940a901e025195b7801f306
   SwiftFormat: fa1b577bb4f0cd4f8cfe70d07945aa894ef5f97a
 
 PODFILE CHECKSUM: 23941cc7f9046c1062094188b32d46d4dfbeda7b

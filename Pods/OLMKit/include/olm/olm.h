@@ -39,13 +39,13 @@ typedef struct OlmUtility OlmUtility;
 void olm_get_library_version(uint8_t *major, uint8_t *minor, uint8_t *patch);
 
 /** The size of an account object in bytes */
-size_t olm_account_size();
+size_t olm_account_size(void);
 
 /** The size of a session object in bytes */
-size_t olm_session_size();
+size_t olm_session_size(void);
 
 /** The size of a utility object in bytes */
-size_t olm_utility_size();
+size_t olm_utility_size(void);
 
 /** Initialise an account object using the supplied memory
  *  The supplied memory must be at least olm_account_size() bytes */
@@ -66,7 +66,7 @@ OlmUtility * olm_utility(
 );
 
 /** The value that olm will return from a function if there was an error */
-size_t olm_error();
+size_t olm_error(void);
 
 /** A null terminated string describing the most recent error to happen to an
  * account */
@@ -162,7 +162,7 @@ size_t olm_create_account_random_length(
     OlmAccount * account
 );
 
-/** Creates a new account. Returns olm_error() on failure. If weren't
+/** Creates a new account. Returns olm_error() on failure. If there weren't
  * enough random bytes then olm_account_last_error() will be
  * "NOT_ENOUGH_RANDOM" */
 size_t olm_create_account(
@@ -409,10 +409,10 @@ size_t olm_decrypt_max_plaintext_length(
  * will be "OUTPUT_BUFFER_TOO_SMALL". If the base64 couldn't be decoded then
  * olm_session_last_error() will be "INVALID_BASE64". If the message is for
  * an unsupported version of the protocol then olm_session_last_error() will
- *  be "BAD_MESSAGE_VERSION". If the message couldn't be decoded then
- *  olm_session_last_error() will be BAD_MESSAGE_FORMAT".
- *  If the MAC on the message was invalid then olm_session_last_error() will
- *  be "BAD_MESSAGE_MAC". */
+ * be "BAD_MESSAGE_VERSION". If the message couldn't be decoded then
+ * olm_session_last_error() will be BAD_MESSAGE_FORMAT".
+ * If the MAC on the message was invalid then olm_session_last_error() will
+ * be "BAD_MESSAGE_MAC". */
 size_t olm_decrypt(
     OlmSession * session,
     size_t message_type,
@@ -427,7 +427,7 @@ size_t olm_sha256_length(
 
 /** Calculates the SHA-256 hash of the input and encodes it as base64. If the
  * output buffer is smaller than olm_sha256_length() then
- * olm_session_last_error() will be "OUTPUT_BUFFER_TOO_SMALL". */
+ * olm_utility_last_error() will be "OUTPUT_BUFFER_TOO_SMALL". */
 size_t olm_sha256(
     OlmUtility * utility,
     void const * input, size_t input_length,
@@ -436,7 +436,7 @@ size_t olm_sha256(
 
 /** Verify an ed25519 signature. If the key was too small then
  * olm_session_last_error will be "INVALID_BASE64". If the signature was invalid
- * then olm_session_last_error() will be "BAD_MESSAGE_MAC". */
+ * then olm_utility_last_error() will be "BAD_MESSAGE_MAC". */
 size_t olm_ed25519_verify(
     OlmUtility * utility,
     void const * key, size_t key_length,
@@ -448,4 +448,4 @@ size_t olm_ed25519_verify(
 }
 #endif
 
-#endif /* OLM_HH_ */
+#endif /* OLM_H_ */

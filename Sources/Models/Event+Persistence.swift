@@ -128,13 +128,12 @@ extension Event {
 
 extension Event {
     private func persistMembership(_ db: GRDB.Database) throws {
-        let user = try User(event: self)
-
         let userRoom = UserRoom(event: self)
 
         if let membership = self.content.member?.membership {
             switch membership {
             case .join:
+                try User(event: self)?.insert(db)
                 try userRoom.insert(db)
             case .leave:
                 try userRoom.delete(db)
@@ -152,7 +151,5 @@ extension Event {
                 break
             }
         }
-
-        try user.insert(db)
     }
 }

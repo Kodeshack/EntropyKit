@@ -22,10 +22,13 @@ public class User: Record {
         super.init(row: row)
     }
 
-    convenience init(event: Event) throws {
+    convenience init?(event: Event) throws {
         guard case let .member(membership) = event.content else {
             throw UserError(message: "event.content.member is nil")
         }
+
+        guard membership.membership == .invite else { return nil }
+
         self.init(id: event.senderID!, displayname: membership.displayname)
     }
 

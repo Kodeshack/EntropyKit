@@ -37,4 +37,22 @@ class UserTests: XCTestCase {
         let user2 = try User.create(id: "@BobTheBuilder", database: database)
         XCTAssertEqual(user2.displayname, "Bob the Builder")
     }
+
+    /// Make sure to only create users when joined, not when sending invites.
+    func testDisplaynameOverrideOnInvite() throws {
+        let user = try User.create(id: "@BobTheBuilder", database: database) { user in
+            user.displayname = "Bob"
+        }
+
+        let memberJSON = MemberJSON(membership: .invite, displayname: "NotBob")
+        let membership = Event.Content.member(memberJSON)
+        var event = Event(type: .member, roomID: "datroom", content: membership)
+        event.senderID = user.id
+
+        try database.dbQueue.inDatabase { db in
+            try event.persist(db).dematerialize()
+        }
+
+        XCTAssertEqual(user.displayname, try User.load(id: user.id, database: database)?.displayname)
+    }
 }

@@ -51,6 +51,7 @@ class UserTests: XCTestCase {
 
         try database.dbQueue.inDatabase { db in
             try event.persist(db).dematerialize()
+            try User(event: event)?.insert(db)
         }
 
         XCTAssertEqual(user.displayname, try User.load(id: user.id, database: database)?.displayname)

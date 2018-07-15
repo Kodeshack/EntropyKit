@@ -27,7 +27,7 @@ public class User: Record {
             throw UserError(message: "event.content.member is nil")
         }
 
-        guard membership.membership == .invite else { return nil }
+        guard membership.membership == .join else { return nil }
 
         self.init(id: event.senderID!, displayname: membership.displayname)
     }

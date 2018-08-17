@@ -27,7 +27,7 @@ class CryptoEngineTests: XCTestCase {
     private func getCryptoEngine(userID: UserID = "@NotBob:kodeshack", deviceID: DeviceID = "TEST_DEVICE_ID", database: Database? = nil) throws -> (Account, CryptoEngine) {
         let database = database ?? self.database!
 
-        let exp = expectation(description: "getCryptoEnginge")
+        let exp = XCTestExpectation(description: "getCryptoEngine")
 
         let keysUploadStub = stub(condition: pathStartsWith("/_matrix/client/r0/keys/upload")) { _ in
             let resp = KeysUploadResponse(oneTimeKeyCounts: [CryptoEngine.CryptoKeys.signedCurve25519.rawValue: 50])

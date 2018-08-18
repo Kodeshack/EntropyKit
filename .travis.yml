@@ -1,0 +1,13 @@
+language: swift
+xcode_workspace: EntropyKit.xcworkspace
+branches:
+  only:
+  - master
+osx_image: xcode10.1
+matrix:
+    include:
+        - xcode_scheme: EntropyKit-macOS
+        - xcode_scheme: EntropyKit-iOS
+          xcode_destination: platform=iOS Simulator,OS=12.0,name=iPhone XS
+        - xcode_scheme: EntropyKit-iOS
+          xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone XS

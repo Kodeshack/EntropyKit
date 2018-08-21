@@ -40,7 +40,7 @@ class RoomServiceTests: XCTestCase {
         let account = try Account.create(userID: "NotBob@kodeshack", accessToken: "togepi", deviceID: "bar", database: database)
         let room = try Room.create(id: "!wakeful_pigs:kodeshack", database: database)
 
-        let msg = MessageJSON(body: "Hello.", type: .text)
+        let msg = PlainMessageJSON(body: "Hello.", type: .text)
 
         let exp = expectation(description: "send message")
 
@@ -53,6 +53,63 @@ class RoomServiceTests: XCTestCase {
                     XCTAssertEqual(message?.senderID, "NotBob@kodeshack")
                     XCTAssertEqual(message?.type, .text)
                     XCTAssertEqual(message?.body, "Hello.")
+                }
+            }
+
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+    }
+
+    func testSendUnencryptedMedia() {
+        let bundle = Bundle(for: type(of: self))
+        guard let url = bundle.url(forResource: "testimage", withExtension: "png", subdirectory: "Fixtures") else {
+            XCTFail()
+            return
+        }
+        let data = try! Data(contentsOf: url)
+
+        stub(condition: { request in
+            guard
+                request.url!.absoluteString.hasSuffix("/_matrix/client/r0/rooms/!wakeful_pigs:kodeshack/send/m.room.message/0?access_token=togepi")
+                && request.httpMethod == "PUT"
+            else { return false }
+
+            let data = request.ohhttpStubs_httpBody!
+            let event = String(data: data, encoding: .utf8)
+
+            let expected = "{\"body\":\"testimage.png\",\"info\":{\"h\":1,\"mimetype\":\"image/png\",\"size\":82,\"w\":1},\"msgtype\":\"m.file\",\"url\":\"mxc://example.com/MTcwMzE5OTU\"}"
+
+            return event == expected
+        }) { _ in
+            let eventResp = ["event_id": "message_sent"]
+            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+        }
+
+        stub(condition: { request in
+
+            request.url!.absoluteString.hasSuffix("/_matrix/media/r0/upload?access_token=togepi&filename=testimage.png")
+                && request.httpMethod == "POST"
+        }) { _ in
+            let eventResp = ["content_uri": "mxc://example.com/MTcwMzE5OTU"]
+            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+        }
+
+        let account = try! Account.create(userID: "NotBob@kodeshack", accessToken: "togepi", deviceID: "bar", database: database)
+        let room = try! Room.create(id: "!wakeful_pigs:kodeshack", database: database)
+        let info = FileMessageJSON.Info(width: 1, height: 1, size: UInt(data.count), mimeType: "image/png", thumbnailInfo: nil, thumbnailFile: nil)
+        let exp = expectation(description: "sent media message")
+
+        RoomService.sendMedia(filename: "testimage.png", data: data, info: info, roomID: room.id, account: account, database: database) { result in
+            XCTAssertNil(result.error)
+            XCTAssertEqual(result.value?.id, "message_sent")
+            if let id = result.value?.id {
+                try! self.database.dbQueue.inDatabase { db in
+                    let message = try Message.fetchOne(db, key: id)
+                    XCTAssertEqual(message?.senderID, "NotBob@kodeshack")
+                    XCTAssertEqual(message?.type, .file)
+                    XCTAssertEqual(message?.body, "testimage.png")
                 }
             }
 

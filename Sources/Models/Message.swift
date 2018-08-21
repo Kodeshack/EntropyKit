@@ -9,8 +9,7 @@ public class Message: Record {
     public let type: MessageType
     public let body: String
 
-    public var image: Image?
-    public var thumbnail: Image?
+    public var attachment: Attachment?
 
     var timestamp: UInt {
         return UInt(date.timeIntervalSince1970 * 1000)
@@ -38,20 +37,27 @@ public class Message: Record {
             sender = User(row: user)
         }
 
-        if type == .image {
-            if let image = row.scopes["image"] {
-                self.image = Image(row: image)
+        super.init(row: row)
+
+        if type == .image || type == .file {
+            if let attachment = row.scopes[Database.v0.attachments.table] {
+                self.attachment = Attachment(row: attachment)
             }
         }
-
-        super.init(row: row)
     }
 
     convenience init(event: Event) {
-        let message = event.content.message!
+        let type: MessageType
+        let body: String
 
-        let type = message.type
-        let body = message.body
+        if let message = event.content.fileMessage {
+            type = message.type
+            body = message.body
+        } else {
+            let message = event.content.message!
+            type = message.type
+            body = message.body
+        }
 
         self.init(
             id: event.id!,
@@ -62,26 +68,7 @@ public class Message: Record {
             body: body
         )
 
-        if self.type == .image {
-            let imageInfo = message.imageInfo!
-            let url = message.imageURL!
-            let width = imageInfo.width
-            let height = imageInfo.height
-            let MIMEType = imageInfo.MIMEType
-            let size = imageInfo.size
-
-            image = Message.Image(id: id, messageID: id, url: url, width: width, height: height, MIMEType: MIMEType, size: size)
-
-            if let thumbnailInfo = message.thumbnailInfo {
-                let url = message.thumbnailURL!
-                let width = thumbnailInfo.width
-                let height = thumbnailInfo.height
-                let MIMEType = thumbnailInfo.MIMEType
-                let size = thumbnailInfo.size
-
-                thumbnail = Message.Image(url: url, width: width, height: height, MIMEType: MIMEType, size: size)
-            }
-        }
+        attachment = Attachment(event: event)
     }
 
     public override class var databaseTableName: String {
@@ -97,8 +84,8 @@ public class Message: Record {
         container[Database.v0.messages.body] = body
     }
 
-    var messageJSON: MessageJSON {
-        return MessageJSON(body: body, type: type, imageInfo: image?.imageInfo, imageURL: image?.url, thumbnailInfo: thumbnail?.imageInfo, thumbnailURL: thumbnail?.url)
+    var messageJSON: PlainMessageJSON {
+        return PlainMessageJSON(body: body, type: type)
     }
 }
 
@@ -127,7 +114,7 @@ extension Message {
     func save(database: Database) throws {
         try database.dbQueue.inDatabase { db in
             try self.insert(db)
-            try self.image?.insert(db)
+            try self.attachment?.insert(db)
         }
     }
 
@@ -138,8 +125,8 @@ extension Message {
         let messagesSenderIDColumn = Database.v0.messages.senderID
         let messagesDateColumn = Database.v0.messages.date
         let messageRoomIDColumn = Database.v0.messages.roomID
-        let mediaTable = Database.v0.media.table
-        let mediaMessageID = Database.v0.media.messageID
+        let attachmentsTable = Database.v0.attachments.table
+        let attachmentMessageID = Database.v0.attachments.messageID
         let messageID = Database.v0.messages.id
 
         let suffixAdapters: [String: RowAdapter] = [
@@ -149,9 +136,9 @@ extension Message {
 
         let sql =
             """
-            SELECT \(messagesTable).*, \(usersTable).*, \(mediaTable).* FROM \(messagesTable)
+            SELECT \(messagesTable).*, \(usersTable).*, \(attachmentsTable).* FROM \(messagesTable)
             JOIN \(usersTable) ON \(usersTable).\(usersIDColumn) = \(messagesTable).\(messagesSenderIDColumn)
-            LEFT JOIN \(mediaTable) ON \(mediaTable).\(mediaMessageID) = \(messagesTable).\(messageID)
+            LEFT JOIN \(attachmentsTable) ON \(attachmentsTable).\(attachmentMessageID) = \(messagesTable).\(messageID)
             WHERE \(messageRoomIDColumn) = ?
             ORDER BY \(messagesDateColumn) ASC
             LIMIT ? OFFSET ?

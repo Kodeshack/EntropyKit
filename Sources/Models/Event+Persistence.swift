@@ -120,7 +120,7 @@ extension Event {
     private func persistMessage(_ db: GRDB.Database) throws {
         let message = Message(event: self)
         try message.insert(db)
-        try message.image?.insert(db)
+        try message.attachment?.insert(db)
     }
 }
 

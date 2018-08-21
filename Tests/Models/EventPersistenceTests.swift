@@ -132,7 +132,7 @@ class EventPersistenceTests: XCTestCase {
             type: .message,
             date: Date(),
             roomID: "message_room",
-            content: .message(MessageJSON(body: "hi", type: .text))
+            content: .message(PlainMessageJSON(body: "hi", type: .text))
         )
 
         XCTAssertNil(database.dbQueue.inDatabase { db in

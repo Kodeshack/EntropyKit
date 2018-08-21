@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000DD8C42147E08B00B33BBF /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C32147E08B00B33BBF /* Base64.swift */; };
+		000DD8C52147E08B00B33BBF /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C32147E08B00B33BBF /* Base64.swift */; };
+		000DD8C72148050A00B33BBF /* Base64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C62148050A00B33BBF /* Base64Tests.swift */; };
+		000DD8C82148050A00B33BBF /* Base64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C62148050A00B33BBF /* Base64Tests.swift */; };
+		000DD8CA214A72CC00B33BBF /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C9214A72CC00B33BBF /* MessageJSON.swift */; };
+		000DD8CB214A72CC00B33BBF /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C9214A72CC00B33BBF /* MessageJSON.swift */; };
+		004C2F342147B2D2003F0BF5 /* FileMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */; };
+		004C2F352147B2D6003F0BF5 /* FileMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */; };
+		004C2F372147B3ED003F0BF5 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F362147B3ED003F0BF5 /* Attachment.swift */; };
+		004C2F382147B3ED003F0BF5 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F362147B3ED003F0BF5 /* Attachment.swift */; };
+		004C2F3A2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F392147B7C4003F0BF5 /* AttachmentTests.swift */; };
+		004C2F3B2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F392147B7C4003F0BF5 /* AttachmentTests.swift */; };
+		004C2F3D2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F3C2147C802003F0BF5 /* FileMessageJSONTests.swift */; };
+		004C2F3E2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F3C2147C802003F0BF5 /* FileMessageJSONTests.swift */; };
 		0051AEAC20DCFF5C0061A7B8 /* ObservablePersistedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */; };
 		0051AEAD20DD16560061A7B8 /* ObservablePersistedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */; };
 		0051AEAF20DE45130061A7B8 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051AEAE20DE45130061A7B8 /* Scheduler.swift */; };
@@ -22,6 +36,18 @@
 		006D55D620CD3A9C00C1E7BE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D420CD3A9C00C1E7BE /* Validation.swift */; };
 		006D55D820CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
 		006D55D920CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
+		00F52E4E212C06C400A337B6 /* AttachmentEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */; };
+		00F52E4F212C06C400A337B6 /* AttachmentEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */; };
+		00F52E51212C06F500A337B6 /* AttachmentEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */; };
+		00F52E52212C06F500A337B6 /* AttachmentEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */; };
+		00F52E54212C55FE00A337B6 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E53212C55FE00A337B6 /* SHA256.swift */; };
+		00F52E55212C55FE00A337B6 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E53212C55FE00A337B6 /* SHA256.swift */; };
+		00F52E57212C56E500A337B6 /* SHA256Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E56212C56E500A337B6 /* SHA256Tests.swift */; };
+		00F52E58212C56E500A337B6 /* SHA256Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E56212C56E500A337B6 /* SHA256Tests.swift */; };
+		00F52E5A212D56A800A337B6 /* CCCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E59212D56A800A337B6 /* CCCryptor.swift */; };
+		00F52E5B212D56A800A337B6 /* CCCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E59212D56A800A337B6 /* CCCryptor.swift */; };
+		00F52E5D212D745900A337B6 /* EncryptedAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E5C212D745900A337B6 /* EncryptedAttachment.swift */; };
+		00F52E5E212D745900A337B6 /* EncryptedAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E5C212D745900A337B6 /* EncryptedAttachment.swift */; };
 		0384060D92A15D5484D5AB67 /* Pods_EntropyKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F21523DB92F78EF3C0A5B1D8 /* Pods_EntropyKit_macOS.framework */; };
 		2871650C4891DAE4FD6B1037 /* Pods_EntropyKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA553B545154CA73D12DCF8E /* Pods_EntropyKit_iOS.framework */; };
 		5772F9540CED8B8B2480A047 /* Pods_EntropyKit_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4870F93B0B967F467051569F /* Pods_EntropyKit_iOSTests.framework */; };
@@ -58,8 +84,6 @@
 		D259E6A920D523BC00925486 /* CryptoBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A220D523BC00925486 /* CryptoBlob.swift */; };
 		D259E6AA20D523BC00925486 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A320D523BC00925486 /* Message.swift */; };
 		D259E6AB20D523BC00925486 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A320D523BC00925486 /* Message.swift */; };
-		D259E6AC20D523BC00925486 /* Message+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A420D523BC00925486 /* Message+Image.swift */; };
-		D259E6AD20D523BC00925486 /* Message+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A420D523BC00925486 /* Message+Image.swift */; };
 		D259E6AE20D523BC00925486 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A520D523BC00925486 /* Room.swift */; };
 		D259E6AF20D523BC00925486 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6A520D523BC00925486 /* Room.swift */; };
 		D259E6B120D523E600925486 /* UserRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6B020D523E600925486 /* UserRoom.swift */; };
@@ -82,8 +106,8 @@
 		D259E6D520D524A500925486 /* RoomEncryptionJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6C920D524A400925486 /* RoomEncryptionJSON.swift */; };
 		D259E6D620D524A500925486 /* RoomKeyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CA20D524A400925486 /* RoomKeyJSON.swift */; };
 		D259E6D720D524A500925486 /* RoomKeyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CA20D524A400925486 /* RoomKeyJSON.swift */; };
-		D259E6D820D524A500925486 /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CB20D524A400925486 /* MessageJSON.swift */; };
-		D259E6D920D524A500925486 /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CB20D524A400925486 /* MessageJSON.swift */; };
+		D259E6D820D524A500925486 /* PlainMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CB20D524A400925486 /* PlainMessageJSON.swift */; };
+		D259E6D920D524A500925486 /* PlainMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CB20D524A400925486 /* PlainMessageJSON.swift */; };
 		D259E6DA20D524A500925486 /* NewDeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CC20D524A400925486 /* NewDeviceJSON.swift */; };
 		D259E6DB20D524A500925486 /* NewDeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CC20D524A400925486 /* NewDeviceJSON.swift */; };
 		D259E6DC20D524A500925486 /* RoomNameJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E6CD20D524A500925486 /* RoomNameJSON.swift */; };
@@ -221,6 +245,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		000DD8C32147E08B00B33BBF /* Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64.swift; sourceTree = "<group>"; };
+		000DD8C62148050A00B33BBF /* Base64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
+		000DD8C9214A72CC00B33BBF /* MessageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageJSON.swift; sourceTree = "<group>"; };
+		004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMessageJSON.swift; sourceTree = "<group>"; };
+		004C2F362147B3ED003F0BF5 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		004C2F392147B7C4003F0BF5 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
+		004C2F3C2147C802003F0BF5 /* FileMessageJSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMessageJSONTests.swift; sourceTree = "<group>"; };
 		0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePersistedList.swift; sourceTree = "<group>"; };
 		0051AEAE20DE45130061A7B8 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		0051AEB020DE500B0061A7B8 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
@@ -234,6 +265,12 @@
 		006D55CD20CD328E00C1E7BE /* Entropy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
 		006D55D420CD3A9C00C1E7BE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		006D55D720CD3AF900C1E7BE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEncryption.swift; sourceTree = "<group>"; };
+		00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEncryptionTests.swift; sourceTree = "<group>"; };
+		00F52E53212C55FE00A337B6 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
+		00F52E56212C56E500A337B6 /* SHA256Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256Tests.swift; sourceTree = "<group>"; };
+		00F52E59212D56A800A337B6 /* CCCryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCryptor.swift; sourceTree = "<group>"; };
+		00F52E5C212D745900A337B6 /* EncryptedAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedAttachment.swift; sourceTree = "<group>"; };
 		055E48B1AAF6DFDC06C8ABDE /* Pods-EntropyKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EntropyKit-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EntropyKit-macOS/Pods-EntropyKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		21089EAAA4B0C9009874EAE0 /* Pods-EntropyKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EntropyKit-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-EntropyKit-macOS/Pods-EntropyKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		2990494028E7E0A623415FF3 /* Pods-EntropyKit-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EntropyKit-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-EntropyKit-iOS/Pods-EntropyKit-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -259,7 +296,6 @@
 		D259E6A120D523BC00925486 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D259E6A220D523BC00925486 /* CryptoBlob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoBlob.swift; sourceTree = "<group>"; };
 		D259E6A320D523BC00925486 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		D259E6A420D523BC00925486 /* Message+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+Image.swift"; sourceTree = "<group>"; };
 		D259E6A520D523BC00925486 /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		D259E6B020D523E600925486 /* UserRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRoom.swift; sourceTree = "<group>"; };
 		D259E6B520D5242E00925486 /* CryptoEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoEngine.swift; sourceTree = "<group>"; };
@@ -271,7 +307,7 @@
 		D259E6C820D524A400925486 /* JSONSignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSignable.swift; sourceTree = "<group>"; };
 		D259E6C920D524A400925486 /* RoomEncryptionJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomEncryptionJSON.swift; sourceTree = "<group>"; };
 		D259E6CA20D524A400925486 /* RoomKeyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomKeyJSON.swift; sourceTree = "<group>"; };
-		D259E6CB20D524A400925486 /* MessageJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageJSON.swift; sourceTree = "<group>"; };
+		D259E6CB20D524A400925486 /* PlainMessageJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainMessageJSON.swift; sourceTree = "<group>"; };
 		D259E6CC20D524A400925486 /* NewDeviceJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDeviceJSON.swift; sourceTree = "<group>"; };
 		D259E6CD20D524A500925486 /* RoomNameJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomNameJSON.swift; sourceTree = "<group>"; };
 		D259E6CE20D524A500925486 /* MemberJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberJSON.swift; sourceTree = "<group>"; };
@@ -401,7 +437,7 @@
 				D259E68020D521E100925486 /* JSON */,
 				D259E68E20D5231B00925486 /* Models */,
 				D259E67C20D51FA900925486 /* MatrixAPI */,
-				D259E6B420D5241E00925486 /* CryptoEngine */,
+				D259E6B420D5241E00925486 /* Crypto */,
 				D259E6B320D523F500925486 /* Services */,
 				D259E67820D51E8C00925486 /* Extensions */,
 				D295A44D20D51AB700925486 /* Utilities */,
@@ -491,11 +527,14 @@
 				D259E68820D5226600925486 /* JSONDecodable.swift */,
 				D259E68B20D522B200925486 /* JSONError.swift */,
 				D259E6D120D524A500925486 /* EmptyJSON.swift */,
+				00F52E5C212D745900A337B6 /* EncryptedAttachment.swift */,
 				D259E6CF20D524A500925486 /* EncryptedJSON.swift */,
+				004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */,
 				D259E6C820D524A400925486 /* JSONSignable.swift */,
 				D259E6CE20D524A500925486 /* MemberJSON.swift */,
-				D259E6CB20D524A400925486 /* MessageJSON.swift */,
+				000DD8C9214A72CC00B33BBF /* MessageJSON.swift */,
 				D259E6CC20D524A400925486 /* NewDeviceJSON.swift */,
+				D259E6CB20D524A400925486 /* PlainMessageJSON.swift */,
 				D259E6D020D524A500925486 /* OLMEvent.swift */,
 				D259E6C920D524A400925486 /* RoomEncryptionJSON.swift */,
 				D259E6CA20D524A400925486 /* RoomKeyJSON.swift */,
@@ -526,13 +565,13 @@
 			isa = PBXGroup;
 			children = (
 				D259E6A120D523BC00925486 /* Account.swift */,
+				004C2F362147B3ED003F0BF5 /* Attachment.swift */,
 				D259E6A220D523BC00925486 /* CryptoBlob.swift */,
 				D259E6C120D5244E00925486 /* Device.swift */,
 				D259E69220D5236A00925486 /* Event.swift */,
 				D259E69320D5236A00925486 /* Event+Content.swift */,
 				D259E69420D5236A00925486 /* Event+Persistence.swift */,
 				D259E6A320D523BC00925486 /* Message.swift */,
-				D259E6A420D523BC00925486 /* Message+Image.swift */,
 				D259E6A520D523BC00925486 /* Room.swift */,
 				D259E71C20D5261200925486 /* Settings.swift */,
 				D259E68F20D5233C00925486 /* User.swift */,
@@ -554,15 +593,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		D259E6B420D5241E00925486 /* CryptoEngine */ = {
+		D259E6B420D5241E00925486 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
+				00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */,
 				D259E6B520D5242E00925486 /* CryptoEngine.swift */,
 				D259E6B620D5242E00925486 /* CryptoEngine+CodableGroupSession.swift */,
 				D259E6B720D5242E00925486 /* CryptoEngine+FSM.swift */,
 				D259E6B820D5242F00925486 /* CryptoEngineDelegate.swift */,
 			);
-			path = CryptoEngine;
+			path = Crypto;
 			sourceTree = "<group>";
 		};
 		D259E6C720D5248800925486 /* Requests */ = {
@@ -582,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				D259E72020D5305900925486 /* JSONSignableTests.swift */,
+				004C2F3C2147C802003F0BF5 /* FileMessageJSONTests.swift */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -590,6 +631,7 @@
 			isa = PBXGroup;
 			children = (
 				D259E72620D5307D00925486 /* AccountTests.swift */,
+				004C2F392147B7C4003F0BF5 /* AttachmentTests.swift */,
 				D259E72520D5307D00925486 /* EventPersistenceTests.swift */,
 				D259E72420D5307D00925486 /* EventTests.swift */,
 				D259E72720D5307D00925486 /* MessageTests.swift */,
@@ -615,6 +657,7 @@
 		D259E75520D530A600925486 /* CryptoEngine */ = {
 			isa = PBXGroup;
 			children = (
+				00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */,
 				D259E73F20D5309F00925486 /* CryptoEngine+CodableGroupSessionTests.swift */,
 				D259E73C20D5309F00925486 /* CryptoEngineTests.swift */,
 			);
@@ -632,10 +675,12 @@
 		D259E75720D530F800925486 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				000DD8C62148050A00B33BBF /* Base64Tests.swift */,
 				D268E69420DE8D1800075875 /* CacheHierarchyTests.swift */,
 				D259E75820D5310900925486 /* DequeTests.swift */,
 				D268E69520DE8D1800075875 /* FileCacheTests.swift */,
 				D268E69620DE8D1800075875 /* MemoryCacheTests.swift */,
+				00F52E56212C56E500A337B6 /* SHA256Tests.swift */,
 				D259E74020D5309F00925486 /* SchedulerTests.swift */,
 			);
 			path = Utilities;
@@ -653,14 +698,17 @@
 		D295A44D20D51AB700925486 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				000DD8C32147E08B00B33BBF /* Base64.swift */,
 				D268E68620DE873200075875 /* Cache.swift */,
 				D268E68520DE873200075875 /* CacheHierarchy.swift */,
+				00F52E59212D56A800A337B6 /* CCCryptor.swift */,
 				D259E71320D5256200925486 /* Deque.swift */,
 				D268E68720DE873200075875 /* FileCache.swift */,
 				D268E68820DE873300075875 /* MemoryCache.swift */,
 				0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */,
 				006D55D720CD3AF900C1E7BE /* Result.swift */,
 				006D55D420CD3A9C00C1E7BE /* Validation.swift */,
+				00F52E53212C55FE00A337B6 /* SHA256.swift */,
 				0051AEAE20DE45130061A7B8 /* Scheduler.swift */,
 				D259E71620D525A800925486 /* ThreadSafeDictionary.swift */,
 			);
@@ -977,6 +1025,7 @@
 				D259E6BD20D5242F00925486 /* CryptoEngine+FSM.swift in Sources */,
 				D268E68920DE873300075875 /* CacheHierarchy.swift in Sources */,
 				D259E71420D5256200925486 /* Deque.swift in Sources */,
+				004C2F372147B3ED003F0BF5 /* Attachment.swift in Sources */,
 				D259E70420D524C400925486 /* LoginResponse.swift in Sources */,
 				0051AEAF20DE45130061A7B8 /* Scheduler.swift in Sources */,
 				D259E71A20D525D100925486 /* OSLog.swift in Sources */,
@@ -992,9 +1041,12 @@
 				D259E6DC20D524A500925486 /* RoomNameJSON.swift in Sources */,
 				D268E68F20DE873300075875 /* MemoryCache.swift in Sources */,
 				D259E69920D5236A00925486 /* Event+Persistence.swift in Sources */,
+				00F52E5A212D56A800A337B6 /* CCCryptor.swift in Sources */,
 				D259E70220D524C400925486 /* KeysClaimResponse.swift in Sources */,
 				D259E6EC20D524B600925486 /* KeysClaimRequest.swift in Sources */,
+				000DD8CA214A72CC00B33BBF /* MessageJSON.swift in Sources */,
 				D259E6F620D524B600925486 /* LoginRequest.swift in Sources */,
+				00F52E4E212C06C400A337B6 /* AttachmentEncryption.swift in Sources */,
 				D27DF6DE20D634AB00925486 /* SessionService.swift in Sources */,
 				D259E71D20D5261300925486 /* Settings.swift in Sources */,
 				D259E6BF20D5242F00925486 /* CryptoEngineDelegate.swift in Sources */,
@@ -1008,15 +1060,16 @@
 				D259E71720D525A800925486 /* ThreadSafeDictionary.swift in Sources */,
 				D259E6B120D523E600925486 /* UserRoom.swift in Sources */,
 				D259E6C520D5247100925486 /* SyncService.swift in Sources */,
-				D259E6AC20D523BC00925486 /* Message+Image.swift in Sources */,
 				D259E6A620D523BC00925486 /* Account.swift in Sources */,
 				D259E6C220D5244E00925486 /* Device.swift in Sources */,
 				D259E70E20D524C400925486 /* SyncResponse.swift in Sources */,
 				D259E69F20D5239400925486 /* JSONCodable.swift in Sources */,
 				D259E68C20D522B200925486 /* JSONError.swift in Sources */,
+				000DD8C42147E08B00B33BBF /* Base64.swift in Sources */,
 				D259E68920D5226600925486 /* JSONDecodable.swift in Sources */,
 				D259E71120D5254200925486 /* E2EEService.swift in Sources */,
 				D259E6E220D524A500925486 /* OLMEvent.swift in Sources */,
+				00F52E5D212D745900A337B6 /* EncryptedAttachment.swift in Sources */,
 				D259E6A820D523BC00925486 /* CryptoBlob.swift in Sources */,
 				D259E6DE20D524A500925486 /* MemberJSON.swift in Sources */,
 				D259E69720D5236A00925486 /* Event+Content.swift in Sources */,
@@ -1027,10 +1080,12 @@
 				D259E6F420D524B600925486 /* PublishRoomKeysRequest.swift in Sources */,
 				D259E6E420D524A500925486 /* EmptyJSON.swift in Sources */,
 				D268E69220DE894800075875 /* FileManager.swift in Sources */,
+				00F52E54212C55FE00A337B6 /* SHA256.swift in Sources */,
 				D259E69D20D5239400925486 /* JSONEncodable.swift in Sources */,
 				D2887CE020DF910D00925486 /* String.swift in Sources */,
 				D259E67E20D51FB700925486 /* MatrixAPI.swift in Sources */,
 				D259E70620D524C400925486 /* EventResponse.swift in Sources */,
+				004C2F342147B2D2003F0BF5 /* FileMessageJSON.swift in Sources */,
 				D259E6F220D524B600925486 /* KeysUploadRequest.swift in Sources */,
 				D259E6D620D524A500925486 /* RoomKeyJSON.swift in Sources */,
 				D259E70020D524C400925486 /* LinkPreviewResponse.swift in Sources */,
@@ -1038,7 +1093,7 @@
 				0051AEB120DE500B0061A7B8 /* RoomService.swift in Sources */,
 				0051AEAC20DCFF5C0061A7B8 /* ObservablePersistedList.swift in Sources */,
 				D259E69020D5233C00925486 /* User.swift in Sources */,
-				D259E6D820D524A500925486 /* MessageJSON.swift in Sources */,
+				D259E6D820D524A500925486 /* PlainMessageJSON.swift in Sources */,
 				006D55CE20CD328E00C1E7BE /* Entropy.swift in Sources */,
 				D268E68D20DE873300075875 /* FileCache.swift in Sources */,
 				D259E70C20D524C400925486 /* AvatarURLResponse.swift in Sources */,
@@ -1052,6 +1107,7 @@
 				D259E76C20D5316800925486 /* CryptoEngineTests.swift in Sources */,
 				D259E76420D5315D00925486 /* EventPersistenceTests.swift in Sources */,
 				D259E76620D5315D00925486 /* MessageTests.swift in Sources */,
+				00F52E57212C56E500A337B6 /* SHA256Tests.swift in Sources */,
 				D259E76720D5315D00925486 /* RoomTests.swift in Sources */,
 				D259E75B20D5315600925486 /* JSONSignableTests.swift in Sources */,
 				D259E76820D5315D00925486 /* UserTests.swift in Sources */,
@@ -1061,14 +1117,18 @@
 				D259E77D20D5317200925486 /* DequeTests.swift in Sources */,
 				D259E76320D5315D00925486 /* AccountTests.swift in Sources */,
 				D259E76B20D5316800925486 /* CryptoEngine+CodableGroupSessionTests.swift in Sources */,
+				00F52E51212C06F500A337B6 /* AttachmentEncryptionTests.swift in Sources */,
 				D2887CE820DF970200925486 /* UnicodeScalarTests.swift in Sources */,
 				D259E77020D5316E00925486 /* ImageServiceTests.swift in Sources */,
+				004C2F3D2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */,
 				D259E77320D5316E00925486 /* SessionServiceTests.swift in Sources */,
 				D268E6A120DE8D4000075875 /* MemoryCacheTests.swift in Sources */,
+				004C2F3A2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
 				D268E69F20DE8D4000075875 /* CacheHierarchyTests.swift in Sources */,
 				D259E77220D5316E00925486 /* SchedulerTests.swift in Sources */,
 				D259E77520D5316E00925486 /* UserServiceTests.swift in Sources */,
 				D259E76F20D5316E00925486 /* E2EEServiceTests.swift in Sources */,
+				000DD8C72148050A00B33BBF /* Base64Tests.swift in Sources */,
 				D259E76920D5316200925486 /* MatrixAPITests.swift in Sources */,
 				D2887CEA20DF970200925486 /* StringTests.swift in Sources */,
 				D259E77420D5316E00925486 /* SyncServiceTests.swift in Sources */,
@@ -1083,6 +1143,7 @@
 				D259E6BE20D5242F00925486 /* CryptoEngine+FSM.swift in Sources */,
 				D259E71520D5256200925486 /* Deque.swift in Sources */,
 				D259E70520D524C400925486 /* LoginResponse.swift in Sources */,
+				004C2F382147B3ED003F0BF5 /* Attachment.swift in Sources */,
 				D259E71B20D525D100925486 /* OSLog.swift in Sources */,
 				0051AEB220DE50450061A7B8 /* RoomService.swift in Sources */,
 				D259E6DB20D524A500925486 /* NewDeviceJSON.swift in Sources */,
@@ -1098,9 +1159,12 @@
 				D259E69A20D5236A00925486 /* Event+Persistence.swift in Sources */,
 				D259E70320D524C400925486 /* KeysClaimResponse.swift in Sources */,
 				D259E6ED20D524B600925486 /* KeysClaimRequest.swift in Sources */,
+				00F52E5B212D56A800A337B6 /* CCCryptor.swift in Sources */,
 				D259E6F720D524B600925486 /* LoginRequest.swift in Sources */,
 				D27DF6DF20D6350000925486 /* SessionService.swift in Sources */,
+				000DD8CB214A72CC00B33BBF /* MessageJSON.swift in Sources */,
 				D259E71E20D5261300925486 /* Settings.swift in Sources */,
+				00F52E4F212C06C400A337B6 /* AttachmentEncryption.swift in Sources */,
 				D259E6C020D5242F00925486 /* CryptoEngineDelegate.swift in Sources */,
 				D259E6E120D524A500925486 /* EncryptedJSON.swift in Sources */,
 				D259E6D320D524A500925486 /* JSONSignable.swift in Sources */,
@@ -1110,7 +1174,6 @@
 				D2887CE420DF918300925486 /* UnicodeScalar.swift in Sources */,
 				D259E6B220D523E600925486 /* UserRoom.swift in Sources */,
 				D259E6C620D5247100925486 /* SyncService.swift in Sources */,
-				D259E6AD20D523BC00925486 /* Message+Image.swift in Sources */,
 				D259E6A720D523BC00925486 /* Account.swift in Sources */,
 				D259E6C320D5244E00925486 /* Device.swift in Sources */,
 				D259E70F20D524C400925486 /* SyncResponse.swift in Sources */,
@@ -1120,9 +1183,11 @@
 				D259E68A20D5226600925486 /* JSONDecodable.swift in Sources */,
 				D259E71220D5254200925486 /* E2EEService.swift in Sources */,
 				D259E6E320D524A500925486 /* OLMEvent.swift in Sources */,
+				000DD8C52147E08B00B33BBF /* Base64.swift in Sources */,
 				D259E6A920D523BC00925486 /* CryptoBlob.swift in Sources */,
 				D259E6DF20D524A500925486 /* MemberJSON.swift in Sources */,
 				D259E69820D5236A00925486 /* Event+Content.swift in Sources */,
+				00F52E5E212D745900A337B6 /* EncryptedAttachment.swift in Sources */,
 				D259E67620D51B8B00925486 /* Database.swift in Sources */,
 				D259E6AF20D523BC00925486 /* Room.swift in Sources */,
 				D259E70B20D524C400925486 /* KeysUploadResponse.swift in Sources */,
@@ -1133,10 +1198,12 @@
 				D259E69E20D5239400925486 /* JSONEncodable.swift in Sources */,
 				D259E67F20D51FB700925486 /* MatrixAPI.swift in Sources */,
 				D259E70720D524C400925486 /* EventResponse.swift in Sources */,
+				00F52E55212C55FE00A337B6 /* SHA256.swift in Sources */,
 				D268E68A20DE873300075875 /* CacheHierarchy.swift in Sources */,
 				D2887CE120DF910D00925486 /* String.swift in Sources */,
 				D259E6F320D524B600925486 /* KeysUploadRequest.swift in Sources */,
 				D259E6D720D524A500925486 /* RoomKeyJSON.swift in Sources */,
+				004C2F352147B2D6003F0BF5 /* FileMessageJSON.swift in Sources */,
 				D259E70120D524C400925486 /* LinkPreviewResponse.swift in Sources */,
 				D259E67B20D51E9F00925486 /* Bundle.swift in Sources */,
 				0051AEAD20DD16560061A7B8 /* ObservablePersistedList.swift in Sources */,
@@ -1145,7 +1212,7 @@
 				D268E68E20DE873300075875 /* FileCache.swift in Sources */,
 				D268E69320DE894800075875 /* FileManager.swift in Sources */,
 				D268E68420DE86E500075875 /* UserService.swift in Sources */,
-				D259E6D920D524A500925486 /* MessageJSON.swift in Sources */,
+				D259E6D920D524A500925486 /* PlainMessageJSON.swift in Sources */,
 				006D55CF20CD328E00C1E7BE /* Entropy.swift in Sources */,
 				D259E70D20D524C400925486 /* AvatarURLResponse.swift in Sources */,
 			);
@@ -1158,6 +1225,7 @@
 				D259E76E20D5316900925486 /* CryptoEngineTests.swift in Sources */,
 				D259E75E20D5315C00925486 /* EventPersistenceTests.swift in Sources */,
 				D259E76020D5315C00925486 /* MessageTests.swift in Sources */,
+				00F52E58212C56E500A337B6 /* SHA256Tests.swift in Sources */,
 				D259E76120D5315C00925486 /* RoomTests.swift in Sources */,
 				D259E75C20D5315700925486 /* JSONSignableTests.swift in Sources */,
 				D259E76220D5315C00925486 /* UserTests.swift in Sources */,
@@ -1167,14 +1235,18 @@
 				D259E77E20D5317300925486 /* DequeTests.swift in Sources */,
 				D259E75D20D5315C00925486 /* AccountTests.swift in Sources */,
 				D259E76D20D5316900925486 /* CryptoEngine+CodableGroupSessionTests.swift in Sources */,
+				00F52E52212C06F500A337B6 /* AttachmentEncryptionTests.swift in Sources */,
 				D2887CE920DF970200925486 /* UnicodeScalarTests.swift in Sources */,
 				D259E77720D5316F00925486 /* ImageServiceTests.swift in Sources */,
+				004C2F3E2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */,
 				D259E77A20D5316F00925486 /* SessionServiceTests.swift in Sources */,
 				D268E6A420DE8D4100075875 /* MemoryCacheTests.swift in Sources */,
+				004C2F3B2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
 				D268E6A220DE8D4100075875 /* CacheHierarchyTests.swift in Sources */,
 				D259E77920D5316F00925486 /* SchedulerTests.swift in Sources */,
 				D259E77C20D5316F00925486 /* UserServiceTests.swift in Sources */,
 				D259E77620D5316F00925486 /* E2EEServiceTests.swift in Sources */,
+				000DD8C82148050A00B33BBF /* Base64Tests.swift in Sources */,
 				D259E76A20D5316300925486 /* MatrixAPITests.swift in Sources */,
 				D2887CEB20DF970200925486 /* StringTests.swift in Sources */,
 				D259E77B20D5316F00925486 /* SyncServiceTests.swift in Sources */,

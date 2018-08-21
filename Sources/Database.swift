@@ -23,6 +23,30 @@ class Database {
                 t.column(v0.accounts.transactionID, .integer).notNull()
             }
 
+            try db.create(table: v0.attachments.table) { t in
+                t.column(v0.attachments.messageID, .text).primaryKey(onConflict: .replace).references(v0.messages.table, column: v0.messages.id, onDelete: .cascade, deferred: true)
+
+                t.column(v0.attachments.mxcURL, .text).notNull()
+                t.column(v0.attachments.MIMEType, .text).notNull()
+                t.column(v0.attachments.size, .integer).notNull()
+                t.column(v0.attachments.algorithm, .text)
+                t.column(v0.attachments.key, .blob)
+                t.column(v0.attachments.initializationVector, .blob)
+                t.column(v0.attachments.sha256, .text)
+                t.column(v0.attachments.width, .integer)
+                t.column(v0.attachments.height, .integer)
+
+                t.column(v0.attachments.thumbnailMXCURL, .text)
+                t.column(v0.attachments.thumbnailMIMEType, .text)
+                t.column(v0.attachments.thumbnailSize, .integer)
+                t.column(v0.attachments.thumbnailAlgorithm, .text)
+                t.column(v0.attachments.thumbnailKey, .blob)
+                t.column(v0.attachments.thumbnailInitializationVector, .blob)
+                t.column(v0.attachments.thumbnailSha256, .text)
+                t.column(v0.attachments.thumbnailWidth, .integer)
+                t.column(v0.attachments.thumbnailHeight, .integer)
+            }
+
             try db.create(table: v0.rooms.table) { t in
                 t.column(v0.rooms.id, .text).primaryKey(onConflict: .replace)
                 t.column(v0.rooms.name, .text)
@@ -41,17 +65,6 @@ class Database {
                 t.column(v0.messages.senderID, .text).notNull().references(v0.users.table, column: v0.users.id, deferred: true)
                 t.column(v0.messages.type, .text).notNull()
                 t.column(v0.messages.body, .text).notNull()
-            }
-
-            try db.create(table: v0.media.table) { t in
-                t.column(v0.media.id, .text).primaryKey(onConflict: .replace)
-                t.column(v0.media.messageID, .text).notNull().references(v0.messages.table, column: v0.messages.id, onDelete: .cascade, deferred: true)
-                t.column(v0.media.thumbnailID, .text).references(v0.media.table, column: v0.media.id, onDelete: .cascade, deferred: true)
-                t.column(v0.media.url, .text).notNull()
-                t.column(v0.media.width, .integer).notNull()
-                t.column(v0.media.height, .integer).notNull()
-                t.column(v0.media.size, .integer).notNull()
-                t.column(v0.media.type, .text).notNull()
             }
 
             try db.create(table: v0.users_rooms.table) { t in
@@ -108,6 +121,31 @@ extension Database {
             static let transactionID = "transaction_id"
         }
 
+        struct attachments {
+            static let table = "attachments"
+            static let messageID = "message_id"
+
+            static let mxcURL = "mxc_url"
+            static let width = "width"
+            static let height = "height"
+            static let algorithm = "algorithm"
+            static let key = "key"
+            static let initializationVector = "initialization_vector"
+            static let sha256 = "sha256"
+            static let size = "size"
+            static let MIMEType = "mimetype"
+
+            static let thumbnailMXCURL = "thumbnail_mxc_url"
+            static let thumbnailWidth = "thumbnail_width"
+            static let thumbnailHeight = "thumbnail_height"
+            static let thumbnailAlgorithm = "thumbnail_algorithm"
+            static let thumbnailKey = "thumbnail_key"
+            static let thumbnailInitializationVector = "thumbnail_initialization_vector"
+            static let thumbnailSha256 = "thumbnail_sha256"
+            static let thumbnailSize = "thumbnail_size"
+            static let thumbnailMIMEType = "thumbnail_mimetype"
+        }
+
         struct rooms {
             static let table = "rooms"
             static let id = "id"
@@ -128,18 +166,6 @@ extension Database {
             static let senderID = "sender_id"
             static let type = "type"
             static let body = "body"
-        }
-
-        struct media {
-            static let table = "media"
-            static let id = "id"
-            static let messageID = "message_id"
-            static let thumbnailID = "thumbnail_id"
-            static let url = "url"
-            static let width = "width"
-            static let height = "height"
-            static let size = "size"
-            static let type = "type"
         }
 
         struct users_rooms {

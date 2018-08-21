@@ -165,7 +165,7 @@ class CryptoEngineTests: XCTestCase {
         cryptoEngine.delegate = delegate
 
         let cryptoExpectation = expectation(description: "cryptoExpectation")
-        let event = Event(type: .message, roomID: "roomID", content: .message(MessageJSON(body: "hi", type: .text)))
+        let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
         cryptoEngine.enqueue(.event(event: event, roomID: "roomID", cb: { result in
             XCTAssertNil(result.error)
             guard let cipher = result.value else {
@@ -274,7 +274,7 @@ class CryptoEngineTests: XCTestCase {
         cryptoEngineB.delegate = delegate
 
         let cryptoExpectation = expectation(description: "cryptoExpectation")
-        let event = Event(type: .message, roomID: "roomID", content: .message(MessageJSON(body: "hi", type: .text)))
+        let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
         cryptoEngineA.enqueue(.event(event: event, roomID: "roomID", cb: { result in
             XCTAssertNil(result.error)
 
@@ -364,7 +364,7 @@ class CryptoEngineTests: XCTestCase {
         waitForExpectations(timeout: 1)
 
         let initMessageExp = expectation(description: "initMessageExp")
-        RoomService.send(message: MessageJSON(body: "init", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
+        RoomService.send(message: PlainMessageJSON(body: "init", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
             initMessageExp.fulfill()
         }
         waitForExpectations(timeout: 1)
@@ -396,7 +396,7 @@ class CryptoEngineTests: XCTestCase {
 
         let anotherMessageExp = expectation(description: "anotherMessageExp")
 
-        RoomService.send(message: MessageJSON(body: "another", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
+        RoomService.send(message: PlainMessageJSON(body: "another", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
             anotherMessageExp.fulfill()
         }
 
@@ -504,13 +504,13 @@ class CryptoEngineTests: XCTestCase {
         }
 
         let events: [(String, XCTestExpectation, CryptoEngine.CryptoEngineError?)] = [
-            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), nil),
-            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_UNKNOWN", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.unknownDevice(deviceID: "DEVICE_UNKNOWN")),
-            (constructImportantChecksPayload(senderID: "@UNKNOWN:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.unknownDevice(deviceID: "DEVICE_B")),
-            (constructImportantChecksPayload(senderID: "@UserC:kodeshack", deviceID: "DEVICE_C", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "sender")),
-            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: "@UNKNOWN:kodeshack", recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "recipientID")),
-            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: "INVALID_KEY", recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "senderKeys")),
-            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: "INVALID_KEY", type: .message, content: MessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "recipientKeys")),
+            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), nil),
+            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_UNKNOWN", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.unknownDevice(deviceID: "DEVICE_UNKNOWN")),
+            (constructImportantChecksPayload(senderID: "@UNKNOWN:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.unknownDevice(deviceID: "DEVICE_B")),
+            (constructImportantChecksPayload(senderID: "@UserC:kodeshack", deviceID: "DEVICE_C", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "sender")),
+            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: "@UNKNOWN:kodeshack", recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "recipientID")),
+            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: "INVALID_KEY", recipientID: account.userID, recipientEd25519Key: account.identityKeys.ed25519, type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "senderKeys")),
+            (constructImportantChecksPayload(senderID: "@UserB:kodeshack", deviceID: "DEVICE_B", ed25519Key: ed25519Key, recipientID: account.userID, recipientEd25519Key: "INVALID_KEY", type: .message, content: PlainMessageJSON(body: "foo", type: .text)), CryptoEngine.CryptoEngineError.validationFailed(mismatch: "recipientKeys")),
         ].map { ($0.0, expectation(description: "\($0)"), $0.1) }
 
         try events.forEach { event in

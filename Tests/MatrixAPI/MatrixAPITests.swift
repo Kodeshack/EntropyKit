@@ -46,7 +46,7 @@ class MatrixAPITests: XCTestCase {
         let path = OHPathForFile("Fixtures/testimage.png", type(of: self))!
         let avatar = try Data(contentsOf: URL(string: "file://\(path)")!)
 
-        MatrixAPI.default.uploadImage(image: avatar, accessToken: "") { result in
+        MatrixAPI.default.upload(filename: "testimage.png", mimeType: "image/png", data: avatar, accessToken: "") { result in
             XCTAssertNil(result.error)
             XCTAssertEqual(result.value, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
             exp.fulfill()
@@ -152,7 +152,7 @@ class MatrixAPITests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
         }
 
-        let msg = MessageJSON(body: "Hello.", type: .text)
+        let msg = PlainMessageJSON(body: "Hello.", type: .text)
 
         MatrixAPI.default.send(body: msg, eventType: .message, to: "!wakeful_pigs:kodeshack", accessToken: "togepi", transactionID: 5) { result in
             XCTAssertNil(result.error)

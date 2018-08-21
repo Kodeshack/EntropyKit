@@ -50,7 +50,7 @@ class ImageServiceTests: XCTestCase {
         let path = OHPathForFile("Fixtures/testimage.png", type(of: self))!
         let avatar = try Data(contentsOf: URL(string: "file://\(path)")!)
 
-        ImageService.uploadImage(file: avatar, accessToken: "token") { result in
+        ImageService.uploadImage(filename: "testimage.png", mimeType: "image/png", data: avatar, accessToken: "token") { result in
             XCTAssertNil(result.error)
             XCTAssertEqual(result.value, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
             exp.fulfill()

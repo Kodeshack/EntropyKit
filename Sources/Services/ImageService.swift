@@ -5,7 +5,7 @@ class ImageService {
 }
 
 extension ImageService {
-    static func uploadImage(file: Data, accessToken: String, completionHandler: @escaping (Result<String>) -> Void) {
-        MatrixAPI.default.uploadImage(image: file, accessToken: accessToken, completionHandler: completionHandler)
+    static func uploadImage(filename: String, mimeType: String, data: Data, accessToken: String, completionHandler: @escaping (Result<String>) -> Void) {
+        MatrixAPI.default.upload(filename: filename, mimeType: mimeType, data: data, accessToken: accessToken, completionHandler: completionHandler)
     }
 }

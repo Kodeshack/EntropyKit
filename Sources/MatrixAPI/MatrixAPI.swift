@@ -155,7 +155,7 @@ class MatrixAPI {
     }
 }
 
-// MARK: Images
+// MARK: - Content Repository
 
 extension MatrixAPI {
     /// Downloads the image from the given mxc URL.
@@ -176,19 +176,26 @@ extension MatrixAPI {
         }
     }
 
-    /// Uploads an image
+    /// Uploads data to the media endpoint.
     ///
     /// - Parameters:
-    ///   - image: image data to upload.
+    ///   - filename: Weill be sent as the message's body text.
+    ///   - mimeType: Content type of the data to be sent. Note: In unecrypted rooms the server might create thumbnails for supported content types.
+    ///   - data: Data to be uploaded.
+    ///   - accessToken: User's access token.
     ///   - queue: Dispatch queue on which to execute the callback. Defaults to main queue.
     ///   - completionHandler: Called with the resulting content URI (or Error) when the request has ended (whether successfully or unsuccessfully).
-    func uploadImage(image: Data, accessToken: String, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<String>) -> Void) {
-        let url = constructURL(for: .upload, in: .media, using: accessToken)
-        sessionManager.upload(image, to: url, method: .post)
+    func upload(filename: String, mimeType: String, data: Data, accessToken: String, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<String>) -> Void) {
+        var url = URLComponents(string: constructURL(for: .upload, in: .media, using: accessToken))!
+        var params = url.queryItems ?? []
+        params.append(URLQueryItem(name: "filename", value: filename))
+        url.queryItems = params
+        let headers = ["Content-Type": mimeType]
+
+        sessionManager.upload(data, to: url, method: .post, headers: headers)
             .validate()
             .validate(contentType: ["application/json"])
             .responseJSON(queue: queue) { response in
-
                 guard response.result.isSuccess else {
                     completionHandler(.Error(response.result.error!))
                     return

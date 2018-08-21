@@ -3,7 +3,8 @@ import Foundation
 extension Event {
     enum Content: Hashable {
         case member(MemberJSON)
-        case message(MessageJSON)
+        case message(PlainMessageJSON)
+        case fileMessage(FileMessageJSON)
         case roomName(RoomNameJSON)
         case roomPrevBatch(String)
         case roomEncryption(RoomEncryptionJSON)
@@ -18,6 +19,8 @@ extension Event {
                 return member.encoded
             case let .message(message):
                 return message.encoded
+            case let .fileMessage(fileMessage):
+                return fileMessage.encoded
             case let .roomName(roomName):
                 return roomName.encoded
             case let .roomPrevBatch(prevBatch):
@@ -44,8 +47,15 @@ extension Event {
             return nil
         }
 
-        var message: MessageJSON? {
+        var message: PlainMessageJSON? {
             if case let .message(message) = self {
+                return message
+            }
+            return nil
+        }
+
+        var fileMessage: FileMessageJSON? {
+            if case let .fileMessage(message) = self {
                 return message
             }
             return nil
@@ -103,6 +113,8 @@ extension Event.Content: JSONEncodable {
             try container.encode(member)
         case let .message(message):
             try container.encode(message)
+        case let .fileMessage(fileMessage):
+            try container.encode(fileMessage)
         case let .roomName(name):
             try container.encode(name)
         case let .roomEncryption(encryption):
@@ -121,7 +133,13 @@ extension Event.Content: JSONEncodable {
         case .member:
             return .member(try container.decode(MemberJSON.self, forKey: key))
         case .message:
-            return .message(try container.decode(MessageJSON.self, forKey: key))
+            let message = try container.decode(PlainMessageJSON.self, forKey: key)
+            switch message.type {
+            case .image, .video, .audio, .file:
+                return .fileMessage(try container.decode(FileMessageJSON.self, forKey: key))
+            default:
+                return .message(message)
+            }
         case .name:
             return .roomName(try container.decode(RoomNameJSON.self, forKey: key))
         case .encryption:

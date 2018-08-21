@@ -1,0 +1,54 @@
+{
+    "body": "E concept.png",
+    "info": {
+        "size": 16780,
+        "mimetype": "image/png",
+        "thumbnail_info": {
+            "w": 512,
+            "h": 512,
+            "mimetype": "image/png",
+            "size": 30771
+        },
+        "w": 512,
+        "h": 512,
+        "thumbnail_file": {
+            "v": "v2",
+            "key": {
+                "alg": "A256CTR",
+                "ext": true,
+                "k": "4YhgXTeyu7mI0ZIjhbei2tgJq5DkzDOcesDUIBjGzHM",
+                "key_ops": [
+                            "encrypt",
+                            "decrypt"
+                            ],
+                "kty": "oct"
+            },
+            "iv": "sN7SvGwGCX0AAAAAAAAAAA",
+            "hashes": {
+                "sha256": "17nJ8ISFRNebGRI8M0oNEBtVw8sHj+8sHuH68+1vXoY"
+            },
+            "url": "mxc://kodeshack/LpJJCLmBQGHKwquqgpjetIZc",
+            "mimetype": "image/png"
+        }
+    },
+    "msgtype": "m.image",
+    "file": {
+        "v": "v2",
+        "key": {
+            "alg": "A256CTR",
+            "ext": true,
+            "k": "HoENxN2F3KFxy5Mk5WoAY6NJuTiopT6r0vDxwzOAXAM",
+            "key_ops": [
+                        "encrypt",
+                        "decrypt"
+                        ],
+            "kty": "oct"
+        },
+        "iv": "0Wm0HEMc2J4AAAAAAAAAAA",
+        "hashes": {
+            "sha256": "O9pqqtHB6ve6mJykwMSHh3HLTK5e6sg9OVmA/L7c1hk"
+        },
+        "url": "mxc://kodeshack/jHqviHshTCspZaNqvnTJVDGg",
+        "mimetype": "image/png"
+    }
+}

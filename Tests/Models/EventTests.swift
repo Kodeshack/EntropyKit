@@ -32,9 +32,5 @@ class EventTests: XCTestCase {
 
         XCTAssertEqual(message.body, "hello world")
         XCTAssertEqual(message.type, .text)
-        XCTAssertNil(message.imageInfo)
-        XCTAssertNil(message.thumbnailInfo)
-        XCTAssertNil(message.imageURL)
-        XCTAssertNil(message.thumbnailURL)
     }
 }

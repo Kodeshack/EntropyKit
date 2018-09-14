@@ -44,20 +44,21 @@ class RoomServiceTests: XCTestCase {
 
         let exp = expectation(description: "send message")
 
-        RoomService.send(message: msg, to: room.id, encrypted: false, account: account, database: database) { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value?.id, "vaccines_cause_autism")
-            if let id = result.value?.id {
+        RoomService.send(message: msg, to: room.id, encrypted: false, account: account, database: database)
+            .then { message in
+                XCTAssertEqual(message.id, "vaccines_cause_autism")
+
                 try! self.database.dbQueue.inDatabase { db in
-                    let message = try Message.fetchOne(db, key: id)
+                    let message = try Message.fetchOne(db, key: message.id)
                     XCTAssertEqual(message?.senderID, "NotBob@kodeshack")
                     XCTAssertEqual(message?.type, .text)
                     XCTAssertEqual(message?.body, "Hello.")
                 }
-            }
 
-            exp.fulfill()
-        }
+                exp.fulfill()
+            }.catch { _ in
+                XCTFail()
+            }
 
         waitForExpectations(timeout: 5)
     }
@@ -101,21 +102,21 @@ class RoomServiceTests: XCTestCase {
         let info = FileMessageJSON.Info(width: 1, height: 1, size: UInt(data.count), mimeType: "image/png", thumbnailInfo: nil, thumbnailFile: nil)
         let exp = expectation(description: "sent media message")
 
-        RoomService.sendMedia(filename: "testimage.png", data: data, info: info, roomID: room.id, account: account, database: database) { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value?.id, "message_sent")
-            if let id = result.value?.id {
+        RoomService.sendMedia(filename: "testimage.png", data: data, info: info, roomID: room.id, account: account, database: database)
+            .then { message in
+                XCTAssertEqual(message.id, "message_sent")
                 try! self.database.dbQueue.inDatabase { db in
-                    let message = try Message.fetchOne(db, key: id)
+                    let message = try Message.fetchOne(db, key: message.id)
                     XCTAssertEqual(message?.senderID, "NotBob@kodeshack")
                     XCTAssertEqual(message?.type, .file)
                     XCTAssertEqual(message?.body, "testimage.png")
                 }
+
+                exp.fulfill()
+            }.catch { error in
+                XCTFail(error.localizedDescription)
             }
 
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 1)
     }
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00002D2A214BFE5F00B8D3D7 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00002D29214BFE5F00B8D3D7 /* AsyncResult.swift */; };
+		00002D2B214BFE5F00B8D3D7 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00002D29214BFE5F00B8D3D7 /* AsyncResult.swift */; };
+		00002D2D214BFE7A00B8D3D7 /* AsyncResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00002D2C214BFE7A00B8D3D7 /* AsyncResultTests.swift */; };
+		00002D2E214BFE7A00B8D3D7 /* AsyncResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00002D2C214BFE7A00B8D3D7 /* AsyncResultTests.swift */; };
 		000DD8C42147E08B00B33BBF /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C32147E08B00B33BBF /* Base64.swift */; };
 		000DD8C52147E08B00B33BBF /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C32147E08B00B33BBF /* Base64.swift */; };
 		000DD8C72148050A00B33BBF /* Base64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C62148050A00B33BBF /* Base64Tests.swift */; };
@@ -249,6 +253,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00002D29214BFE5F00B8D3D7 /* AsyncResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncResult.swift; sourceTree = "<group>"; };
+		00002D2C214BFE7A00B8D3D7 /* AsyncResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncResultTests.swift; sourceTree = "<group>"; };
 		000DD8C32147E08B00B33BBF /* Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64.swift; sourceTree = "<group>"; };
 		000DD8C62148050A00B33BBF /* Base64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		000DD8C9214A72CC00B33BBF /* MessageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageJSON.swift; sourceTree = "<group>"; };
@@ -681,6 +687,7 @@
 		D259E75720D530F800925486 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				00002D2C214BFE7A00B8D3D7 /* AsyncResultTests.swift */,
 				000DD8C62148050A00B33BBF /* Base64Tests.swift */,
 				D268E69420DE8D1800075875 /* CacheHierarchyTests.swift */,
 				D259E75820D5310900925486 /* DequeTests.swift */,
@@ -705,6 +712,7 @@
 		D295A44D20D51AB700925486 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				00002D29214BFE5F00B8D3D7 /* AsyncResult.swift */,
 				000DD8C32147E08B00B33BBF /* Base64.swift */,
 				D268E68620DE873200075875 /* Cache.swift */,
 				D268E68520DE873200075875 /* CacheHierarchy.swift */,
@@ -1058,6 +1066,7 @@
 				00F52E4E212C06C400A337B6 /* AttachmentEncryption.swift in Sources */,
 				D27DF6DE20D634AB00925486 /* SessionService.swift in Sources */,
 				D259E71D20D5261300925486 /* Settings.swift in Sources */,
+				00002D2A214BFE5F00B8D3D7 /* AsyncResult.swift in Sources */,
 				D259E6BF20D5242F00925486 /* CryptoEngineDelegate.swift in Sources */,
 				D259E6E020D524A500925486 /* EncryptedJSON.swift in Sources */,
 				D259E6D220D524A500925486 /* JSONSignable.swift in Sources */,
@@ -1134,6 +1143,7 @@
 				00AEA08C2169317700346816 /* MIMETypeTests.swift in Sources */,
 				D268E6A120DE8D4000075875 /* MemoryCacheTests.swift in Sources */,
 				004C2F3A2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
+				00002D2D214BFE7A00B8D3D7 /* AsyncResultTests.swift in Sources */,
 				D268E69F20DE8D4000075875 /* CacheHierarchyTests.swift in Sources */,
 				D259E77220D5316E00925486 /* SchedulerTests.swift in Sources */,
 				D259E77520D5316E00925486 /* UserServiceTests.swift in Sources */,
@@ -1178,6 +1188,7 @@
 				00F52E4F212C06C400A337B6 /* AttachmentEncryption.swift in Sources */,
 				D259E6C020D5242F00925486 /* CryptoEngineDelegate.swift in Sources */,
 				D259E6E120D524A500925486 /* EncryptedJSON.swift in Sources */,
+				00002D2B214BFE5F00B8D3D7 /* AsyncResult.swift in Sources */,
 				D259E6D320D524A500925486 /* JSONSignable.swift in Sources */,
 				D259E68720D5225100925486 /* UploadResponse.swift in Sources */,
 				D259E6BA20D5242F00925486 /* CryptoEngine.swift in Sources */,
@@ -1254,6 +1265,7 @@
 				00AEA08D2169317700346816 /* MIMETypeTests.swift in Sources */,
 				D268E6A420DE8D4100075875 /* MemoryCacheTests.swift in Sources */,
 				004C2F3B2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
+				00002D2E214BFE7A00B8D3D7 /* AsyncResultTests.swift in Sources */,
 				D268E6A220DE8D4100075875 /* CacheHierarchyTests.swift in Sources */,
 				D259E77920D5316F00925486 /* SchedulerTests.swift in Sources */,
 				D259E77C20D5316F00925486 /* UserServiceTests.swift in Sources */,

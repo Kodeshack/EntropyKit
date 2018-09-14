@@ -364,9 +364,10 @@ class CryptoEngineTests: XCTestCase {
         waitForExpectations(timeout: 1)
 
         let initMessageExp = expectation(description: "initMessageExp")
-        RoomService.send(message: PlainMessageJSON(body: "init", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
-            initMessageExp.fulfill()
-        }
+        RoomService.send(message: PlainMessageJSON(body: "init", type: .text), to: "roomID", encrypted: true, account: account, database: database)
+            .then { _ in
+                initMessageExp.fulfill()
+            }
         waitForExpectations(timeout: 1)
 
         // Actual member change (join)
@@ -396,9 +397,10 @@ class CryptoEngineTests: XCTestCase {
 
         let anotherMessageExp = expectation(description: "anotherMessageExp")
 
-        RoomService.send(message: PlainMessageJSON(body: "another", type: .text), to: "roomID", encrypted: true, account: account, database: database) { _ in
-            anotherMessageExp.fulfill()
-        }
+        RoomService.send(message: PlainMessageJSON(body: "another", type: .text), to: "roomID", encrypted: true, account: account, database: database)
+            .then { _ in
+                anotherMessageExp.fulfill()
+            }
 
         waitForExpectations(timeout: 1)
     }

@@ -81,18 +81,20 @@ extension Entropy {
     }
 
     public func sendMessage(room: Room, body: String) {
-        RoomService.send(message: PlainMessageJSON(body: body, type: .text), to: room.id, encrypted: room.encrypted, account: account, database: database) { result in
-            if let error = result.error { print(error) }
-        }
+        RoomService.send(message: PlainMessageJSON(body: body, type: .text), to: room.id, encrypted: room.encrypted, account: account, database: database)
+            .catch { error in
+                print(error)
+            }
     }
 
     public func sendMedia(room: Room, filename: String, data: Data) {
         let mimeType = MIMEType.detectMIMEType(filename: filename, data: data)
         let eventType: Message.MessageType = MIMEType.isImage(mime: mimeType) ? .image : .file
         let info = FileMessageJSON.Info(width: nil, height: nil, size: UInt(data.count), mimeType: mimeType, thumbnailInfo: nil, thumbnailFile: nil)
-        RoomService.sendMedia(filename: filename, data: data, eventType: eventType, info: info, encrypted: room.encrypted, roomID: room.id, account: account, database: database) { result in
-            if let error = result.error { print(error) }
-        }
+        RoomService.sendMedia(filename: filename, data: data, eventType: eventType, info: info, encrypted: room.encrypted, roomID: room.id, account: account, database: database)
+            .catch { error in
+                print(error)
+            }
     }
 }
 

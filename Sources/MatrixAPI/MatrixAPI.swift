@@ -185,7 +185,7 @@ extension MatrixAPI {
     ///   - accessToken: User's access token.
     ///   - queue: Dispatch queue on which to execute the callback. Defaults to main queue.
     ///   - completionHandler: Called with the resulting content URI (or Error) when the request has ended (whether successfully or unsuccessfully).
-    func upload(filename: String, mimeType: String, data: Data, accessToken: String, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<String>) -> Void) {
+    func __upload(filename: String, mimeType: String, data: Data, accessToken: String, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<String>) -> Void) {
         var url = URLComponents(string: constructURL(for: .upload, in: .media, using: accessToken))!
         var params = url.queryItems ?? []
         params.append(URLQueryItem(name: "filename", value: filename))
@@ -209,6 +209,34 @@ extension MatrixAPI {
 
                 completionHandler(.Value(uploadResponse.contentURI))
             }
+    }
+
+    func upload(filename: String, mimeType: String, data: Data, accessToken: String, queue: DispatchQueue = DispatchQueue.main) -> AsyncResult<String> {
+        let promise = AsyncResult<String>()
+
+        var url = URLComponents(string: constructURL(for: .upload, in: .media, using: accessToken))!
+        var params = url.queryItems ?? []
+        params.append(URLQueryItem(name: "filename", value: filename))
+        url.queryItems = params
+        let headers = ["Content-Type": mimeType]
+
+        sessionManager.upload(data, to: url, method: .post, headers: headers)
+            .validate()
+            .validate(contentType: ["application/json"])
+            .responseJSON(queue: queue) { response in
+                guard response.result.isSuccess else {
+                    return promise.reject(with: response.result.error!)
+                }
+
+                let uploadResponseResult = UploadResponse.decode(response.data)
+                guard let uploadResponse = uploadResponseResult.value else {
+                    return promise.reject(with: uploadResponseResult.error!)
+                }
+
+                promise.resolve(with: uploadResponse.contentURI)
+        }
+
+        return promise
     }
 }
 

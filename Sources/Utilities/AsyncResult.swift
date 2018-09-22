@@ -14,9 +14,7 @@ public final class AsyncResult<T> {
     private var successHandlers = [(T) -> Void]()
     private var errorHandlers = [(Error) -> Void]()
 
-    public init() {
-
-    }
+    public init() {}
 
     public init(_ immediate: () throws -> T) {
         do {
@@ -51,20 +49,20 @@ public final class AsyncResult<T> {
         }
     }
 
-    static public func from(result: Result<T>) -> AsyncResult<T> {
+    public static func from(result: Result<T>) -> AsyncResult<T> {
         switch result {
-            case .Value(let value):
-                return AsyncResult<T>(value: value)
-            case .Error(let error):
-                return AsyncResult<T>(error: error)
+        case let .Value(value):
+            return AsyncResult<T>(value: value)
+        case let .Error(error):
+            return AsyncResult<T>(error: error)
         }
     }
 
     public func resolveOrReject(using result: Result<T>) {
         switch result {
-        case .Value(let value):
+        case let .Value(value):
             resolve(with: value)
-        case .Error(let error):
+        case let .Error(error):
             reject(with: error)
         }
     }

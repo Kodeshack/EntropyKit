@@ -27,7 +27,6 @@ class RoomService {
     }
 
     static func sendMedia(filename: String, data: Data, eventType: Message.MessageType = .file, info: FileMessageJSON.Info, encrypted: Bool = false, roomID: RoomID, account: Account, database: Database) -> AsyncResult<Message> {
-
         let payload: Data
         var encryptionInfo: EncryptedAttachment?
         let mimeType: String

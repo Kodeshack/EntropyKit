@@ -234,7 +234,7 @@ extension MatrixAPI {
                 }
 
                 promise.resolve(with: uploadResponse.contentURI)
-        }
+            }
 
         return promise
     }

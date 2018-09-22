@@ -45,7 +45,7 @@ class RoomServiceTests: XCTestCase {
         let exp = expectation(description: "send message")
 
         RoomService.send(message: msg, to: room.id, encrypted: false, account: account, database: database)
-            .then { message in
+            .map { message in
                 XCTAssertEqual(message.id, "vaccines_cause_autism")
 
                 try! self.database.dbQueue.inDatabase { db in
@@ -103,7 +103,7 @@ class RoomServiceTests: XCTestCase {
         let exp = expectation(description: "sent media message")
 
         RoomService.sendMedia(filename: "testimage.png", data: data, info: info, roomID: room.id, account: account, database: database)
-            .then { message in
+            .map { message in
                 XCTAssertEqual(message.id, "message_sent")
                 try! self.database.dbQueue.inDatabase { db in
                     let message = try Message.fetchOne(db, key: message.id)

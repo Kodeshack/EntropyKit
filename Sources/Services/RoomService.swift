@@ -44,7 +44,7 @@ class RoomService {
         }
 
         return MatrixAPI.default.upload(filename: filename, mimeType: mimeType, data: payload, accessToken: account.accessToken)
-            .then { contentURI -> AsyncResult<Message> in
+            .map { contentURI -> AsyncResult<Message> in
                 let file: FileMessageJSON
                 if var encryptionInfo = encryptionInfo, let mxcURL = URL(string: contentURI) {
                     encryptionInfo.mxcURL = mxcURL

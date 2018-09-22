@@ -365,7 +365,7 @@ class CryptoEngineTests: XCTestCase {
 
         let initMessageExp = expectation(description: "initMessageExp")
         RoomService.send(message: PlainMessageJSON(body: "init", type: .text), to: "roomID", encrypted: true, account: account, database: database)
-            .then { _ in
+            .map { _ in
                 initMessageExp.fulfill()
             }
         waitForExpectations(timeout: 1)
@@ -398,7 +398,7 @@ class CryptoEngineTests: XCTestCase {
         let anotherMessageExp = expectation(description: "anotherMessageExp")
 
         RoomService.send(message: PlainMessageJSON(body: "another", type: .text), to: "roomID", encrypted: true, account: account, database: database)
-            .then { _ in
+            .map { _ in
                 anotherMessageExp.fulfill()
             }
 

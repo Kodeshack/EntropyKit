@@ -7,7 +7,7 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testThen")
 
-        promise.then { result in
+        promise.map { result in
             XCTAssertEqual(1, result)
             exp.fulfill()
         }
@@ -22,7 +22,7 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testResolveImmediate")
 
-        promise.then { result in
+        promise.map { result in
             XCTAssertEqual(1, result)
             exp.fulfill()
         }
@@ -38,11 +38,11 @@ class AsyncResultTests: XCTestCase {
         let exp1 = expectation(description: "testChainThen1")
         let exp2 = expectation(description: "testChainThen2")
 
-        promise.then { result -> Int in
+        promise.map { result -> Int in
             XCTAssertEqual(1, result)
             exp1.fulfill()
             return 2
-        }.then { result in
+        }.map { result in
             XCTAssertEqual(2, result)
             exp2.fulfill()
         }
@@ -57,7 +57,7 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testReject")
 
-        promise.then { _ in
+        promise.map { _ in
             XCTFail()
         }
 
@@ -77,9 +77,9 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testNestedPromisesInThens")
 
-        promiseA.then { _ in
+        promiseA.map { _ in
             promiseB
-        }.then { result in
+        }.map { result in
             XCTAssertEqual(2, result)
             exp.fulfill()
         }
@@ -98,7 +98,7 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testInitWithAsync")
 
-        promiseB.then { result in
+        promiseB.map { result in
             XCTAssertEqual(2, result)
             exp.fulfill()
         }
@@ -113,7 +113,7 @@ class AsyncResultTests: XCTestCase {
 
         let exp = expectation(description: "testInitWithImmediate")
 
-        promise.then { result in
+        promise.map { result in
             XCTAssertEqual(1, result)
             exp.fulfill()
         }

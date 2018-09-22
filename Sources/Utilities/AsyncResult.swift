@@ -40,7 +40,7 @@ public final class AsyncResult<T> {
 
     public init(async: () throws -> AsyncResult<T>) {
         do {
-            try async().then { value in
+            try async().map { value in
                 self.resolve(with: value)
             }.catch { error in
                 self.reject(with: error)
@@ -99,7 +99,7 @@ public final class AsyncResult<T> {
     }
 
     @discardableResult
-    public func then<K>(_ block: @escaping (T) throws -> K) -> AsyncResult<K> {
+    public func map<K>(_ block: @escaping (T) throws -> K) -> AsyncResult<K> {
         let nextResult = AsyncResult<K>()
 
         let resolver: (T) -> Void = { value in
@@ -124,13 +124,13 @@ public final class AsyncResult<T> {
         return nextResult
     }
 
-    public func then<K>(_ block: @escaping (T) throws -> AsyncResult<K>) -> AsyncResult<K> {
+    public func map<K>(_ block: @escaping (T) throws -> AsyncResult<K>) -> AsyncResult<K> {
         let nextResult = AsyncResult<K>()
 
         let resolver: (T) -> Void = { value in
             do {
                 let nextValue = try block(value)
-                nextValue.then { nv in
+                nextValue.map { nv in
                     nextResult.resolve(with: nv)
                 }
             } catch let error {

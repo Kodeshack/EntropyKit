@@ -166,23 +166,25 @@ class CryptoEngineTests: XCTestCase {
 
         let cryptoExpectation = expectation(description: "cryptoExpectation")
         let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
-        cryptoEngine.enqueue(.event(event: event, roomID: "roomID", cb: { result in
-            XCTAssertNil(result.error)
-            guard let cipher = result.value else {
-                XCTFail()
+        let asyncResult = AsyncResult<Event>()
+        cryptoEngine.enqueue(.event(event: event, roomID: "roomID", result: asyncResult))
+        asyncResult
+            .map { cipher -> AsyncResult<Event> in
+                let asyncResult = AsyncResult<Event>()
+                cryptoEngine.enqueue(.encryptedEvent(event: cipher, roomID: "roomID", result: asyncResult))
+                return asyncResult
+            }
+            .map { outputEvent in
+                XCTAssertEqual(event.content.message?.body, outputEvent.content.message?.body)
+                XCTAssertEqual(event.roomID, outputEvent.roomID)
+                XCTAssertEqual(outputEvent.senderID, "@NotNotBob:kodeshack")
+                cryptoExpectation.fulfill()
                 return
             }
+            .catch { error in
+                XCTFail(error.localizedDescription)
+            }
 
-            cryptoEngine.enqueue(.encryptedEvent(event: cipher, roomID: "roomID", cb: { decryptionResult in
-                XCTAssertNil(decryptionResult.error)
-                let outputEvent = decryptionResult.value
-                XCTAssertEqual(event.content.message?.body, outputEvent?.content.message?.body)
-                XCTAssertEqual(event.roomID, outputEvent?.roomID)
-                XCTAssertEqual(outputEvent?.senderID, "@NotNotBob:kodeshack")
-
-                cryptoExpectation.fulfill()
-            }))
-        }))
 
         waitForExpectations(timeout: 1)
     }
@@ -275,13 +277,15 @@ class CryptoEngineTests: XCTestCase {
 
         let cryptoExpectation = expectation(description: "cryptoExpectation")
         let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
-        cryptoEngineA.enqueue(.event(event: event, roomID: "roomID", cb: { result in
-            XCTAssertNil(result.error)
-
-            cryptoEngineB.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, cb: { decryptionResult in
-                XCTAssertNil(decryptionResult.error)
-                let outputEvent = decryptionResult.value!
-
+        let asyncResult = AsyncResult<Event>()
+        cryptoEngineA.enqueue(.event(event: event, roomID: "roomID", result: asyncResult))
+        asyncResult
+            .map { _ -> AsyncResult<SyncResponse.ToDeviceEvent> in
+                let nextResult = AsyncResult<SyncResponse.ToDeviceEvent>()
+                cryptoEngineB.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, result: nextResult))
+                return nextResult
+            }
+            .map { outputEvent in
                 XCTAssertEqual(outputEvent.senderID, "@UserA:kodeshack")
                 XCTAssertEqual(outputEvent.type, .roomKey) // Event.EventsType.roomKey
                 XCTAssertNotNil(outputEvent.content)
@@ -298,8 +302,10 @@ class CryptoEngineTests: XCTestCase {
                 XCTAssertFalse(content.sessionID.isEmpty)
 
                 cryptoExpectation.fulfill()
-            }))
-        }))
+            }
+            .catch { error in
+                XCTFail(error.localizedDescription)
+            }
 
         waitForExpectations(timeout: 1)
     }
@@ -525,16 +531,14 @@ class CryptoEngineTests: XCTestCase {
             ])
             let toDeviceEvent = SyncResponse.ToDeviceEvent(senderID: "@UserB:kodeshack", type: .encrypted, content: .encrypted(event))
 
-            account.decrypt(toDeviceEvent: toDeviceEvent) { result in
-                guard let error = error else {
-                    XCTAssertNil(result.error)
+            account.decrypt(toDeviceEvent: toDeviceEvent)
+                .map { _ in
                     exp.fulfill()
-                    return
                 }
-
-                XCTAssertEqual("\(result.error!)", "\(error)")
-                exp.fulfill()
-            }
+                .catch { lastError in
+                    XCTAssertEqual("\(lastError)", "\(error!)")
+                    exp.fulfill()
+                }
         }
 
         waitForExpectations(timeout: 2)

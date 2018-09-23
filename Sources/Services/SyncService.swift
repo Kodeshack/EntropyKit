@@ -70,17 +70,15 @@ class SyncService {
         syncResponse.toDevice.events.forEach { event in
             decryptGroup.enter()
             if case .encrypted = event.content {
-                self.account.decrypt(toDeviceEvent: event) { decryptionResult in
-                    defer { decryptGroup.leave() }
-
-                    switch decryptionResult {
-                    case let .Value(event):
+                self.account.decrypt(toDeviceEvent: event)
+                    .map { event in
+                        defer { decryptGroup.leave() }
                         deviceEvents.append(event)
-                    case let .Error(error):
-                        // @TODO: error handling
+                    }
+                    .catch { error in
+                        defer { decryptGroup.leave() }
                         print(error)
                     }
-                }
             } else {
                 decryptGroup.leave()
                 deviceEvents.append(event)
@@ -153,17 +151,14 @@ class SyncService {
 
         result.events.filter { $0.type == .encrypted }.forEach { event in
             decryptGroup.enter()
-            account.decrypt(event: event) { decryptResult in
-                defer { decryptGroup.leave() }
-
-                switch decryptResult {
-                case let .Value(event):
-                    result.events.append(event)
-                case let .Error(error):
-                    // @TODO: error handling
+            account.decrypt(event: event)
+                .map { decryptedEvent in
+                    defer { decryptGroup.leave() }
+                    result.events.append(decryptedEvent)
+                }.catch { error in
+                    defer { decryptGroup.leave() }
                     print(error)
                 }
-            }
         }
 
         decryptGroup.wait()

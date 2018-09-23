@@ -113,10 +113,15 @@ public final class AsyncResult<T> {
             successHandlers.append({ value in
                 resolver(value)
             })
+            errorHandlers.append({ error in
+                nextResult.reject(with: error)
+            })
         case .resolved:
             resolver(value!)
-        case .cancelled, .errored:
-            break
+        case .cancelled:
+            nextResult.cancel()
+        case .errored:
+            nextResult.reject(with: error!)
         }
 
         return nextResult
@@ -141,10 +146,15 @@ public final class AsyncResult<T> {
             successHandlers.append({ value in
                 resolver(value)
             })
+            errorHandlers.append({ error in
+                nextResult.reject(with: error)
+            })
         case .resolved:
             resolver(value!)
-        case .cancelled, .errored:
-            break
+        case .cancelled:
+            nextResult.cancel()
+        case .errored:
+            nextResult.reject(with: error!)
         }
 
         return nextResult

@@ -210,16 +210,22 @@ extension Account {
         cryptoEngine?.setup(account: self, db: database, load: load)
     }
 
-    func encrypt(event: Event, in roomID: String, completionHandler: @escaping (Result<Event>) -> Void) {
-        cryptoEngine?.enqueue(.event(event: event, roomID: roomID, cb: completionHandler))
+    func encrypt(event: Event, in roomID: String) -> AsyncResult<Event> {
+        let result = AsyncResult<Event>()
+        cryptoEngine?.enqueue(.event(event: event, roomID: roomID, result: result))
+        return result
     }
 
-    func decrypt(event: Event, completionHandler: @escaping (Result<Event>) -> Void) {
-        cryptoEngine?.enqueue(.encryptedEvent(event: event, roomID: event.roomID!, cb: completionHandler))
+    func decrypt(event: Event) -> AsyncResult<Event> {
+        let result = AsyncResult<Event>()
+        cryptoEngine?.enqueue(.encryptedEvent(event: event, roomID: event.roomID!, result: result))
+        return result
     }
 
-    func decrypt(toDeviceEvent: SyncResponse.ToDeviceEvent, completionHandler: @escaping (Result<SyncResponse.ToDeviceEvent>) -> Void) {
-        cryptoEngine?.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, cb: completionHandler))
+    func decrypt(toDeviceEvent: SyncResponse.ToDeviceEvent) -> AsyncResult<SyncResponse.ToDeviceEvent> {
+        let result = AsyncResult<SyncResponse.ToDeviceEvent>()
+        cryptoEngine?.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, result: result))
+        return result
     }
 
     func roomKeyEvent(event: SyncResponse.ToDeviceEvent) {

@@ -111,9 +111,9 @@ class CryptoEngine {
         case let (.uploadedPublicAndOTKs, .devicesChanged(userIDs)): return .devicesChanged(userIDs, devicesChanged)
 
         case (.ready, .none): return nil
-        case let (.ready, .event(event, roomID, cb)): return .encrypt((event, roomID, cb), encrypt)
-        case let (.ready, .encryptedEvent(event, roomID, cb)): return .decrypt((event, roomID, cb), decrypt)
-        case let (.ready, .encryptedToDeviceEvent(event, cb)): return .decryptToDeviceEvent((event, cb), decryptToDeviceEvent)
+        case let (.ready, .event(event, roomID, result)): return .encrypt((event, roomID, result), encrypt)
+        case let (.ready, .encryptedEvent(event, roomID, result)): return .decrypt((event, roomID, result), decrypt)
+        case let (.ready, .encryptedToDeviceEvent(event, result)): return .decryptToDeviceEvent((event, result), decryptToDeviceEvent)
         case let (.ready, .roomKeyEvent(event)): return .roomKey(event, roomKey)
         case let (.ready, .devicesChanged(userIDs)): return .devicesChanged(userIDs, devicesChanged)
         case let (.ready, .memberChange(userID, change)): return .memberChange((userID, change), memberChange)
@@ -263,12 +263,12 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func encrypt(task: (event: Event, roomID: RoomID, cb: (Result<Event>) -> Void)) -> (State, CryptoEngineTask) {
+    private func encrypt(task: (event: Event, roomID: RoomID, result: AsyncResult<Event>)) -> (State, CryptoEngineTask) {
         if let session = self.megolmOutboundSessions[task.roomID], !session.needsRotation {
-            return (.needToEncrypt, .event(event: task.event, roomID: task.roomID, cb: task.cb))
+            return (.needToEncrypt, .event(event: task.event, roomID: task.roomID, result: task.result))
         } else {
             // requeue the event to be decrypted "later". To keep the flow of the automata clean.
-            queue.enqueueFront(.event(event: task.event, roomID: task.roomID, cb: task.cb))
+            queue.enqueueFront(.event(event: task.event, roomID: task.roomID, result: task.result))
             return (.needToEncrypt, .announceSession(roomID: task.roomID))
         }
     }
@@ -427,8 +427,8 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func encryptEvent(task: (event: Event, roomID: String, cb: (Result<Event>) -> Void)) -> State {
-        task.cb(Result {
+    private func encryptEvent(task: (event: Event, roomID: String, result: AsyncResult<Event>)) -> State {
+        task.result.resolveOrReject(using: Result {
             let session = self.megolmOutboundSessions[task.roomID]!
             let ciphertext = try session.encryptMessage(task.event.stringValue)
 
@@ -451,11 +451,11 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func decrypt(task: (event: Event, roomID: String, cb: (Result<Event>) -> Void)) -> State {
+    private func decrypt(task: (event: Event, roomID: String, result: AsyncResult<Event>)) -> State {
         let event = task.event
 
         guard let encryptedContent = event.content.encrypted else {
-            task.cb(.Error(CryptoEngineError.triedToDecryptUnecryptedEvent))
+            task.result.reject(with: CryptoEngineError.triedToDecryptUnecryptedEvent)
             return .ready
         }
         guard encryptedContent.algorithm == .megolm else {
@@ -483,7 +483,7 @@ extension CryptoEngine {
             return decryptedEvent
         }
 
-        task.cb(result)
+        task.result.resolveOrReject(using: result)
         return .ready
     }
 
@@ -520,10 +520,10 @@ extension CryptoEngine {
         }
     }
 
-    private func decryptToDeviceEvent(task: (event: SyncResponse.ToDeviceEvent, cb: (Result<SyncResponse.ToDeviceEvent>) -> Void)) -> State {
+    private func decryptToDeviceEvent(task: (event: SyncResponse.ToDeviceEvent, result: AsyncResult<SyncResponse.ToDeviceEvent>)) -> State {
         let event = task.event
 
-        task.cb(Result {
+        task.result.resolveOrReject(using: Result {
             guard let encryptedContent = event.content.encrypted else {
                 throw CryptoEngine.CryptoEngineError.invalidToDeviceEvent(event)
             }

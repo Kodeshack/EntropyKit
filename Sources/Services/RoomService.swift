@@ -11,14 +11,11 @@ class RoomService {
 
         if encrypted {
             let msgEvent = Event(type: .message, roomID: roomID, content: message.eventContent)
-            account.encrypt(event: msgEvent, in: roomID) { result in
-                switch result {
-                case let .Value(event):
+            account.encrypt(event: msgEvent, in: roomID)
+                .map { event in
                     RoomService.sendRequest(account: account, roomID: roomID, body: event.content, eventType: eventType, message: message, database: database, completionHandler: completionHandler)
-                case let .Error(error):
-                    completionHandler(.Error(error))
                 }
-            }
+                .catch(asyncResult.reject)
         } else {
             RoomService.sendRequest(account: account, roomID: roomID, body: message, eventType: eventType, message: message, database: database, completionHandler: completionHandler)
         }

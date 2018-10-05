@@ -1,4 +1,5 @@
 import Foundation
+import Dispatch
 #if SWIFT_PACKAGE
     import CSQLite
 #elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
@@ -16,6 +17,7 @@ public final class DatabasePool: DatabaseWriter {
     
     private var functions = Set<DatabaseFunction>()
     private var collations = Set<DatabaseCollation>()
+    private var tokenizerRegistrations: [(Database) -> Void] = []
     
     var snapshotCount = ReadWriteBox(0)
     
@@ -104,12 +106,22 @@ public final class DatabasePool: DatabaseWriter {
     #endif
     
     private func setupDatabase(_ db: Database) {
-        for function in self.functions {
+        for function in functions {
             db.add(function: function)
         }
-        for collation in self.collations {
+        for collation in collations {
             db.add(collation: collation)
         }
+        for registration in tokenizerRegistrations {
+            registration(db)
+        }
+    }
+    
+    /// Blocks the current thread until all database connections have
+    /// executed the *body* block.
+    fileprivate func forEachConnection(_ body: (Database) -> Void) {
+        writer.sync(body)
+        readerPool.forEach { $0.sync(body) }
     }
 }
 
@@ -147,11 +159,7 @@ extension DatabasePool {
     ///
     /// See also setupMemoryManagement(application:)
     public func releaseMemory() {
-        // TODO: test that this method blocks the current thread until all database accesses are completed.
-        writer.sync { $0.releaseMemory() }
-        readerPool.forEach { reader in
-            reader.sync { $0.releaseMemory() }
-        }
+        forEachConnection { $0.releaseMemory() }
         readerPool.clear()
     }
     
@@ -167,8 +175,13 @@ extension DatabasePool {
     public func setupMemoryManagement(in application: UIApplication) {
         self.application = application
         let center = NotificationCenter.default
+        #if swift(>=4.2)
+        center.addObserver(self, selector: #selector(DatabasePool.applicationDidReceiveMemoryWarning(_:)), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        center.addObserver(self, selector: #selector(DatabasePool.applicationDidEnterBackground(_:)), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        #else
         center.addObserver(self, selector: #selector(DatabasePool.applicationDidReceiveMemoryWarning(_:)), name: .UIApplicationDidReceiveMemoryWarning, object: nil)
         center.addObserver(self, selector: #selector(DatabasePool.applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
+        #endif
     }
     
     @objc private func applicationDidEnterBackground(_ notification: NSNotification) {
@@ -176,10 +189,13 @@ extension DatabasePool {
             return
         }
         
-        var task: UIBackgroundTaskIdentifier! = nil
-        task = application.beginBackgroundTask(expirationHandler: nil)
-        
-        if task == UIBackgroundTaskInvalid {
+        let task: UIBackgroundTaskIdentifier = application.beginBackgroundTask(expirationHandler: nil)
+        #if swift(>=4.2)
+        let taskIsInvalid = task == UIBackgroundTaskIdentifier.invalid
+        #else
+        let taskIsInvalid = task == UIBackgroundTaskInvalid
+        #endif
+        if taskIsInvalid {
             // Perform releaseMemory() synchronously.
             releaseMemory()
         } else {
@@ -341,6 +357,8 @@ extension DatabasePool : DatabaseReader {
         }
     }
     
+    /// This method is deprecated. Use concurrentRead instead.
+    ///
     /// Asynchronously executes a read-only block in a protected dispatch queue,
     /// wrapped in a deferred transaction.
     ///
@@ -366,6 +384,7 @@ extension DatabasePool : DatabaseReader {
     /// - parameter block: A block that accesses the database.
     /// - throws: The error thrown by the block, or any DatabaseError that would
     ///   happen while establishing the read access to the database.
+    @available(*, deprecated, message: "Use concurrentRead instead")
     public func readFromCurrentState(_ block: @escaping (Database) -> Void) throws {
         // https://www.sqlite.org/isolation.html
         //
@@ -414,7 +433,12 @@ extension DatabasePool : DatabaseReader {
         // Check that we're on the writer queue...
         writer.execute { db in
             // ... and that no transaction is opened.
-            GRDBPrecondition(!db.isInsideTransaction, "readFromCurrentState must not be called from inside a transaction. If this error is raised from a DatabasePool.write block, use DatabasePool.writeWithoutTransaction instead (and use transactions when needed).")
+            GRDBPrecondition(!db.isInsideTransaction, """
+                readFromCurrentState must not be called from inside a transaction. \
+                If this error is raised from a DatabasePool.write block, use \
+                DatabasePool.writeWithoutTransaction instead (and use \
+                transactions when needed).
+                """)
         }
         
         // The semaphore that blocks the writing dispatch queue until snapshot
@@ -427,7 +451,7 @@ extension DatabasePool : DatabaseReader {
                 do {
                     try db.beginTransaction(.deferred)
                     assert(db.isInsideTransaction)
-                    try db.makeSelectStatement("SELECT rootpage FROM sqlite_master").cursor().next()
+                    try db.makeSelectStatement("SELECT rootpage FROM sqlite_master").makeCursor().next()
                 } catch {
                     readError = error
                     semaphore.signal() // Release the writer queue and rethrow error
@@ -448,7 +472,119 @@ extension DatabasePool : DatabaseReader {
             throw readError
         }
     }
-
+    
+    public func concurrentRead<T>(_ block: @escaping (Database) throws -> T) -> Future<T> {
+        // https://www.sqlite.org/isolation.html
+        //
+        // > In WAL mode, SQLite exhibits "snapshot isolation". When a read
+        // > transaction starts, that reader continues to see an unchanging
+        // > "snapshot" of the database file as it existed at the moment in time
+        // > when the read transaction started. Any write transactions that
+        // > commit while the read transaction is active are still invisible to
+        // > the read transaction, because the reader is seeing a snapshot of
+        // > database file from a prior moment in time.
+        //
+        // That's exactly what we need. But what does "when read transaction
+        // starts" mean?
+        //
+        // http://www.sqlite.org/lang_transaction.html
+        //
+        // > Deferred [transaction] means that no locks are acquired on the
+        // > database until the database is first accessed. [...] Locks are not
+        // > acquired until the first read or write operation. [...] Because the
+        // > acquisition of locks is deferred until they are needed, it is
+        // > possible that another thread or process could create a separate
+        // > transaction and write to the database after the BEGIN on the
+        // > current thread has executed.
+        //
+        // Now that's precise enough: SQLite defers "snapshot isolation" until
+        // the first SELECT:
+        //
+        //     Reader                       Writer
+        //     BEGIN DEFERRED TRANSACTION
+        //                                  UPDATE ... (1)
+        //     Here the change (1) is visible
+        //     SELECT ...
+        //                                  UPDATE ... (2)
+        //     Here the change (2) is not visible
+        //
+        // The readFromCurrentState method says that no change should be visible
+        // at all. We thus have to perform a select that establishes the
+        // snapshot isolation before we release the writer queue:
+        //
+        //     Reader                       Writer
+        //     BEGIN DEFERRED TRANSACTION
+        //     SELECT anything
+        //                                  UPDATE ...
+        //     Here the change is not visible by GRDB user
+        
+        // Check that we're on the writer queue...
+        writer.execute { db in
+            // ... and that no transaction is opened.
+            GRDBPrecondition(!db.isInsideTransaction, """
+                concurrentRead must not be called from inside a transaction. \
+                If this error is raised from a DatabasePool.write block, use \
+                DatabasePool.writeWithoutTransaction instead (and use \
+                transactions when needed).
+                """)
+        }
+        
+        // The semaphore that blocks the writing dispatch queue until snapshot
+        // isolation has been established:
+        let isolationSemaphore = DispatchSemaphore(value: 0)
+        
+        // The semaphore that blocks until futureResult is defined:
+        let futureSemaphore = DispatchSemaphore(value: 0)
+        var futureResult: Result<T>? = nil
+        
+        do {
+            try readerPool.get { reader in
+                reader.async { db in
+                    // Open a deferred transaction and access the database in
+                    // order to establish snapshot isolation.
+                    defer { _ = try? db.commit() }
+                    do {
+                        try db.beginTransaction(.deferred)
+                        try db.makeSelectStatement("SELECT rootpage FROM sqlite_master").makeCursor().next()
+                    } catch {
+                        // Snapshot isolation failure
+                        futureResult = .failure(error)
+                        isolationSemaphore.signal()
+                        futureSemaphore.signal()
+                        return
+                    }
+                    
+                    // Release the writer queue
+                    isolationSemaphore.signal()
+                    
+                    // Reset the schema cache before running user code in snapshot isolation
+                    db.schemaCache = SimpleDatabaseSchemaCache()
+                    
+                    // Fetch and release the future
+                    futureResult = Result { try block(db) }
+                    futureSemaphore.signal()
+                }
+            }
+        } catch {
+            return Future { throw error }
+        }
+        
+        // Block the writer queue until snapshot isolation success or error
+        _ = isolationSemaphore.wait(timeout: .distantFuture)
+        
+        return Future {
+            // Block the future until results are fetched
+            _ = futureSemaphore.wait(timeout: .distantFuture)
+            
+            switch futureResult! {
+            case .failure(let error):
+                throw error
+            case .success(let result):
+                return result
+            }
+        }
+    }
+    
     /// Returns a reader that can be used from the current dispatch queue,
     /// if any.
     private var currentReader: SerializedDatabase? {
@@ -593,19 +729,13 @@ extension DatabasePool : DatabaseReader {
     ///     }
     public func add(function: DatabaseFunction) {
         functions.update(with: function)
-        writer.sync { $0.add(function: function) }
-        readerPool.forEach { reader in
-            reader.sync { $0.add(function: function) }
-        }
+        forEachConnection { $0.add(function: function) }
     }
     
     /// Remove an SQL function.
     public func remove(function: DatabaseFunction) {
         functions.remove(function)
-        writer.sync { $0.remove(function: function) }
-        readerPool.forEach { reader in
-            reader.sync { $0.remove(function: function) }
-        }
+        forEachConnection { $0.remove(function: function) }
     }
     
     // MARK: - Collations
@@ -621,20 +751,30 @@ extension DatabasePool : DatabaseReader {
     ///     }
     public func add(collation: DatabaseCollation) {
         collations.update(with: collation)
-        writer.sync { $0.add(collation: collation) }
-        readerPool.forEach { reader in
-            reader.sync { $0.add(collation: collation) }
-        }
+        forEachConnection { $0.add(collation: collation) }
     }
     
     /// Remove a collation.
     public func remove(collation: DatabaseCollation) {
         collations.remove(collation)
-        writer.sync { $0.remove(collation: collation) }
-        readerPool.forEach { reader in
-            reader.sync { $0.remove(collation: collation) }
-        }
+        forEachConnection { $0.remove(collation: collation) }
     }
+    
+    // MARK: - Custom FTS5 Tokenizers
+    
+    #if SQLITE_ENABLE_FTS5
+    /// Add a custom FTS5 tokenizer.
+    ///
+    ///     class MyTokenizer : FTS5CustomTokenizer { ... }
+    ///     dbPool.add(tokenizer: MyTokenizer.self)
+    public func add<Tokenizer: FTS5CustomTokenizer>(tokenizer: Tokenizer.Type) {
+        func registerTokenizer(db: Database) {
+            db.add(tokenizer: Tokenizer.self)
+        }
+        tokenizerRegistrations.append(registerTokenizer)
+        forEachConnection(registerTokenizer)
+    }
+    #endif
 }
 
 extension DatabasePool {

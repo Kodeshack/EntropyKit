@@ -3,7 +3,6 @@ enum Base64Error: Error {
     case invalidBase64Data
 }
 
-
 /// Represents data encoded using standard base64 (RFC 3548 or RFC 4648).
 /// String representation is always padded.
 struct Base64: Codable, Hashable {

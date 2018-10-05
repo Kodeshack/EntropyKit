@@ -94,8 +94,13 @@ extension DatabaseQueue {
     public func setupMemoryManagement(in application: UIApplication) {
         self.application = application
         let center = NotificationCenter.default
+        #if swift(>=4.2)
+        center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidReceiveMemoryWarning(_:)), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        #else
         center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidReceiveMemoryWarning(_:)), name: .UIApplicationDidReceiveMemoryWarning, object: nil)
         center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
+        #endif
     }
     
     @objc private func applicationDidEnterBackground(_ notification: NSNotification) {
@@ -103,10 +108,13 @@ extension DatabaseQueue {
             return
         }
         
-        var task: UIBackgroundTaskIdentifier! = nil
-        task = application.beginBackgroundTask(expirationHandler: nil)
-        
-        if task == UIBackgroundTaskInvalid {
+        let task: UIBackgroundTaskIdentifier = application.beginBackgroundTask(expirationHandler: nil)
+        #if swift(>=4.2)
+        let taskIsInvalid = task == UIBackgroundTaskIdentifier.invalid
+        #else
+        let taskIsInvalid = task == UIBackgroundTaskInvalid
+        #endif
+        if taskIsInvalid {
             // Perform releaseMemory() synchronously.
             releaseMemory()
         } else {
@@ -191,10 +199,12 @@ extension DatabaseQueue {
     /// concurrency practices.
     ///
     /// :nodoc:
-    public func unsafeReentrantRead<T>(_ block: (Database) throws -> T) throws -> T {
+    public func unsafeReentrantRead<T>(_ block: (Database) throws -> T) rethrows -> T {
         return try writer.reentrantSync(block)
     }
     
+    /// This method is deprecated. Use concurrentRead instead.
+    ///
     /// Synchronously executes *block*.
     ///
     /// This method must be called from the protected database dispatch queue,
@@ -203,16 +213,30 @@ extension DatabaseQueue {
     /// Starting SQLite 3.8.0 (iOS 8.2+, OSX 10.10+, custom SQLite builds and
     /// SQLCipher), attempts to write in the database from this meethod throw a
     /// DatabaseError of resultCode `SQLITE_READONLY`.
-    ///
-    /// See `DatabaseWriter.readFromCurrentState`.
-    ///
-    /// :nodoc:
+    @available(*, deprecated, message: "Use concurrentRead instead")
     public func readFromCurrentState(_ block: @escaping (Database) -> Void) {
         // Check that we're on the correct queue...
         writer.execute { db in
             // ... and that no transaction is opened.
             GRDBPrecondition(!db.isInsideTransaction, "readFromCurrentState must not be called from inside a transaction.")
             db.readOnly { block(db) }
+        }
+    }
+    
+    public func concurrentRead<T>(_ block: @escaping (Database) throws -> T) -> Future<T> {
+        // DatabaseQueue can't perform parallel reads.
+        let result = Result<T> {
+            // Check that we're on the writer queue...
+            try writer.execute { db in
+                // ... and that no transaction is opened.
+                GRDBPrecondition(!db.isInsideTransaction, "concurrentRead must not be called from inside a transaction.")
+                return try db.readOnly {
+                    try block(db)
+                }
+            }
+        }
+        return Future {
+            try result.unwrap()
         }
     }
     
@@ -232,7 +256,7 @@ extension DatabaseQueue {
     ///
     /// - parameter block: A block that executes SQL statements.
     /// - throws: An eventual database error, or the error thrown by the block.
-    public func write<T>(_ block: (Database) throws -> T) rethrows -> T {
+    public func write<T>(_ block: (Database) throws -> T) throws -> T {
         return try writer.sync { db in
             var result: T? = nil
             try db.inTransaction {

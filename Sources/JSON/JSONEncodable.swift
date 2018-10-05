@@ -1,7 +1,6 @@
 import Alamofire
 
-protocol JSONEncodable: Encodable, ParameterEncoding {
-}
+protocol JSONEncodable: Encodable, ParameterEncoding {}
 
 extension JSONEncodable {
     var encoded: Data {

@@ -285,8 +285,7 @@ extension CryptoEngine {
                 devices
                     .filter { $0.id != account.deviceID }
                     .filter { !sessions.contains($0.curve25519Key!) } // ignore if we already have a session
-                    .map { device in (device.id, device) }
-            )
+                    .map { device in (device.id, device) })
         }
     }
 

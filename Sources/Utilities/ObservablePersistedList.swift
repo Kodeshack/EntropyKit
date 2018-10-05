@@ -146,17 +146,21 @@ extension ObservablePersistedList {
                     case let .insertion(indexPath):
                         let row = IndexSet(arrayLiteral: indexPath.item)
                         tableView.insertRows(at: row, withAnimation: .effectFade)
+                        tableView.noteHeightOfRows(withIndexesChanged: row)
                     case let .deletion(indexPath):
                         let row = IndexSet(arrayLiteral: indexPath.item)
                         tableView.removeRows(at: row, withAnimation: .effectFade)
+                        tableView.noteHeightOfRows(withIndexesChanged: row)
                     case let .move(indexPath, newIndexPath, _):
                         tableView.moveRow(at: indexPath.item, to: newIndexPath.item)
                         if let cell = tableView.view(atColumn: indexPath.section, row: indexPath.item, makeIfNecessary: true) as? V {
                             configureCell(cell, newIndexPath.item)
+                            tableView.noteHeightOfRows(withIndexesChanged: IndexSet(arrayLiteral: indexPath.item))
                         }
                     case let .update(indexPath, _):
                         if let cell = tableView.view(atColumn: indexPath.section, row: indexPath.item, makeIfNecessary: true) as? V {
                             configureCell(cell, indexPath.item)
+                            tableView.noteHeightOfRows(withIndexesChanged: IndexSet(arrayLiteral: indexPath.item))
                         }
                     }
                 },

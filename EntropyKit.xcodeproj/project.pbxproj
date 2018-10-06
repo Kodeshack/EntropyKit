@@ -36,6 +36,10 @@
 		006D55D620CD3A9C00C1E7BE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D420CD3A9C00C1E7BE /* Validation.swift */; };
 		006D55D820CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
 		006D55D920CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
+		00AEA0892169304A00346816 /* MIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA0882169304A00346816 /* MIMEType.swift */; };
+		00AEA08A2169304A00346816 /* MIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA0882169304A00346816 /* MIMEType.swift */; };
+		00AEA08C2169317700346816 /* MIMETypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA08B2169317700346816 /* MIMETypeTests.swift */; };
+		00AEA08D2169317700346816 /* MIMETypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA08B2169317700346816 /* MIMETypeTests.swift */; };
 		00F52E4E212C06C400A337B6 /* AttachmentEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */; };
 		00F52E4F212C06C400A337B6 /* AttachmentEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */; };
 		00F52E51212C06F500A337B6 /* AttachmentEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */; };
@@ -265,6 +269,8 @@
 		006D55CD20CD328E00C1E7BE /* Entropy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
 		006D55D420CD3A9C00C1E7BE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		006D55D720CD3AF900C1E7BE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		00AEA0882169304A00346816 /* MIMEType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIMEType.swift; sourceTree = "<group>"; };
+		00AEA08B2169317700346816 /* MIMETypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIMETypeTests.swift; sourceTree = "<group>"; };
 		00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEncryption.swift; sourceTree = "<group>"; };
 		00F52E50212C06F500A337B6 /* AttachmentEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEncryptionTests.swift; sourceTree = "<group>"; };
 		00F52E53212C55FE00A337B6 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
@@ -680,6 +686,7 @@
 				D259E75820D5310900925486 /* DequeTests.swift */,
 				D268E69520DE8D1800075875 /* FileCacheTests.swift */,
 				D268E69620DE8D1800075875 /* MemoryCacheTests.swift */,
+				00AEA08B2169317700346816 /* MIMETypeTests.swift */,
 				00F52E56212C56E500A337B6 /* SHA256Tests.swift */,
 				D259E74020D5309F00925486 /* SchedulerTests.swift */,
 			);
@@ -705,6 +712,7 @@
 				D259E71320D5256200925486 /* Deque.swift */,
 				D268E68720DE873200075875 /* FileCache.swift */,
 				D268E68820DE873300075875 /* MemoryCache.swift */,
+				00AEA0882169304A00346816 /* MIMEType.swift */,
 				0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */,
 				006D55D720CD3AF900C1E7BE /* Result.swift */,
 				006D55D420CD3A9C00C1E7BE /* Validation.swift */,
@@ -1034,6 +1042,7 @@
 				D259E6EE20D524B600925486 /* DeviceAnnouncementRequest.swift in Sources */,
 				D259E6F020D524B600925486 /* KeysQueryRequest.swift in Sources */,
 				D259E69520D5236A00925486 /* Event.swift in Sources */,
+				00AEA0892169304A00346816 /* MIMEType.swift in Sources */,
 				006D55D520CD3A9C00C1E7BE /* Validation.swift in Sources */,
 				D259E6AA20D523BC00925486 /* Message.swift in Sources */,
 				D259E6D420D524A500925486 /* RoomEncryptionJSON.swift in Sources */,
@@ -1122,6 +1131,7 @@
 				D259E77020D5316E00925486 /* ImageServiceTests.swift in Sources */,
 				004C2F3D2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */,
 				D259E77320D5316E00925486 /* SessionServiceTests.swift in Sources */,
+				00AEA08C2169317700346816 /* MIMETypeTests.swift in Sources */,
 				D268E6A120DE8D4000075875 /* MemoryCacheTests.swift in Sources */,
 				004C2F3A2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
 				D268E69F20DE8D4000075875 /* CacheHierarchyTests.swift in Sources */,
@@ -1152,6 +1162,7 @@
 				D259E6F120D524B600925486 /* KeysQueryRequest.swift in Sources */,
 				D259E69620D5236A00925486 /* Event.swift in Sources */,
 				006D55D620CD3A9C00C1E7BE /* Validation.swift in Sources */,
+				00AEA08A2169304A00346816 /* MIMEType.swift in Sources */,
 				D259E6AB20D523BC00925486 /* Message.swift in Sources */,
 				D259E6D520D524A500925486 /* RoomEncryptionJSON.swift in Sources */,
 				D259E6BC20D5242F00925486 /* CryptoEngine+CodableGroupSession.swift in Sources */,
@@ -1240,6 +1251,7 @@
 				D259E77720D5316F00925486 /* ImageServiceTests.swift in Sources */,
 				004C2F3E2147C802003F0BF5 /* FileMessageJSONTests.swift in Sources */,
 				D259E77A20D5316F00925486 /* SessionServiceTests.swift in Sources */,
+				00AEA08D2169317700346816 /* MIMETypeTests.swift in Sources */,
 				D268E6A420DE8D4100075875 /* MemoryCacheTests.swift in Sources */,
 				004C2F3B2147B7C4003F0BF5 /* AttachmentTests.swift in Sources */,
 				D268E6A220DE8D4100075875 /* CacheHierarchyTests.swift in Sources */,

@@ -13,6 +13,12 @@
 		000DD8C82148050A00B33BBF /* Base64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C62148050A00B33BBF /* Base64Tests.swift */; };
 		000DD8CA214A72CC00B33BBF /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C9214A72CC00B33BBF /* MessageJSON.swift */; };
 		000DD8CB214A72CC00B33BBF /* MessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000DD8C9214A72CC00B33BBF /* MessageJSON.swift */; };
+		00303EAD2185D83E0099D588 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EAC2185D83E0099D588 /* Store.swift */; };
+		00303EAE2185D83E0099D588 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EAC2185D83E0099D588 /* Store.swift */; };
+		00303EB02185D84E0099D588 /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EAF2185D84E0099D588 /* MessageStore.swift */; };
+		00303EB12185D84E0099D588 /* MessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EAF2185D84E0099D588 /* MessageStore.swift */; };
+		00303EB32185D9ED0099D588 /* MessageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EB22185D9ED0099D588 /* MessageStoreTests.swift */; };
+		00303EB42185D9ED0099D588 /* MessageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00303EB22185D9ED0099D588 /* MessageStoreTests.swift */; };
 		004C2F342147B2D2003F0BF5 /* FileMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */; };
 		004C2F352147B2D6003F0BF5 /* FileMessageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */; };
 		004C2F372147B3ED003F0BF5 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C2F362147B3ED003F0BF5 /* Attachment.swift */; };
@@ -252,6 +258,9 @@
 		000DD8C32147E08B00B33BBF /* Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64.swift; sourceTree = "<group>"; };
 		000DD8C62148050A00B33BBF /* Base64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		000DD8C9214A72CC00B33BBF /* MessageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageJSON.swift; sourceTree = "<group>"; };
+		00303EAC2185D83E0099D588 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		00303EAF2185D84E0099D588 /* MessageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStore.swift; sourceTree = "<group>"; };
+		00303EB22185D9ED0099D588 /* MessageStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageStoreTests.swift; sourceTree = "<group>"; };
 		004C2F332147B2D2003F0BF5 /* FileMessageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMessageJSON.swift; sourceTree = "<group>"; };
 		004C2F362147B3ED003F0BF5 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		004C2F392147B7C4003F0BF5 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
@@ -582,6 +591,8 @@
 				D259E71C20D5261200925486 /* Settings.swift */,
 				D259E68F20D5233C00925486 /* User.swift */,
 				D259E6B020D523E600925486 /* UserRoom.swift */,
+				00303EAC2185D83E0099D588 /* Store.swift */,
+				00303EAF2185D84E0099D588 /* MessageStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -643,6 +654,7 @@
 				D259E72720D5307D00925486 /* MessageTests.swift */,
 				D259E72820D5307D00925486 /* RoomTests.swift */,
 				D259E72920D5307D00925486 /* UserTests.swift */,
+				00303EB22185D9ED0099D588 /* MessageStoreTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1036,6 +1048,7 @@
 				004C2F372147B3ED003F0BF5 /* Attachment.swift in Sources */,
 				D259E70420D524C400925486 /* LoginResponse.swift in Sources */,
 				0051AEAF20DE45130061A7B8 /* Scheduler.swift in Sources */,
+				00303EB02185D84E0099D588 /* MessageStore.swift in Sources */,
 				D259E71A20D525D100925486 /* OSLog.swift in Sources */,
 				D259E6DA20D524A500925486 /* NewDeviceJSON.swift in Sources */,
 				D202664420E2984200925486 /* ImageService.swift in Sources */,
@@ -1062,6 +1075,7 @@
 				D259E6E020D524A500925486 /* EncryptedJSON.swift in Sources */,
 				D259E6D220D524A500925486 /* JSONSignable.swift in Sources */,
 				D259E68620D5225100925486 /* UploadResponse.swift in Sources */,
+				00303EAD2185D83E0099D588 /* Store.swift in Sources */,
 				D2887CE320DF918300925486 /* UnicodeScalar.swift in Sources */,
 				D259E6B920D5242F00925486 /* CryptoEngine.swift in Sources */,
 				D268E68320DE86E500075875 /* UserService.swift in Sources */,
@@ -1138,6 +1152,7 @@
 				D259E77220D5316E00925486 /* SchedulerTests.swift in Sources */,
 				D259E77520D5316E00925486 /* UserServiceTests.swift in Sources */,
 				D259E76F20D5316E00925486 /* E2EEServiceTests.swift in Sources */,
+				00303EB32185D9ED0099D588 /* MessageStoreTests.swift in Sources */,
 				000DD8C72148050A00B33BBF /* Base64Tests.swift in Sources */,
 				D259E76920D5316200925486 /* MatrixAPITests.swift in Sources */,
 				D2887CEA20DF970200925486 /* StringTests.swift in Sources */,
@@ -1156,6 +1171,7 @@
 				004C2F382147B3ED003F0BF5 /* Attachment.swift in Sources */,
 				D259E71B20D525D100925486 /* OSLog.swift in Sources */,
 				0051AEB220DE50450061A7B8 /* RoomService.swift in Sources */,
+				00303EB12185D84E0099D588 /* MessageStore.swift in Sources */,
 				D259E6DB20D524A500925486 /* NewDeviceJSON.swift in Sources */,
 				D259E6EF20D524B600925486 /* DeviceAnnouncementRequest.swift in Sources */,
 				D202664520E2984200925486 /* ImageService.swift in Sources */,
@@ -1182,6 +1198,7 @@
 				D259E68720D5225100925486 /* UploadResponse.swift in Sources */,
 				D259E6BA20D5242F00925486 /* CryptoEngine.swift in Sources */,
 				D259E71820D525A800925486 /* ThreadSafeDictionary.swift in Sources */,
+				00303EAE2185D83E0099D588 /* Store.swift in Sources */,
 				D2887CE420DF918300925486 /* UnicodeScalar.swift in Sources */,
 				D259E6B220D523E600925486 /* UserRoom.swift in Sources */,
 				D259E6C620D5247100925486 /* SyncService.swift in Sources */,
@@ -1258,6 +1275,7 @@
 				D259E77920D5316F00925486 /* SchedulerTests.swift in Sources */,
 				D259E77C20D5316F00925486 /* UserServiceTests.swift in Sources */,
 				D259E77620D5316F00925486 /* E2EEServiceTests.swift in Sources */,
+				00303EB42185D9ED0099D588 /* MessageStoreTests.swift in Sources */,
 				000DD8C82148050A00B33BBF /* Base64Tests.swift in Sources */,
 				D259E76A20D5316300925486 /* MatrixAPITests.swift in Sources */,
 				D2887CEB20DF970200925486 /* StringTests.swift in Sources */,

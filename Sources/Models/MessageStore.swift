@@ -2,10 +2,20 @@ import GRDB
 
 class MessageStore {
     let pageSize: Int
-    var roomID: RoomID
-    var messages = [Message]()
-    var totalFetchCount: Int = 0
-    var totalNumberOfMessages: Int = 0
+    let roomID: RoomID
+
+    private(set) var messages = [Message]() {
+        didSet {
+            if let first = messages.first, first.date < newestFetched {
+                newestFetched = first.date
+                totalFetchCount += messages.count
+            }
+        }
+    }
+
+    private(set) var totalFetchCount: Int = 0
+    private(set) var totalNumberOfMessages: Int = 0
+    private(set) var newestFetched: Date = Date()
 
     private let database: Database
 
@@ -89,8 +99,12 @@ class MessageStore {
         }
     }
 
-    func delete(_: Message) -> Result<Void> {
-        return .Value(())
+    func delete(_ record: Message) -> Result<Bool> {
+        return Result {
+            try database.dbQueue.write { db in
+                return try record.delete(db)
+            }
+        }
     }
 
     func fetchEarlier() -> Result<Int> {

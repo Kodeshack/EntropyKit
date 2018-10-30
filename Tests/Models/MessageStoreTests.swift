@@ -19,20 +19,42 @@ class MessageStoreTests: XCTestCase {
         super.tearDown()
     }
 
-//    func testInsert() {
-//        let user = User(id: "user_id")
-//        try! user.save(database: database)
-//        let room = Room(id: "room_id")
-//        try! room.save(database: database)
-//
-//        let store = MessageStore(database: database)
-//        let message = Message(id: "message_id", roomID: room.id, date: Date(), senderID: user.id, type: .text, body: "body")
-//
-//        XCTAssertNil(store.save(message).error)
-//
-//        let dbMsg = try! store.fetch(key: "message_id").dematerialize()
-//        XCTAssertNotNil(dbMsg)
-//    }
+    func testInsert() {
+        let user = User(id: "user_id")
+        try! user.save(database: database)
+        let room = Room(id: "room_id")
+        try! room.save(database: database)
+
+        let store = MessageStore(database: database, roomID: room.id)
+        let message = Message(id: "message_id", roomID: room.id, date: Date(), senderID: user.id, type: .text, body: "body")
+
+        XCTAssertNil(store.save(message).error)
+
+        let dbMsg = try! store.fetch(key: "message_id").dematerialize()
+        XCTAssertNotNil(dbMsg)
+    }
+
+
+    func testDelete() {
+        let user = User(id: "user_id")
+        try! user.save(database: database)
+        let room = Room(id: "room_id")
+        try! room.save(database: database)
+
+        let store = MessageStore(database: database, roomID: room.id)
+        let message = Message(id: "message_id", roomID: room.id, date: Date(), senderID: user.id, type: .text, body: "body")
+
+        XCTAssertNil(store.save(message).error)
+
+        var dbMsg = try! store.fetch(key: "message_id").dematerialize()
+        XCTAssertNotNil(dbMsg)
+
+        XCTAssert(try! store.delete(message).dematerialize())
+
+        dbMsg = try! store.fetch(key: "message_id").dematerialize()
+        XCTAssertNil(dbMsg)
+    }
+
 
     func testWindow() {
         let user1 = User(id: "user_1")
@@ -55,32 +77,38 @@ class MessageStoreTests: XCTestCase {
         }
 
         XCTAssertEqual(try! store.fetchLater().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 25)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 25 + i].id)
         }
 
         XCTAssertEqual(try! store.fetchEarlier().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 50)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 50 + i].id)
         }
 
         XCTAssertEqual(try! store.fetchLater().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 50)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 25 + i].id)
         }
 
         XCTAssertEqual(try! store.fetchEarlier().dematerialize(), 25)
         XCTAssertEqual(try! store.fetchEarlier().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 75)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 75 + i].id)
         }
 
         XCTAssertEqual(try! store.fetchLater().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 75)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 50 + i].id)
         }
 
         XCTAssertEqual(try! store.fetchLater().dematerialize(), 25)
+        XCTAssertEqual(store.totalFetchCount, 75)
         (0 ... 24).forEach { i in
             XCTAssertEqual(store.messages[i].id, messages[messages.count - 25 + i].id)
         }

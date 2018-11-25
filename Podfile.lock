@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - GRDB.swift (3.5.0)
   - OHHTTPStubs/Core (6.1.0)
   - OHHTTPStubs/Default (6.1.0):
@@ -19,7 +19,7 @@ PODS:
     - OLMKit/olmcpp (= 3.0.0)
   - OLMKit/olmc (3.0.0)
   - OLMKit/olmcpp (3.0.0)
-  - SwiftFormat/CLI (0.35.7)
+  - SwiftFormat/CLI (0.35.8)
 
 DEPENDENCIES:
   - Alamofire
@@ -37,11 +37,11 @@ SPEC REPOS:
     - SwiftFormat
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   GRDB.swift: 225cf9c1354753e92e20c2a1fa2912b924c9da6e
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   OLMKit: 88eda69110489f817d59bcb4353b7c247570aa4f
-  SwiftFormat: d97eadc55d4e02d04cf1f03b8a2d6ff5b6cdb2fd
+  SwiftFormat: 5af0a2c27175163c317c88b00ae7b6f971a7822a
 
 PODFILE CHECKSUM: 23941cc7f9046c1062094188b32d46d4dfbeda7b
 

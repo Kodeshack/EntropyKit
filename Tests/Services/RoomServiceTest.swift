@@ -72,8 +72,8 @@ class RoomServiceTests: XCTestCase {
 
         stub(condition: { request in
             guard
-                request.url!.absoluteString.hasSuffix("/_matrix/client/r0/rooms/!wakeful_pigs:kodeshack/send/m.room.message/0?access_token=togepi")
-                && request.httpMethod == "PUT"
+                request.url!.absoluteString.hasSuffix("/_matrix/client/r0/rooms/!wakeful_pigs:kodeshack/send/m.room.message/0?access_token=togepi"),
+                request.httpMethod == "PUT"
             else { return false }
 
             let data = request.ohhttpStubs_httpBody!

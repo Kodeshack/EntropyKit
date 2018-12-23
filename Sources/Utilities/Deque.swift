@@ -65,7 +65,7 @@ struct Deque<T> {
         array[head] = nil
         head += 1
 
-        if capacity >= originalCapacity && head >= capacity * 2 {
+        if capacity >= originalCapacity, head >= capacity * 2 {
             let amountToRemove = capacity + capacity / 2
             array.removeFirst(amountToRemove)
             head -= amountToRemove

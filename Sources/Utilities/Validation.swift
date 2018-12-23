@@ -62,7 +62,7 @@ public class Validation {
             throw ValidationError.emptyHomeserver
         }
 
-        if !homeserverString.lowercased().hasPrefix("http://") && !homeserverString.lowercased().hasPrefix("https://") {
+        if !homeserverString.lowercased().hasPrefix("http://"), !homeserverString.lowercased().hasPrefix("https://") {
             homeserverString = "https://\(homeserverString)"
         }
 

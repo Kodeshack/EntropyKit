@@ -168,7 +168,7 @@ class E2EEService {
     /// ∀ d ∈ DB \ devices, delete d
     private func removeOldDevices(userIDs: [UserID], devices: [Device]) -> Result<Void> {
         return Result {
-            guard !userIDs.isEmpty && !devices.isEmpty else {
+            guard !userIDs.isEmpty, !devices.isEmpty else {
                 return
             }
 

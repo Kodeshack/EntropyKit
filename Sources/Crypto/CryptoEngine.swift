@@ -147,7 +147,7 @@ class CryptoEngine {
             // this will be true even if we're still handling an item
             // that was popped but not yet fully dealt with...
             // maybe check the current state, or check if currently in an transition
-            if needsWakeUp && self.state == .ready {
+            if needsWakeUp, self.state == .ready {
                 self.run()
             }
         }

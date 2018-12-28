@@ -61,7 +61,7 @@ class SyncServiceTests: XCTestCase {
 
         s.sync {}
 
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 90)
     }
 }
 

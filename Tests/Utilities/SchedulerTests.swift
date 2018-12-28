@@ -16,7 +16,7 @@ class SchedulerTests: XCTestCase {
             s.stop()
         }
 
-        waitForExpectations(timeout: 2)
+        waitForExpectations(timeout: 10)
     }
 
     func testScheduledRepeatedAction() {
@@ -34,6 +34,6 @@ class SchedulerTests: XCTestCase {
             completionHandler()
         }
 
-        waitForExpectations(timeout: 2)
+        waitForExpectations(timeout: 10)
     }
 }

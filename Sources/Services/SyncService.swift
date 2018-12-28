@@ -121,13 +121,13 @@ class SyncService {
             }
 
             self.logger?.log("ended", type: .info)
-            let result = self.transformResponse(syncResponse)
+            var result = self.transformResponse(syncResponse)
 
             switch result {
             case let .Error(error):
                 self.logger?.log("after transform", type: .error, error: error)
             case let .Value(value):
-                self.writeResultToDB(value)
+                result = self.writeResultToDB(value)
                 if value.events.first(where: { e in e.type == .encryption }) != nil {
                     self.e2eeService.announceDevice(account: self.account)
                 }
@@ -138,7 +138,7 @@ class SyncService {
         }
     }
 
-    private func writeResultToDB(_ result: SyncResult) {
+    private func writeResultToDB(_ result: SyncResult) -> Result<SyncResult> {
         var result = result
 
         if !result.devicesChanged.isEmpty {
@@ -185,7 +185,7 @@ class SyncService {
         } catch {
             print(error)
             logger?.log("while trying to save to the database", type: .error, error: error)
-            return
+            return .Error(error)
         }
 
         result.events.filter { $0.type == .member }.forEach { event in
@@ -196,6 +196,6 @@ class SyncService {
             account.updateOTKCount(otkCount)
         }
 
-        delegate?.syncEnded(.Value(result))
+        return .Value(result)
     }
 }

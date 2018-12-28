@@ -35,12 +35,17 @@ class SyncServiceTests: XCTestCase {
             )
         }
         let exp = expectation(description: "sync request")
-        let account = Account(userID: "@NotBob:kodeshack", accessToken: "foo", deviceID: "bar", nextBatch: "", cryptoEngine: CryptoEngine())
+        let user = try! User.create(id: "@NotBob:kodeshack", database: database)
+        let account = Account(user: user, accessToken: "foo", deviceID: "bar", nextBatch: "", cryptoEngine: nil)
+        try! database.dbQueue.write { db in
+            try! account.save(db)
+        }
         let s = SyncService(account: account, database: database, timeout: 100)
 
         let delegate = SyncServiceTestsDelegate(cbSyncStart: {}, cbSyncEnd: { result in
+            defer { exp.fulfill() }
             guard case let .Value(value) = result else {
-                XCTFail()
+                XCTFail(result.error!.localizedDescription)
                 return
             }
 
@@ -53,8 +58,6 @@ class SyncServiceTests: XCTestCase {
             XCTAssertEqual(value.events.filter({ $0.type == .name }).count, 1)
             XCTAssertEqual(value.otkCount, 10)
             XCTAssertEqual(value.devicesChanged, ["@alice:example.com"])
-
-            exp.fulfill()
         })
 
         s.delegate = delegate

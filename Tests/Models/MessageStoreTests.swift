@@ -34,7 +34,6 @@ class MessageStoreTests: XCTestCase {
         XCTAssertNotNil(dbMsg)
     }
 
-
     func testDelete() {
         let user = User(id: "user_id")
         try! user.save(database: database)
@@ -54,7 +53,6 @@ class MessageStoreTests: XCTestCase {
         dbMsg = try! store.fetch(key: "message_id").dematerialize()
         XCTAssertNil(dbMsg)
     }
-
 
     func testWindow() {
         let user1 = User(id: "user_1")
@@ -122,7 +120,6 @@ class MessageStoreTests: XCTestCase {
         let room = Room(id: "room_id")
         try! room.save(database: database)
 
-
         var messages = [Message]()
 
         var lastDate = Date(timeIntervalSince1970: 795_398_400)
@@ -150,7 +147,6 @@ class MessageStoreTests: XCTestCase {
         let room = Room(id: "room_id")
         try! room.save(database: database)
 
-
         var messages = [Message]()
 
         var lastDate = Date(timeIntervalSince1970: 795_398_400)
@@ -177,7 +173,6 @@ class MessageStoreTests: XCTestCase {
         try! user2.save(database: database)
         let room = Room(id: "room_id")
         try! room.save(database: database)
-
 
         var messages = [Message]()
 

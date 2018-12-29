@@ -110,9 +110,9 @@ class MessageStore {
     }
 
     private func fetchInit() throws {
-        let newMessages = try self.fetchAll(order: "ASC").dematerialize()
+        let newMessages = try fetchAll(order: "ASC").dematerialize()
         if newMessages.count != 0 {
-            self.messages = newMessages.reversed() // TODO: handle this in fetchRelativeMessage
+            messages = newMessages.reversed() // TODO: handle this in fetchRelativeMessage
         }
     }
 

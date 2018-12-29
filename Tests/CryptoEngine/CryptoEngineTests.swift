@@ -185,7 +185,6 @@ class CryptoEngineTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
 
-
         waitForExpectations(timeout: 1)
     }
 

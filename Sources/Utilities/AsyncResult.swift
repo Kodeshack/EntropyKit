@@ -20,7 +20,7 @@ public final class AsyncResult<T> {
         do {
             value = try immediate()
             state = .resolved
-        } catch let error {
+        } catch {
             state = .errored
             self.error = error
         }
@@ -43,7 +43,7 @@ public final class AsyncResult<T> {
             }.catch { error in
                 self.reject(with: error)
             }
-        } catch let error {
+        } catch {
             state = .errored
             self.error = error
         }
@@ -103,7 +103,7 @@ public final class AsyncResult<T> {
         let resolver: (T) -> Void = { value in
             do {
                 nextResult.resolve(with: try block(value))
-            } catch let error {
+            } catch {
                 nextResult.reject(with: error)
             }
         }
@@ -136,7 +136,7 @@ public final class AsyncResult<T> {
                 nextValue.map { nv in
                     nextResult.resolve(with: nv)
                 }
-            } catch let error {
+            } catch {
                 nextResult.reject(with: error)
             }
         }

@@ -16,14 +16,16 @@ class MessageStore {
     private(set) var totalFetchCount: Int = 0
     private(set) var totalNumberOfMessages: Int = 0
     private(set) var newestFetched: Date = Date()
+    private var messageIndexOffset: Int = 0
 
     private let database: Database
 
-    required init(database: Database, roomID: RoomID, pageSize: Int = 50, numPages _: Int = 3) {
+    required init(database: Database, roomID: RoomID, pageSize: Int = 50, numPages _: Int = 3) throws {
         self.database = database
         self.pageSize = pageSize
         self.roomID = roomID
         self.database.dbQueue.add(transactionObserver: self, extent: .observerLifetime)
+        try fetchInit()
     }
 
     private func fetchAll(order: String) -> Result<[Message]> {
@@ -51,7 +53,7 @@ class MessageStore {
                 AND \(messagesDateColumn) \((order == "DESC") ? "<" : ">") ?
                 ORDER BY \(messagesDateColumn) \(order)
                 """
-            date = (order == "DESC") ? first.date : messages.last!.date
+            date = (order == "DESC") ? first.date : messages.last!.date // if there's a first, there MUST also be a last
         } else {
             whereAndOrder =
                 """
@@ -107,13 +109,31 @@ class MessageStore {
         }
     }
 
+    private func fetchInit() throws {
+        let newMessages = try self.fetchAll(order: "ASC").dematerialize()
+        if newMessages.count != 0 {
+            self.messages = newMessages.reversed() // TODO: handle this in fetchRelativeMessage
+        }
+    }
+
     func fetchEarlier() -> Result<Int> {
         return Result {
             let newMessages = try self.fetchAll(order: "DESC").dematerialize()
             if newMessages.count != 0 {
                 self.messages.removeAll()
-                self.messages = newMessages.reversed()
+                self.messages = newMessages.reversed() // TODO: handle this in fetchRelativeMessage
             }
+
+            // Because this was intended to be used with NSTableView (the best API) the offset can never
+            // be less than zero. The NSTableView acts as (another) window into the database which can only grow.
+            // The first/top item in the NSTableView must always have index 0.
+            // Our window can never contain older messages than the NSTableView it is serving which means they must
+            // always appear to be the same size.
+            // Whenever we fetch earlier messages that are not (yet) known to the NSTableView we must grow the NSTableView's "window"
+            // and the offset doesn't need to change (0 in the NSTableView will map to the 0 in our newley fetched messages array).
+            // NOTE: This only applies to fetching older messages, not newer messages.
+            messageIndexOffset = max(messageIndexOffset - newMessages.count, 0)
+
             return newMessages.count
         }
     }
@@ -122,15 +142,20 @@ class MessageStore {
         return Result {
             let newMessages = try self.fetchAll(order: "ASC").dematerialize()
             if newMessages.count != 0 {
-                if self.messages.count == 0 {
-                    self.messages = newMessages.reversed()
-                } else {
-                    self.messages.removeAll()
-                    self.messages = newMessages
-                }
+                self.messages.removeAll()
+                self.messages = newMessages
             }
+
+            messageIndexOffset += newMessages.count
+
             return newMessages.count
         }
+    }
+
+    func fetchRelativeMessage(index: Int) -> Message? {
+        let i = index - messageIndexOffset
+        guard i >= 0, i < messages.count else { return nil }
+        return messages[i]
     }
 }
 

@@ -33,13 +33,13 @@ public class Message: Record {
         type = MessageType(rawValue: row[Database.v0.messages.type])!
         body = row[Database.v0.messages.body]
 
-        if let user = row.scopes["user"] {
+        if let user = row.scopes[Database.v0.users.table] {
             sender = User(row: user)
         }
 
         super.init(row: row)
 
-        if type == .image || type == .file {
+        if type == .image || type == .file || type == .audio || type == .video {
             if let attachment = row.scopes[Database.v0.attachments.table] {
                 self.attachment = Attachment(row: attachment)
             }
@@ -130,8 +130,8 @@ extension Message {
         let messageID = Database.v0.messages.id
 
         let suffixAdapters: [String: RowAdapter] = [
-            "user": SuffixRowAdapter(fromIndex: 1),
-            "image": SuffixRowAdapter(fromIndex: 2),
+            Database.v0.users.table: SuffixRowAdapter(fromIndex: 1),
+            Database.v0.attachments.table: SuffixRowAdapter(fromIndex: 2),
         ]
 
         let sql =

@@ -169,3 +169,9 @@ extension Attachment.Info {
         }
     }
 }
+
+extension Attachment {
+    enum AttachmentError: Error {
+        case missingAttachment
+    }
+}

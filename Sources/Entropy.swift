@@ -104,10 +104,34 @@ extension Entropy {
             }
         }
 
+        public func thumbnail(for message: Message, completionHandler: @escaping (Result<UIImage>, Message) -> Void) {
+            ImageService.loadThumbnail(for: message) { result in
+                completionHandler(result, message)
+            }
+        }
+
+        public func image(for message: Message, completionHandler: @escaping (Result<UIImage>, Message) -> Void) {
+            ImageService.loadImage(for: message) { result in
+                completionHandler(result, message)
+            }
+        }
+
     #elseif canImport(AppKit)
         public func avatar(for userID: UserID, completionHandler: @escaping (Result<NSImage?>, UserID) -> Void) {
             UserService.loadAvatar(userID: userID) { result in
                 completionHandler(result, userID)
+            }
+        }
+
+        public func thumbnail(for message: Message, completionHandler: @escaping (Result<NSImage>, Message) -> Void) {
+            ImageService.loadThumbnail(for: message) { result in
+                completionHandler(result, message)
+            }
+        }
+
+        public func image(for message: Message, completionHandler: @escaping (Result<NSImage>, Message) -> Void) {
+            ImageService.loadImage(for: message) { result in
+                completionHandler(result, message)
             }
         }
     #endif

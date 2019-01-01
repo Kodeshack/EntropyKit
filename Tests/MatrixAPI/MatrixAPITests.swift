@@ -55,6 +55,56 @@ class MatrixAPITests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
+    // MARK: Files
+
+    func testDownloadFile() {
+        let exp = expectation(description: "downloadFile")
+
+        stub(condition: pathStartsWith("/_matrix/media/")) { _ in
+            OHHTTPStubsResponse(
+                fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
+                statusCode: 200,
+                headers: nil
+            )
+        }
+
+        MatrixAPI.default.downloadFile(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!) { result in
+            XCTAssertNil(result.error)
+            XCTAssertNotNil(result.value)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testDownloadEncryptedFile() throws {
+        let exp = expectation(description: "downloadEncryptedFile")
+
+        let data = try Data(contentsOf: URL(fileURLWithPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!))
+        let encryptedData = "LgyZH4o2wqxw59Ggb0foZHSq3X7rTrs/1bvgl9SPAPxfxy+ecZbP1pxjahiWG9IJoMulxCxAN2zTiNPEF0I+8oIJXNRXH9rxHT4hBYBQONrH/w=="
+
+        stub(condition: pathStartsWith("/_matrix/media/")) { _ in
+            OHHTTPStubsResponse(
+                data: Data(base64Encoded: encryptedData)!,
+                statusCode: 200,
+                headers: nil
+            )
+        }
+
+        let keyData = Data(base64Encoded: "8FkpNeWfP6LQKBnW6tjSxKBathYSwhOavJlGMRnbJNk=")!
+        let iv = Base64URL(base64: "CtzULW+iHPYAAAAAAAAAAA==")!
+        let hashes = EncryptedAttachment.EncryptedAttachmentHashes(sha256: "2fUCPPLmL+YDkSosqHJaW1SLOLBK2VDS47UuwYxCZ2w")
+        let key = EncryptedAttachment.EncryptedAttachmentKey.v2KeyInfo(key: keyData)
+        let file = EncryptedAttachment(version: .v2, mxcURL: URL(string: "mxc://testimage.png")!, mimeType: "image/png", size: data.count, iv: iv, key: key, hashes: hashes)
+        let cryptoInfo = Attachment.Info.CryptoInfo(for: file)
+        MatrixAPI.default.downloadFile(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!, cryptoInfo: cryptoInfo) { result in
+            XCTAssertEqual(result.value, data)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
     // MARK: Users
 
     func testGetAvatarURL() {

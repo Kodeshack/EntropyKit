@@ -162,16 +162,38 @@ extension MatrixAPI {
     ///
     /// - Parameters:
     ///   - mxcURL: mxc url to download.
+    ///   - cryptoInfo: Info necessary to decrypt the downloaded data, leave `nil` for unencrypted data.
     ///   - queue: Dispatch queue on which to execute the callback. Defaults to main queue.
     ///   - completionHandler: Called with the resulting NSImage instance (or Error) when the request has ended (whether successfully or unsuccessfully).
-    func downloadImage(mxcURL: URL, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<Image>) -> Void) {
-        createRequest(url: getMediaURL(mxcURL)).responseData(queue: queue) { response in
+    func downloadImage(mxcURL: URL, cryptoInfo: Attachment.Info.CryptoInfo? = nil, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<Image>) -> Void) {
+        downloadFile(mxcURL: mxcURL, cryptoInfo: cryptoInfo, queue: queue) { result in
             completionHandler(Result {
-                let data = try response.result.unwrap()
+                let data = try result.dematerialize()
                 guard let image = Image(data: data) else {
                     throw APIError.invalidFile
                 }
                 return image
+            })
+        }
+    }
+
+    /// Downloads the file from the given mxc URL.
+    ///
+    /// - Parameters:
+    ///   - mxcURL: mxc url to download.
+    ///   - cryptoInfo: Info necessary to decrypt the downloaded data, leave `nil` for unencrypted data.
+    ///   - queue: Dispatch queue on which to execute the callback. Defaults to main queue.
+    ///   - completionHandler: Called with the resulting Data instance (or Error) when the request has ended (whether successfully or unsuccessfully).
+    func downloadFile(mxcURL: URL, cryptoInfo: Attachment.Info.CryptoInfo? = nil, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Result<Data>) -> Void) {
+        createRequest(url: getMediaURL(mxcURL)).responseData(queue: queue) { response in
+            completionHandler(Result {
+                var data = try response.result.unwrap()
+
+                if let cryptoInfo = cryptoInfo {
+                    data = try AttachmentEncryption.decrypt(ciphertext: data, info: cryptoInfo).dematerialize()
+                }
+
+                return data
             })
         }
     }

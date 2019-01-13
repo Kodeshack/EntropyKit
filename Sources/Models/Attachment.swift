@@ -140,14 +140,22 @@ extension Attachment.Info {
             sha256 = file.hashes.sha256
         }
 
-        init(from row: Row, thumbnail: Bool = false) {
+        init?(from row: Row, thumbnail: Bool = false) {
             if !thumbnail {
-                algorithm = EncryptedAttachment.EncryptedAttachmentKey.AttachmentEncyptionKeyAlgorithm(rawValue: row[Database.v0.attachments.algorithm])!
+                let algorithmString: String? = row[Database.v0.attachments.algorithm]
+                guard let algorithm = algorithmString else { return nil }
+
+                self.algorithm = EncryptedAttachment.EncryptedAttachmentKey.AttachmentEncyptionKeyAlgorithm(rawValue: algorithm)!
+
                 key = row[Database.v0.attachments.key]
                 initializationVector = row[Database.v0.attachments.initializationVector]
                 sha256 = row[Database.v0.attachments.sha256]
             } else {
-                algorithm = EncryptedAttachment.EncryptedAttachmentKey.AttachmentEncyptionKeyAlgorithm(rawValue: row[Database.v0.attachments.thumbnailAlgorithm])!
+                let algorithmString: String? = row[Database.v0.attachments.thumbnailAlgorithm]
+                guard let algorithm = algorithmString else { return nil }
+
+                self.algorithm = EncryptedAttachment.EncryptedAttachmentKey.AttachmentEncyptionKeyAlgorithm(rawValue: algorithm)!
+
                 key = row[Database.v0.attachments.thumbnailKey]
                 initializationVector = row[Database.v0.attachments.thumbnailInitializationVector]
                 sha256 = row[Database.v0.attachments.thumbnailSha256]

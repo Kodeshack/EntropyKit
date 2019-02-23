@@ -32,7 +32,7 @@ class E2EEService {
 
                 return try Row.fetchAll(db, sqlRequest)
             }.map { row in
-                return (
+                (
                     roomID: row[0]!,
                     userID: row[1]!
                 )
@@ -58,7 +58,7 @@ class E2EEService {
             return
         }
 
-        guard userRooms.count > 0 else {
+        guard !userRooms.isEmpty else {
             completionHandler(.Value(()))
             return
         }
@@ -97,7 +97,7 @@ class E2EEService {
         return Result {
             try database.dbQueue.inDatabase { db in
                 let deviceKeys = devices.map { d -> [String: String] in
-                    return [Database.v0.devices.id: d.id, Database.v0.devices.userID: d.userID]
+                    [Database.v0.devices.id: d.id, Database.v0.devices.userID: d.userID]
                 }
 
                 let knownDevices = try Device.filter(keys: deviceKeys).fetchAll(db)

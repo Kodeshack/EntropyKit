@@ -106,7 +106,7 @@ extension Room {
             columns.insert(Database.v0.rooms.announced)
         }
 
-        if columns.count != 0 {
+        if !columns.isEmpty {
             try update(db, columns: columns)
         }
     }

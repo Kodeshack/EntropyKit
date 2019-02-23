@@ -146,7 +146,7 @@ class E2EEServiceTests: XCTestCase {
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            return OHHTTPStubsResponse(
+            OHHTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]

@@ -15,10 +15,10 @@ struct KeysClaimRequest: JSONEncodable {
 
         devices
             .forEach { device in
-            var dict = requestedOneTimeKeys[device.userID] ?? [:]
-            dict[device.id] = .signedCurve25519
-            requestedOneTimeKeys[device.userID] = dict
-        }
+                var dict = requestedOneTimeKeys[device.userID] ?? [:]
+                dict[device.id] = .signedCurve25519
+                requestedOneTimeKeys[device.userID] = dict
+            }
 
         oneTimeKeys = requestedOneTimeKeys
     }

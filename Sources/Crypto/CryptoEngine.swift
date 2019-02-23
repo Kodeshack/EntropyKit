@@ -141,7 +141,7 @@ class CryptoEngine {
     /// Must/should no be called from within the crypto engine.
     func enqueue(_ task: CryptoEngineTask) {
         dispatchQueue.async {
-            let needsWakeUp = self.queue.count == 0
+            let needsWakeUp = self.queue.isEmpty
             self.queue.enqueue(task)
 
             // this will be true even if we're still handling an item
@@ -621,7 +621,7 @@ extension CryptoEngine {
             otkObjects = self.account.getOneTimeKeys(keyCountOnServer: count)
         }
 
-        guard let otkos = otkObjects, otkos.count > 0 else {
+        guard let otkos = otkObjects, !otkos.isEmpty else {
             return .ready
         }
 

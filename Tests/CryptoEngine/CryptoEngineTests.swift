@@ -557,7 +557,7 @@ class CryptoEngineTests: XCTestCase {
     }
 }
 
-fileprivate class CryptoEngineTestsDelegate: CryptoEngineDelegate {
+private class CryptoEngineTestsDelegate: CryptoEngineDelegate {
     var errorCB: ((CryptoEngine, Error) -> Void)!
     var startedWorkCB: ((CryptoEngine) -> Void) = { _ in }
     var finishedWorkCB: ((CryptoEngine) -> Void) = { _ in }

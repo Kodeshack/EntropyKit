@@ -140,15 +140,12 @@ extension Event {
             case .invite:
                 // @TODO: logging while not handling
                 logMissingPersistenceFunction(self)
-                break
             case .knock:
                 // @TODO: logging while not handling
                 logMissingPersistenceFunction(self)
-                break
             case .ban:
                 // @TODO: logging while not handling
                 logMissingPersistenceFunction(self)
-                break
             }
         }
     }

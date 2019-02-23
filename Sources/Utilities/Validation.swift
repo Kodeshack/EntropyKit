@@ -34,7 +34,7 @@ public class Validation {
         }
         username = username.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        guard username.count > 0 else {
+        guard !username.isEmpty else {
             throw ValidationError.emptyUsername
         }
 
@@ -46,7 +46,7 @@ public class Validation {
             throw ValidationError.passwordNil
         }
 
-        guard password.count > 0 else {
+        guard !password.isEmpty else {
             throw ValidationError.emptyPassword
         }
 
@@ -58,7 +58,7 @@ public class Validation {
             throw ValidationError.homeserverNil
         }
 
-        guard homeserverString.count > 0 else {
+        guard !homeserverString.isEmpty else {
             throw ValidationError.emptyHomeserver
         }
 

@@ -170,7 +170,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "logout")
 
         stub(condition: pathStartsWith("/_matrix/client/r0/logout")) { _ in
-            return OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
 
         MatrixAPI.default.logout(accessToken: "foo") { error in

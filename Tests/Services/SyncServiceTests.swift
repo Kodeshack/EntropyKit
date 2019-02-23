@@ -68,7 +68,7 @@ class SyncServiceTests: XCTestCase {
     }
 }
 
-fileprivate class SyncServiceTestsDelegate: SyncServiceDelegate {
+private class SyncServiceTestsDelegate: SyncServiceDelegate {
     private let cbSyncStart: () -> Void
     private let cbSyncEnd: (Result<SyncService.SyncResult>) -> Void
 

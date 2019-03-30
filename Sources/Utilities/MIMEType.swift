@@ -12,8 +12,8 @@ class MIMEType {
         }
 
         var magicNumber: UInt16 = 0
-        data.withUnsafeBytes { (bytes: UnsafePointer<UInt16>) in
-            magicNumber = bytes.pointee
+        data.withUnsafeBytes { bytes in
+            magicNumber = bytes.load(as: UInt16.self)
         }
 
         switch magicNumber {

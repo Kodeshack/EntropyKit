@@ -68,8 +68,8 @@ extension ObservablePersistedList {
             return lhs.id == rhs.id
         }
 
-        public var hashValue: Int {
-            return id.hashValue
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
         }
 
         let id: UInt

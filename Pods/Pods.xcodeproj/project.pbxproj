@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -620,15 +620,15 @@
 		01325DA7D89DE99864DAC7B963BD0003 /* OHHTTPStubs-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs-iOS-dummy.m"; sourceTree = "<group>"; };
 		020A976C5AD03ECD5886009FED812357 /* Pods-EntropyKit-macOSTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EntropyKit-macOSTests-umbrella.h"; sourceTree = "<group>"; };
 		02482553C25001CE22072E13F2A0923C /* message.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = message.h; path = include/olm/message.h; sourceTree = "<group>"; };
-		02BABAA9AC3E4DA3879F013935BEAA6A /* session.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = session.cpp; path = src/session.cpp; sourceTree = "<group>"; };
+		02BABAA9AC3E4DA3879F013935BEAA6A /* session.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = session.cpp; path = src/session.cpp; sourceTree = "<group>"; };
 		0347A85832C1A5DC146C6F4063DF055A /* Alamofire-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-iOS-umbrella.h"; sourceTree = "<group>"; };
 		0362DC651CBFEC1BEAF51F9A9ADD5164 /* OLMKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMKit.h; path = xcode/OLMKit/OLMKit.h; sourceTree = "<group>"; };
 		04AAD6D435478DDB14654D15F00EFFC7 /* ValueObservation+FetchableRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+FetchableRecord.swift"; path = "GRDB/ValueObservation/ValueObservation+FetchableRecord.swift"; sourceTree = "<group>"; };
 		0533B51CE8130216CB7FF78DB7E1E687 /* Statement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Statement.swift; path = GRDB/Core/Statement.swift; sourceTree = "<group>"; };
 		05DD5C17C5B5FBD0152B71DAA989DE0D /* SchedulingWatchdog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SchedulingWatchdog.swift; path = GRDB/Core/SchedulingWatchdog.swift; sourceTree = "<group>"; };
 		05E9C9898131D87F9D06283DD2A01FDE /* Pods-EntropyKit-iOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EntropyKit-iOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		06900B359E3B24B28F0F28194C42CEDC /* memory.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = memory.cpp; path = src/memory.cpp; sourceTree = "<group>"; };
-		06DCD9328039A6E4E61FE51AE6DEBA67 /* curve25519-donna.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "curve25519-donna.c"; path = "lib/curve25519-donna/curve25519-donna.c"; sourceTree = "<group>"; };
+		06900B359E3B24B28F0F28194C42CEDC /* memory.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = memory.cpp; path = src/memory.cpp; sourceTree = "<group>"; };
+		06DCD9328039A6E4E61FE51AE6DEBA67 /* curve25519-donna.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = "curve25519-donna.c"; path = "lib/curve25519-donna/curve25519-donna.c"; sourceTree = "<group>"; };
 		0713DEF9EA6B6A7171F32060D992D6B0 /* Pods-EntropyKit-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EntropyKit-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		07AAF700BED8D8FDEE979E16DC1AFA19 /* OLMPkEncryption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMPkEncryption.h; path = xcode/OLMKit/OLMPkEncryption.h; sourceTree = "<group>"; };
 		09EABF47CDFABBB8535E38E03D285E64 /* Date.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Date.swift; path = GRDB/Core/Support/Foundation/Date.swift; sourceTree = "<group>"; };
@@ -637,7 +637,7 @@
 		0BE120115E5ADA9B705D89E4C16C9981 /* ValueObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ValueObserver.swift; path = GRDB/ValueObservation/ValueObserver.swift; sourceTree = "<group>"; };
 		0C2394374FA3E92400C39C7CC31BD214 /* DatabaseQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseQueue.swift; path = GRDB/Core/DatabaseQueue.swift; sourceTree = "<group>"; };
 		0CD6064104A2001951881080019F253D /* Fixits-3.0.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Fixits-3.0.swift"; path = "GRDB/Legacy/Fixits-3.0.swift"; sourceTree = "<group>"; };
-		0CDB4333C4D4A21976FF43CCEC3E4C7C /* GRDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GRDB.framework; path = "GRDB.swift-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CDB4333C4D4A21976FF43CCEC3E4C7C /* GRDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GRDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CFAED74BE5390EB67C768262D3AB245 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+HTTPBodyTesting.m"; path = "OHHTTPStubs/Sources/NSURLSession/NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
 		0DCF4C58A0990EFA091A9E74048BAE91 /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = GRDB/Utils/Utils.swift; sourceTree = "<group>"; };
 		0DD298E72712CB38673355B6DFFCD324 /* DatabaseSchemaCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseSchemaCache.swift; path = GRDB/Core/DatabaseSchemaCache.swift; sourceTree = "<group>"; };
@@ -649,7 +649,7 @@
 		1582C7E05DEAA1E96A23054CD46FB5FB /* Fixits-0.101.1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Fixits-0.101.1.swift"; path = "GRDB/Legacy/Fixits-0.101.1.swift"; sourceTree = "<group>"; };
 		15C604D0121DEF3D1A4E95A0255342DC /* ValueObservation+DatabaseValueConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+DatabaseValueConvertible.swift"; path = "GRDB/ValueObservation/ValueObservation+DatabaseValueConvertible.swift"; sourceTree = "<group>"; };
 		16CFFCA2AB625E328ADD0F667198316B /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
-		1795F00CD8D10781F63293C2ADF2E153 /* sha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = sha256.c; path = "lib/crypto-algorithms/sha256.c"; sourceTree = "<group>"; };
+		1795F00CD8D10781F63293C2ADF2E153 /* sha256.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = sha256.c; path = "lib/crypto-algorithms/sha256.c"; sourceTree = "<group>"; };
 		1914A388455D531EC565D581C8BB990D /* Pods-EntropyKit-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EntropyKit-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1958CC7AA8D9D69C41CEA046CE022C69 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BD410B2B1ED626D6B761EA0E96B5EF2 /* OHHTTPStubs-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OHHTTPStubs-macOS-dummy.m"; path = "../OHHTTPStubs-macOS/OHHTTPStubs-macOS-dummy.m"; sourceTree = "<group>"; };
@@ -658,7 +658,7 @@
 		1E48E1E993BCB72245A2978593A6EAFA /* Pods-EntropyKit-macOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EntropyKit-macOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		1E7F2ADFADA05EC0F7F2483A3816B002 /* OLMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMMessage.h; path = xcode/OLMKit/OLMMessage.h; sourceTree = "<group>"; };
 		1F6300142E5BF3431E9BF2FE2F90B937 /* AssociationRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssociationRequest.swift; path = GRDB/QueryInterface/Association/AssociationRequest.swift; sourceTree = "<group>"; };
-		1F7CCBBE54680ED16B305EBDEEA243F5 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = "Alamofire-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F7CCBBE54680ED16B305EBDEEA243F5 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F26C3AF39F438C5F42F561C2F6CD7 /* RequestProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestProtocols.swift; path = GRDB/QueryInterface/RequestProtocols.swift; sourceTree = "<group>"; };
 		1FCB94BA44530201C50D30459EC669C7 /* Alamofire-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Alamofire-macOS-dummy.m"; path = "../Alamofire-macOS/Alamofire-macOS-dummy.m"; sourceTree = "<group>"; };
 		2120F6A712AC55DC1483DDB2722D351C /* DatabaseDateComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseDateComponents.swift; path = GRDB/Core/Support/Foundation/DatabaseDateComponents.swift; sourceTree = "<group>"; };
@@ -667,7 +667,7 @@
 		22A5E55AD62A50C692B38BF072955824 /* Alamofire-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Alamofire-macOS.xcconfig"; path = "../Alamofire-macOS/Alamofire-macOS.xcconfig"; sourceTree = "<group>"; };
 		2379593DA00462BD849CAC89CDF60EDE /* OLMInboundGroupSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMInboundGroupSession.h; path = xcode/OLMKit/OLMInboundGroupSession.h; sourceTree = "<group>"; };
 		2395E9E90D4E6CFD8B11417F1B789930 /* FTS3+QueryInterfaceRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FTS3+QueryInterfaceRequest.swift"; path = "GRDB/QueryInterface/FTS3+QueryInterfaceRequest.swift"; sourceTree = "<group>"; };
-		24390EFD555DD124430DFF9724065945 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		24390EFD555DD124430DFF9724065945 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		24BAE875BF45D7CED7DFB9BD21B62519 /* ValueObservation+DistinctUntilChanged.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+DistinctUntilChanged.swift"; path = "GRDB/ValueObservation/ValueObservation+DistinctUntilChanged.swift"; sourceTree = "<group>"; };
 		2596B2F97B70CB1622691DDCC522C9EE /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+HTTPBodyTesting.h"; path = "OHHTTPStubs/Sources/NSURLSession/NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
 		25D0666FAAE68B469AC8A184C2354EEE /* OHHTTPStubs+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OHHTTPStubs+NSURLSessionConfiguration.m"; path = "OHHTTPStubs/Sources/NSURLSession/OHHTTPStubs+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
@@ -675,26 +675,26 @@
 		25DA7266EEC67BBDCA04B725A66CE15C /* DatabasePool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabasePool.swift; path = GRDB/Core/DatabasePool.swift; sourceTree = "<group>"; };
 		282C1D746307055616114C50F0C57450 /* FTS5CustomTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS5CustomTokenizer.swift; path = GRDB/FTS/FTS5CustomTokenizer.swift; sourceTree = "<group>"; };
 		299F58DA14937CBDBB76831EB8E09541 /* Pods-EntropyKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EntropyKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		2B09BE762F67B1A07F68CCC7F7A27514 /* outbound_group_session.c */ = {isa = PBXFileReference; includeInIndex = 1; name = outbound_group_session.c; path = src/outbound_group_session.c; sourceTree = "<group>"; };
+		2B09BE762F67B1A07F68CCC7F7A27514 /* outbound_group_session.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = outbound_group_session.c; path = src/outbound_group_session.c; sourceTree = "<group>"; };
 		2B1824BF189CF4AC30EFDBE328887669 /* ForeignKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ForeignKey.swift; path = GRDB/QueryInterface/Association/ForeignKey.swift; sourceTree = "<group>"; };
 		2B7E1CBC48A0C25048143F3894B13452 /* Pods-EntropyKit-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EntropyKit-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2C19A53AFDB101E032808C1E17323B15 /* olm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = olm.h; path = include/olm/olm.h; sourceTree = "<group>"; };
 		2E5B1873BCFD4E55C2CF622095F3C95D /* OHHTTPStubs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OHHTTPStubs.m; path = OHHTTPStubs/Sources/OHHTTPStubs.m; sourceTree = "<group>"; };
-		2F370530BF793CE0955905EA672ED054 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = "Alamofire-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F370530BF793CE0955905EA672ED054 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075AF1794861173ED686ACF91D6A29B /* ValueObservation+Map.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+Map.swift"; path = "GRDB/ValueObservation/ValueObservation+Map.swift"; sourceTree = "<group>"; };
 		30D7AA2E037B4F58D3F21A033B5DB588 /* pickle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pickle.h; path = include/olm/pickle.h; sourceTree = "<group>"; };
-		30DF544C2A19876355ED84FCE26B4844 /* pickle.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = pickle.hh; path = include/olm/pickle.hh; sourceTree = "<group>"; };
+		30DF544C2A19876355ED84FCE26B4844 /* pickle.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = pickle.hh; path = include/olm/pickle.hh; sourceTree = "<group>"; };
 		30EB088958C5A43774C235D169469EB8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		30EB2112E55FD56D2BE6C34D0D815A20 /* GRDB.swift-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GRDB.swift-iOS.xcconfig"; sourceTree = "<group>"; };
 		320DAAF99FFEA4BB32F837E50E2BA0A8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		325D9C1BC0BDC4E09F8FDDFE2399001E /* Pods-EntropyKit-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EntropyKit-macOS-dummy.m"; sourceTree = "<group>"; };
 		32DF0600B13FCC071A9DA258D5003000 /* OLMKit-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "OLMKit-iOS.xcconfig"; sourceTree = "<group>"; };
 		33BE617937819D6930A4E20B05957A15 /* SQLCollatedExpression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLCollatedExpression.swift; path = GRDB/QueryInterface/SQLCollatedExpression.swift; sourceTree = "<group>"; };
-		34B331FDCC75F6FA38186F58B30F39CF /* pk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = pk.cpp; path = src/pk.cpp; sourceTree = "<group>"; };
+		34B331FDCC75F6FA38186F58B30F39CF /* pk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = pk.cpp; path = src/pk.cpp; sourceTree = "<group>"; };
 		3720BC8A5780443FA61564BA444F4EE1 /* sha256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sha256.h; path = "lib/crypto-algorithms/sha256.h"; sourceTree = "<group>"; };
 		3782040E5235A027EFEE08EB9FC06BCC /* DatabaseValueConvertible+Encodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DatabaseValueConvertible+Encodable.swift"; path = "GRDB/Core/Support/StandardLibrary/DatabaseValueConvertible+Encodable.swift"; sourceTree = "<group>"; };
 		3A852EBFCFD18B42D2CAA60E961945A4 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
-		3B4BC29D45AD4C25D74A5A2D677CB095 /* Pods_EntropyKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EntropyKit_macOS.framework; path = "Pods-EntropyKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4BC29D45AD4C25D74A5A2D677CB095 /* Pods_EntropyKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EntropyKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4F8B765A10D8F954A5B4FC61A8951B /* Database.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Database.swift; path = GRDB/Core/Database.swift; sourceTree = "<group>"; };
 		3C1A1E4E430806AD8937079E5511F1A7 /* FTS4.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS4.swift; path = GRDB/FTS/FTS4.swift; sourceTree = "<group>"; };
 		3C272E6C8755D4D89BA13ADF687C9C52 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -704,7 +704,7 @@
 		3F546C94BF85E5A5A05F6FF4823E5002 /* Pods-EntropyKit-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EntropyKit-iOS.modulemap"; sourceTree = "<group>"; };
 		3F7613322DD0440A8B82EA5899343EE9 /* NSNumber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSNumber.swift; path = GRDB/Core/Support/Foundation/NSNumber.swift; sourceTree = "<group>"; };
 		400BB6ABC7B69B8E96C7981ABDB87D9C /* Pods-EntropyKit-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EntropyKit-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		40CF47230DD61BC5DE89336405CC6156 /* message.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = message.hh; path = include/olm/message.hh; sourceTree = "<group>"; };
+		40CF47230DD61BC5DE89336405CC6156 /* message.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = message.hh; path = include/olm/message.hh; sourceTree = "<group>"; };
 		40F66E30E6865AD0BF4DE26D34D08F7E /* OLMSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OLMSession.m; path = xcode/OLMKit/OLMSession.m; sourceTree = "<group>"; };
 		4117D47213A8DA06D2EA39AE8291BE9C /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = GRDB/Utils/Result.swift; sourceTree = "<group>"; };
 		414258D6BC115AC6DEABF0A0999E5DF5 /* FTS5TokenizerDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS5TokenizerDescriptor.swift; path = GRDB/FTS/FTS5TokenizerDescriptor.swift; sourceTree = "<group>"; };
@@ -714,19 +714,19 @@
 		430A85E9178CA72901F66948401AD059 /* Fixits-0.102.0.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Fixits-0.102.0.swift"; path = "GRDB/Legacy/Fixits-0.102.0.swift"; sourceTree = "<group>"; };
 		438A9FB17F5633D0D8BD48DDE7DB144B /* DatabaseMigrator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseMigrator.swift; path = GRDB/Migration/DatabaseMigrator.swift; sourceTree = "<group>"; };
 		464319BBC024DCB0C7D3122C172C0326 /* OLMAccount.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMAccount.h; path = xcode/OLMKit/OLMAccount.h; sourceTree = "<group>"; };
-		466BF1613040FE85336A703DF2BD9F3C /* ratchet.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = ratchet.hh; path = include/olm/ratchet.hh; sourceTree = "<group>"; };
-		47AC05D45AFDC518EDB9D998E5BC576A /* megolm.c */ = {isa = PBXFileReference; includeInIndex = 1; name = megolm.c; path = src/megolm.c; sourceTree = "<group>"; };
+		466BF1613040FE85336A703DF2BD9F3C /* ratchet.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = ratchet.hh; path = include/olm/ratchet.hh; sourceTree = "<group>"; };
+		47AC05D45AFDC518EDB9D998E5BC576A /* megolm.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = megolm.c; path = src/megolm.c; sourceTree = "<group>"; };
 		481B23C03CC597A4636AC87C213A2E86 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		49567B3297CE5914D3DB52258FBE53A2 /* Pods-EntropyKit-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EntropyKit-iOS-umbrella.h"; sourceTree = "<group>"; };
 		4999131C1CA282F770F6079051186602 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B548A9ABE9FE4FB620357B2D1FDF1FC /* Alamofire-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-iOS-prefix.pch"; sourceTree = "<group>"; };
 		4C83F97D750574FDCC368CE2B0FA6657 /* DatabaseValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseValue.swift; path = GRDB/Core/DatabaseValue.swift; sourceTree = "<group>"; };
-		4DC3633C093420A60997A3092A02BA9E /* list.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = list.hh; path = include/olm/list.hh; sourceTree = "<group>"; };
+		4DC3633C093420A60997A3092A02BA9E /* list.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = list.hh; path = include/olm/list.hh; sourceTree = "<group>"; };
 		4E7CCD56680F4919BDB3744698094256 /* SQLExpression+QueryInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SQLExpression+QueryInterface.swift"; path = "GRDB/QueryInterface/SQLExpression+QueryInterface.swift"; sourceTree = "<group>"; };
 		4EF88B492A8351B4D558EB738713E9C7 /* OrderedDictionary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = GRDB/Utils/OrderedDictionary.swift; sourceTree = "<group>"; };
 		4FDCAB3219A2D236D9554771105E0180 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51F6BD40752775DB0D6F7B1A4A898764 /* OHHTTPStubs-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OHHTTPStubs-macOS-prefix.pch"; path = "../OHHTTPStubs-macOS/OHHTTPStubs-macOS-prefix.pch"; sourceTree = "<group>"; };
-		52B02E3674EA36F90B86B48F848A664F /* utility.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = utility.cpp; path = src/utility.cpp; sourceTree = "<group>"; };
+		52B02E3674EA36F90B86B48F848A664F /* utility.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = utility.cpp; path = src/utility.cpp; sourceTree = "<group>"; };
 		549CF2A1ED83634DEA1A1B84F44BED78 /* GRDB.swift-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GRDB.swift-iOS-prefix.pch"; sourceTree = "<group>"; };
 		55AB4D8DBC9FF93C13A1914AFB212720 /* OLMKit-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OLMKit-macOS-umbrella.h"; path = "../OLMKit-macOS/OLMKit-macOS-umbrella.h"; sourceTree = "<group>"; };
 		55C950A51AE3D6F0A45BCA1BB558CFF2 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
@@ -740,23 +740,23 @@
 		5DFE4530857BD316B110B300554A155E /* FTS3Pattern.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS3Pattern.swift; path = GRDB/FTS/FTS3Pattern.swift; sourceTree = "<group>"; };
 		5F331AF7A71128803F9C316CEE0DA4C5 /* DatabaseError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseError.swift; path = GRDB/Core/DatabaseError.swift; sourceTree = "<group>"; };
 		602CE198BDD9AF8A81A7F68583248E8F /* StatementColumnConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatementColumnConvertible.swift; path = GRDB/Core/StatementColumnConvertible.swift; sourceTree = "<group>"; };
-		609E9C46B92CE82BB7E236D01F764CCE /* account.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = account.cpp; path = src/account.cpp; sourceTree = "<group>"; };
+		609E9C46B92CE82BB7E236D01F764CCE /* account.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = account.cpp; path = src/account.cpp; sourceTree = "<group>"; };
 		60BDE15A54A73779B0853DA265F03A86 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6217F0C8D3DE09735A87F47AA1635AB3 /* OLMSerializable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMSerializable.h; path = xcode/OLMKit/OLMSerializable.h; sourceTree = "<group>"; };
 		62E5C5A573B35B7DD6FEA7774DD3501D /* Alamofire-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Alamofire-macOS-prefix.pch"; path = "../Alamofire-macOS/Alamofire-macOS-prefix.pch"; sourceTree = "<group>"; };
 		63176F4BAE4B6E4677C34C0FFE81385A /* AssociationQuery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssociationQuery.swift; path = GRDB/QueryInterface/Association/AssociationQuery.swift; sourceTree = "<group>"; };
-		63630BB262703C2D21993CC2F681CA3F /* ed25519.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ed25519.c; path = src/ed25519.c; sourceTree = "<group>"; };
+		63630BB262703C2D21993CC2F681CA3F /* ed25519.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ed25519.c; path = src/ed25519.c; sourceTree = "<group>"; };
 		6395D4A4A33486DEF766CC7DA51ADA33 /* PersistableRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PersistableRecord.swift; path = GRDB/Record/PersistableRecord.swift; sourceTree = "<group>"; };
-		63DDEE37EB974C8CE7A727BCAC01A53B /* olm.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = olm.cpp; path = src/olm.cpp; sourceTree = "<group>"; };
+		63DDEE37EB974C8CE7A727BCAC01A53B /* olm.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = olm.cpp; path = src/olm.cpp; sourceTree = "<group>"; };
 		640402F10919B89D9762D0C60D724726 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
 		65C2746DE387EC4E5E5788CDF65B14D6 /* OHHTTPStubsResponse+JSON.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OHHTTPStubsResponse+JSON.m"; path = "OHHTTPStubs/Sources/JSON/OHHTTPStubsResponse+JSON.m"; sourceTree = "<group>"; };
 		6658EEF787D4FB9F12B6AC346B5DF533 /* Pods-EntropyKit-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EntropyKit-iOSTests.modulemap"; sourceTree = "<group>"; };
 		66CD0BE28809F1BCF8BCE6E166408043 /* ValueObservation+MapReducer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+MapReducer.swift"; path = "GRDB/ValueObservation/ValueObservation+MapReducer.swift"; sourceTree = "<group>"; };
 		681174DC73BA9EB8182B80A72DC1A970 /* Alamofire-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Alamofire-iOS.xcconfig"; sourceTree = "<group>"; };
 		68E2498180ED8CB5808C4EB5E1B00005 /* OHHTTPStubs-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "OHHTTPStubs-iOS.modulemap"; sourceTree = "<group>"; };
-		69283BF28EB7705473354543501A4262 /* OLMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OLMKit.framework; path = "OLMKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6938AE26A3E512E17B47FBE360371578 /* OLMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OLMKit.framework; path = "OLMKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		694D3A03EFE24158E4BA1C6255917A89 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OHHTTPStubs.framework; path = "OHHTTPStubs-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69283BF28EB7705473354543501A4262 /* OLMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OLMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6938AE26A3E512E17B47FBE360371578 /* OLMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OLMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		694D3A03EFE24158E4BA1C6255917A89 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OHHTTPStubs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		697391AD06621AE90BCF53B1D9F96EBC /* HasOneAssociation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HasOneAssociation.swift; path = GRDB/QueryInterface/Association/HasOneAssociation.swift; sourceTree = "<group>"; };
 		699E622B8774ECA0D024C4F94AF1ED63 /* aes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = aes.h; path = "lib/crypto-algorithms/aes.h"; sourceTree = "<group>"; };
 		6B31B1EBF0AEED49A1D6B7C1480492CB /* SQLFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLFunctions.swift; path = GRDB/QueryInterface/Support/SQLFunctions.swift; sourceTree = "<group>"; };
@@ -771,7 +771,7 @@
 		71EA4EA34BFDC17D6A3A59F07ED6F612 /* ValueObservation+CompactMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ValueObservation+CompactMap.swift"; path = "GRDB/ValueObservation/ValueObservation+CompactMap.swift"; sourceTree = "<group>"; };
 		724CE1029923682B9B369395AB95FCAA /* GRDB.swift-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GRDB.swift-macOS-dummy.m"; path = "../GRDB.swift-macOS/GRDB.swift-macOS-dummy.m"; sourceTree = "<group>"; };
 		726E5E65E23B38A7A7D79A583DD0309E /* NSData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSData.swift; path = GRDB/Core/Support/Foundation/NSData.swift; sourceTree = "<group>"; };
-		7385DFFFCC2684EE05CDC583B8081688 /* base64.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = base64.hh; path = include/olm/base64.hh; sourceTree = "<group>"; };
+		7385DFFFCC2684EE05CDC583B8081688 /* base64.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = base64.hh; path = include/olm/base64.hh; sourceTree = "<group>"; };
 		743AB5CF35435444EA97277E28BB9DAE /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
 		758FE9495797CDAB797518989EC84E5B /* GRDB-Bridging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GRDB-Bridging.h"; path = "Support/GRDB-Bridging.h"; sourceTree = "<group>"; };
 		7629D83E002DF4EA5CCDF55E4CCB3E04 /* GRDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GRDB.h; path = Support/GRDB.h; sourceTree = "<group>"; };
@@ -793,8 +793,8 @@
 		851C0CE0F133289606F461A2B4E7497A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8526D659DF5F80B7D9C38320E45243AF /* Pods-EntropyKit-macOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EntropyKit-macOSTests.modulemap"; sourceTree = "<group>"; };
 		8590487DCC6CF0D5927DDE9D6937B413 /* Compatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Compatibility.h; path = OHHTTPStubs/Sources/Compatibility.h; sourceTree = "<group>"; };
-		85B31FB2C619EBFA298C35301A7C0035 /* session.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = session.hh; path = include/olm/session.hh; sourceTree = "<group>"; };
-		85E7BD1DEA188EC533EDD3CFC400BC74 /* Pods_EntropyKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EntropyKit_iOS.framework; path = "Pods-EntropyKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85B31FB2C619EBFA298C35301A7C0035 /* session.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = session.hh; path = include/olm/session.hh; sourceTree = "<group>"; };
+		85E7BD1DEA188EC533EDD3CFC400BC74 /* Pods_EntropyKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EntropyKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8619F094A2036E818012EA6A5830186D /* Alamofire-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "Alamofire-macOS.modulemap"; path = "../Alamofire-macOS/Alamofire-macOS.modulemap"; sourceTree = "<group>"; };
 		8635F35669790BD7877A87350D62DE65 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../OHHTTPStubs-macOS/Info.plist"; sourceTree = "<group>"; };
 		864CEDB680B45E9699E64FDD2802B12E /* Pods-EntropyKit-iOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EntropyKit-iOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -822,19 +822,19 @@
 		949CAE8F361B88BEA3B91893189267C4 /* DatabaseSnapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseSnapshot.swift; path = GRDB/Core/DatabaseSnapshot.swift; sourceTree = "<group>"; };
 		94BFC1F98EFF958B801FBECA1E35F9BD /* OHHTTPStubsResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OHHTTPStubsResponse.m; path = OHHTTPStubs/Sources/OHHTTPStubsResponse.m; sourceTree = "<group>"; };
 		95DF09ED4C350800B0E5BB6E29137D6F /* SQLOrdering.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLOrdering.swift; path = GRDB/QueryInterface/SQLOrdering.swift; sourceTree = "<group>"; };
-		96505E4B48FCB4496147523C0F98F921 /* error.c */ = {isa = PBXFileReference; includeInIndex = 1; name = error.c; path = src/error.c; sourceTree = "<group>"; };
+		96505E4B48FCB4496147523C0F98F921 /* error.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = error.c; path = src/error.c; sourceTree = "<group>"; };
 		968FB5B5C658800976124C22C71ADAA3 /* OHHTTPStubs-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OHHTTPStubs-macOS-umbrella.h"; path = "../OHHTTPStubs-macOS/OHHTTPStubs-macOS-umbrella.h"; sourceTree = "<group>"; };
 		97A99D016AD7B5776F3BD506829ED188 /* Pods-EntropyKit-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EntropyKit-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		98993CF0B07BA0515950079A1CE32221 /* aes.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aes.c; path = "lib/crypto-algorithms/aes.c"; sourceTree = "<group>"; };
+		98993CF0B07BA0515950079A1CE32221 /* aes.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = aes.c; path = "lib/crypto-algorithms/aes.c"; sourceTree = "<group>"; };
 		99375ADC434DFB043021B03CCA7E7E33 /* DatabaseRegion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseRegion.swift; path = GRDB/Core/DatabaseRegion.swift; sourceTree = "<group>"; };
 		9A478742EEB5DE66DC4D5640C6540001 /* Pods-EntropyKit-macOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EntropyKit-macOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		9A9818BC9F7A139675CBAC2906A5D367 /* crypto.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto.cpp; path = src/crypto.cpp; sourceTree = "<group>"; };
-		9AD41223E671883E6BB4C7ED349587D3 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OHHTTPStubs.framework; path = "OHHTTPStubs-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A9818BC9F7A139675CBAC2906A5D367 /* crypto.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = crypto.cpp; path = src/crypto.cpp; sourceTree = "<group>"; };
+		9AD41223E671883E6BB4C7ED349587D3 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OHHTTPStubs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C88F3D02809403EB84DBEBA6EB8BAAA /* VirtualTableModule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VirtualTableModule.swift; path = GRDB/QueryInterface/VirtualTableModule.swift; sourceTree = "<group>"; };
 		9CDC6BBC5F45369E0FB82EA88446E276 /* ValueObservation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ValueObservation.swift; path = GRDB/ValueObservation/ValueObservation.swift; sourceTree = "<group>"; };
 		9D7D8F8DB9C02D09E58F31C72794FDBA /* Inflections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Inflections.swift; path = GRDB/Utils/Inflections.swift; sourceTree = "<group>"; };
 		9DE2C870B3D75EBCEEF642D08F58B65D /* Database+Statements.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Database+Statements.swift"; path = "GRDB/Core/Database+Statements.swift"; sourceTree = "<group>"; };
-		9E0FA1E2BDBC71607694DFACD00FCC87 /* account.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = account.hh; path = include/olm/account.hh; sourceTree = "<group>"; };
+		9E0FA1E2BDBC71607694DFACD00FCC87 /* account.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = account.hh; path = include/olm/account.hh; sourceTree = "<group>"; };
 		9E85029A297BCD9315ED4DC657CDB979 /* OLMKit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OLMKit-iOS-prefix.pch"; sourceTree = "<group>"; };
 		9EA4A563942BD9D0BCD4EBF90168E862 /* error.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = error.h; path = include/olm/error.h; sourceTree = "<group>"; };
 		9F019245E5BF7F56094D96CD6F27450F /* TransactionObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransactionObserver.swift; path = GRDB/Core/TransactionObserver.swift; sourceTree = "<group>"; };
@@ -852,30 +852,30 @@
 		A7AC927CC7429593CA423BF4801BA0F3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		A8ADEC304A00102E9AC9B9B2447E8BD7 /* NSNull.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSNull.swift; path = GRDB/Core/Support/Foundation/NSNull.swift; sourceTree = "<group>"; };
 		A9049334D7394EAA6F2CC22EA06B7FC7 /* Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Data.swift; path = GRDB/Core/Support/Foundation/Data.swift; sourceTree = "<group>"; };
-		A9BDE275DF916972239889E5110EAE57 /* Pods_EntropyKit_macOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EntropyKit_macOSTests.framework; path = "Pods-EntropyKit-macOSTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9BDE275DF916972239889E5110EAE57 /* Pods_EntropyKit_macOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EntropyKit_macOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC35D1FB16FD482D28E4CD172DBF6E5 /* NSString.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSString.swift; path = GRDB/Core/Support/Foundation/NSString.swift; sourceTree = "<group>"; };
 		AB2E37AF32F64B7BACC9D2481AB2696C /* DatabaseValueConvertible+ReferenceConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DatabaseValueConvertible+ReferenceConvertible.swift"; path = "GRDB/Core/Support/Foundation/DatabaseValueConvertible+ReferenceConvertible.swift"; sourceTree = "<group>"; };
 		AB9401AAE2232B1FC79FDF0C6A77BFDA /* Fixits-0.109.0.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Fixits-0.109.0.swift"; path = "GRDB/Legacy/Fixits-0.109.0.swift"; sourceTree = "<group>"; };
 		AD30E346E372685C4BFEF22C35CAC49D /* FTS5+QueryInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FTS5+QueryInterface.swift"; path = "GRDB/QueryInterface/FTS5+QueryInterface.swift"; sourceTree = "<group>"; };
 		AE394DF04DDFE96D55F481A72A55CA12 /* DatabaseRegionObservation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseRegionObservation.swift; path = GRDB/Core/DatabaseRegionObservation.swift; sourceTree = "<group>"; };
-		AE6298C9588E5DC8B220F9E9E6776710 /* cipher.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = cipher.cpp; path = src/cipher.cpp; sourceTree = "<group>"; };
+		AE6298C9588E5DC8B220F9E9E6776710 /* cipher.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = cipher.cpp; path = src/cipher.cpp; sourceTree = "<group>"; };
 		AF4EDEE605908CAF439481960B29E843 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		AF929C12F43E6C05D767031C4BCB9E10 /* Alamofire-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-iOS-dummy.m"; sourceTree = "<group>"; };
 		B00388C7DE4E544ED8E67D59E7A9C0C7 /* OLMAccount.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OLMAccount.m; path = xcode/OLMKit/OLMAccount.m; sourceTree = "<group>"; };
-		B02DC13C0FB9DF3707A7D6396E9C92EB /* olm.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = olm.hh; path = include/olm/olm.hh; sourceTree = "<group>"; };
+		B02DC13C0FB9DF3707A7D6396E9C92EB /* olm.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = olm.hh; path = include/olm/olm.hh; sourceTree = "<group>"; };
 		B0B29C3EB81CF57B93AF1604D6974F06 /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
 		B10C90DE54C2C96D5C12A15CB9DCBFBB /* TableDefinition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TableDefinition.swift; path = GRDB/QueryInterface/TableDefinition.swift; sourceTree = "<group>"; };
 		B135A2900D4CB2CE1D462EF3AC5EB2A4 /* TableRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TableRecord.swift; path = GRDB/Record/TableRecord.swift; sourceTree = "<group>"; };
 		B18B298132F2319B765C790E5BC6EC7A /* OLMPkDecryption.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OLMPkDecryption.m; path = xcode/OLMKit/OLMPkDecryption.m; sourceTree = "<group>"; };
 		B32D28CC0C235CE7F93437405FC1F973 /* OHHTTPStubs-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "OHHTTPStubs-iOS.xcconfig"; sourceTree = "<group>"; };
 		B3BEE5A599A9A17AE0C27E0E0E1BC53C /* SQLGenerationContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLGenerationContext.swift; path = GRDB/QueryInterface/SQLGenerationContext.swift; sourceTree = "<group>"; };
-		B6F89473366D28AB1844B0DA18D2ABC8 /* memory.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = memory.hh; path = include/olm/memory.hh; sourceTree = "<group>"; };
-		B70A951D7BFB81D75F30FE6DF77DDB2D /* utility.hh */ = {isa = PBXFileReference; includeInIndex = 1; name = utility.hh; path = include/olm/utility.hh; sourceTree = "<group>"; };
+		B6F89473366D28AB1844B0DA18D2ABC8 /* memory.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = memory.hh; path = include/olm/memory.hh; sourceTree = "<group>"; };
+		B70A951D7BFB81D75F30FE6DF77DDB2D /* utility.hh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = utility.hh; path = include/olm/utility.hh; sourceTree = "<group>"; };
 		B7FC253FE1973F1E0740A2C6FE5F84B5 /* SQLSelectable+QueryInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SQLSelectable+QueryInterface.swift"; path = "GRDB/QueryInterface/SQLSelectable+QueryInterface.swift"; sourceTree = "<group>"; };
 		B8CC49A09E542757D942395929B5346E /* SQLExpressible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLExpressible.swift; path = GRDB/QueryInterface/SQLExpressible.swift; sourceTree = "<group>"; };
 		B9091129A8968B7A8E76C2D3A7945954 /* StatementAuthorizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatementAuthorizer.swift; path = GRDB/Core/StatementAuthorizer.swift; sourceTree = "<group>"; };
 		BA26E070038F61204EF2CDED0B14E60F /* DatabaseValueConvertible+RawRepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DatabaseValueConvertible+RawRepresentable.swift"; path = "GRDB/Core/Support/StandardLibrary/DatabaseValueConvertible+RawRepresentable.swift"; sourceTree = "<group>"; };
-		BA36C71A1C0CB9B9BEB521CFA95C313A /* Pods_EntropyKit_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EntropyKit_iOSTests.framework; path = "Pods-EntropyKit-iOSTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA36C71A1C0CB9B9BEB521CFA95C313A /* Pods_EntropyKit_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EntropyKit_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBDE2B76B2EF52EA3B240BCCA3076A38 /* URL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URL.swift; path = GRDB/Core/Support/Foundation/URL.swift; sourceTree = "<group>"; };
 		BF0C02AE146ADEF6CD7BAAF8F1CC2AD0 /* SQLSelectable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLSelectable.swift; path = GRDB/QueryInterface/SQLSelectable.swift; sourceTree = "<group>"; };
 		BF828539FA1A518BC6E3B86BAA6B0ECB /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -887,17 +887,17 @@
 		C781B397A61570BD5F0521719EA8564D /* inbound_group_session.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = inbound_group_session.h; path = include/olm/inbound_group_session.h; sourceTree = "<group>"; };
 		C82FBBB9F210C026D8C863C2C2042881 /* DatabaseWriter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseWriter.swift; path = GRDB/Core/DatabaseWriter.swift; sourceTree = "<group>"; };
 		C89A058ACBC52F224C90777D0215F197 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Alamofire-macOS/Info.plist"; sourceTree = "<group>"; };
-		C9BB0560B122026405E62464B2F502AE /* pickle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = pickle.cpp; path = src/pickle.cpp; sourceTree = "<group>"; };
+		C9BB0560B122026405E62464B2F502AE /* pickle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = pickle.cpp; path = src/pickle.cpp; sourceTree = "<group>"; };
 		CBB7E9DADC83B7810EDF1BE0DBFDB866 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 		CD634AC8DBD3DB897A18CF871E36859C /* OLMKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OLMKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		CDE95607E84C84FCA24D81B7E2FA8061 /* DatabaseValueConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseValueConvertible.swift; path = GRDB/Core/DatabaseValueConvertible.swift; sourceTree = "<group>"; };
 		CF7918B5418DE07401A339DD15CD2B38 /* QueryInterfaceRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QueryInterfaceRequest.swift; path = GRDB/QueryInterface/QueryInterfaceRequest.swift; sourceTree = "<group>"; };
 		CF93AE271D1CAD8ED200940D2730AC8F /* OHHTTPStubs-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "OHHTTPStubs-macOS.xcconfig"; path = "../OHHTTPStubs-macOS/OHHTTPStubs-macOS.xcconfig"; sourceTree = "<group>"; };
 		D0CD2AE70D990D0356FC00C45A820B82 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2B466CF25A32D0C8B2669F168A73666 /* pickle_encoding.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pickle_encoding.c; path = src/pickle_encoding.c; sourceTree = "<group>"; };
+		D2B466CF25A32D0C8B2669F168A73666 /* pickle_encoding.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pickle_encoding.c; path = src/pickle_encoding.c; sourceTree = "<group>"; };
 		D575260CE0DFCB2CCB7EB50820B37C8D /* SQLOperators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SQLOperators.swift; path = GRDB/QueryInterface/Support/SQLOperators.swift; sourceTree = "<group>"; };
 		D7636EA28789A6B8B9E2445B69C520B7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../GRDB.swift-macOS/Info.plist"; sourceTree = "<group>"; };
-		D8708C2DFEDFA383B50C4FFFBA5089F1 /* GRDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GRDB.framework; path = "GRDB.swift-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8708C2DFEDFA383B50C4FFFBA5089F1 /* GRDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GRDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99FC47C5921B4BA02D94764A250B7C4 /* DatabaseFunction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseFunction.swift; path = GRDB/Core/DatabaseFunction.swift; sourceTree = "<group>"; };
 		DBC5E19E30D9723CE8D1789F04C9FC8D /* OLMSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMSession.h; path = xcode/OLMKit/OLMSession.h; sourceTree = "<group>"; };
 		DBE8B926855E19EF9CAD1A0B880F2AF5 /* UUID.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UUID.swift; path = GRDB/Core/Support/Foundation/UUID.swift; sourceTree = "<group>"; };
@@ -920,19 +920,19 @@
 		E65BE5336647C55DAA38C65CDB94BD1F /* Pods-EntropyKit-iOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EntropyKit-iOSTests-resources.sh"; sourceTree = "<group>"; };
 		E7874D2FDC176B8D9A85643BA90AD601 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9188D3B77B5AE9B8C212BA97FA047EA /* OLMOutboundGroupSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMOutboundGroupSession.h; path = xcode/OLMKit/OLMOutboundGroupSession.h; sourceTree = "<group>"; };
-		EA1C0ED413D60FB52AA7331069A0E7E0 /* base64.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = base64.cpp; path = src/base64.cpp; sourceTree = "<group>"; };
+		EA1C0ED413D60FB52AA7331069A0E7E0 /* base64.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = base64.cpp; path = src/base64.cpp; sourceTree = "<group>"; };
 		EAD53E3B692D9674B612E8E32287A085 /* Pool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Pool.swift; path = GRDB/Utils/Pool.swift; sourceTree = "<group>"; };
 		EBD91BC5DF40F1E87EE8206736E00FEB /* Database+Schema.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Database+Schema.swift"; path = "GRDB/Core/Database+Schema.swift"; sourceTree = "<group>"; };
 		ED1DFA4D03D536F66C813E4E730BEC02 /* OLMPkEncryption.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OLMPkEncryption.m; path = xcode/OLMKit/OLMPkEncryption.m; sourceTree = "<group>"; };
 		ED31DABF1CA4CDDED7337390A0493107 /* PersistableRecord+Encodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PersistableRecord+Encodable.swift"; path = "GRDB/Record/PersistableRecord+Encodable.swift"; sourceTree = "<group>"; };
 		EDD15E789ACADDFCE04EB01A010FA9E4 /* OLMSession_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMSession_Private.h; path = xcode/OLMKit/OLMSession_Private.h; sourceTree = "<group>"; };
 		EE164CE29FB34A0B4BD15AEA4E76CFAC /* OLMKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OLMKit.m; path = xcode/OLMKit/OLMKit.m; sourceTree = "<group>"; };
-		EEAFE06E107893DB831A3BCF4B653004 /* message.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = message.cpp; path = src/message.cpp; sourceTree = "<group>"; };
+		EEAFE06E107893DB831A3BCF4B653004 /* message.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = src/message.cpp; sourceTree = "<group>"; };
 		F18BC32B64EC72EFE6E026ADAB63EA47 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		F1AE0ED0346893EB109AABBF80E94748 /* Cursor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cursor.swift; path = GRDB/Core/Cursor.swift; sourceTree = "<group>"; };
 		F2139B2B8C77B40DEE284BE928ED3293 /* Pods-EntropyKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EntropyKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		F3F5B4DED86B94A328038F2600A7803E /* SerializedDatabase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SerializedDatabase.swift; path = GRDB/Core/SerializedDatabase.swift; sourceTree = "<group>"; };
-		F5A58A4EB760DF814451F75C4A823549 /* inbound_group_session.c */ = {isa = PBXFileReference; includeInIndex = 1; name = inbound_group_session.c; path = src/inbound_group_session.c; sourceTree = "<group>"; };
+		F5A58A4EB760DF814451F75C4A823549 /* inbound_group_session.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = inbound_group_session.c; path = src/inbound_group_session.c; sourceTree = "<group>"; };
 		F6811C8D3E860B877A31AAEB415395AA /* SQLSpecificExpressible+QueryInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SQLSpecificExpressible+QueryInterface.swift"; path = "GRDB/QueryInterface/SQLSpecificExpressible+QueryInterface.swift"; sourceTree = "<group>"; };
 		F6E21DF0BA259F746057CC90E5F675EC /* OLMKit-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "OLMKit-macOS.modulemap"; path = "../OLMKit-macOS/OLMKit-macOS.modulemap"; sourceTree = "<group>"; };
 		F720C194286FC5FFACE4E70337B92956 /* megolm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = megolm.h; path = include/olm/megolm.h; sourceTree = "<group>"; };
@@ -940,7 +940,7 @@
 		FA79F764F06B2A0E446317837B96940E /* OHPathHelpers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OHPathHelpers.h; path = OHHTTPStubs/Sources/OHPathHelpers/OHPathHelpers.h; sourceTree = "<group>"; };
 		FAC71CB9DAACCB4C0087C2EC1D3233DB /* OHHTTPStubsSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OHHTTPStubsSwift.swift; path = OHHTTPStubs/Sources/Swift/OHHTTPStubsSwift.swift; sourceTree = "<group>"; };
 		FB4F43C067A794B4BE4F92E71743D0CB /* OLMKit-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OLMKit-iOS-umbrella.h"; sourceTree = "<group>"; };
-		FBB24CF92576DDDE2A717CBEEBCA7D7A /* ratchet.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = ratchet.cpp; path = src/ratchet.cpp; sourceTree = "<group>"; };
+		FBB24CF92576DDDE2A717CBEEBCA7D7A /* ratchet.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = ratchet.cpp; path = src/ratchet.cpp; sourceTree = "<group>"; };
 		FC97C1B5380187D45B4CECCE27E17218 /* OLMPkDecryption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OLMPkDecryption.h; path = xcode/OLMKit/OLMPkDecryption.h; sourceTree = "<group>"; };
 		FF7BC47C714CA296C883DE2F1AFFF351 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1091,7 +1091,6 @@
 				E2ED53D996ECE41B9C3A02562DA42B47 /* Support Files */,
 				DB6719D03200DDD246E4FCF04AB951E0 /* Swift */,
 			);
-			name = OHHTTPStubs;
 			path = OHHTTPStubs;
 			sourceTree = "<group>";
 		};
@@ -1296,7 +1295,6 @@
 				9C88F3D02809403EB84DBEBA6EB8BAAA /* VirtualTableModule.swift */,
 				5CC6A60348C84A286D059E43C317243E /* Support Files */,
 			);
-			name = GRDB.swift;
 			path = GRDB.swift;
 			sourceTree = "<group>";
 		};
@@ -1432,7 +1430,6 @@
 				FC4A5C6F44A19D542403FF91BE36EACD /* olmcpp */,
 				9BBCC1DE2670AFDCFD9393C391CBFDC0 /* Support Files */,
 			);
-			name = OLMKit;
 			path = OLMKit;
 			sourceTree = "<group>";
 		};
@@ -1549,7 +1546,6 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = SwiftFormat;
 			path = SwiftFormat;
 			sourceTree = "<group>";
 		};
@@ -1600,7 +1596,6 @@
 				743AB5CF35435444EA97277E28BB9DAE /* Validation.swift */,
 				8A3532635D043B076965BAD62473BA95 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -2041,14 +2036,29 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
+				TargetAttributes = {
+					8101504DF8C617E85D2E7038A68566B0 = {
+						LastSwiftMigration = 1020;
+					};
+					9FA0D3F2F380C88414707C800CAB82D9 = {
+						LastSwiftMigration = 1020;
+					};
+					C304D878D08545E050ABA3E1DEB8BC96 = {
+						LastSwiftMigration = 1020;
+					};
+					DE4368DCE3B00A79B68540C4C2DA544A = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = E1AFC1129879C986AE96046EDD8D43E5 /* Products */;
@@ -2729,11 +2739,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OLMKit-macOS/OLMKit-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OLMKit-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/OLMKit-macOS/OLMKit-macOS.modulemap";
 				PRODUCT_MODULE_NAME = OLMKit;
@@ -2765,11 +2771,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OLMKit-macOS/OLMKit-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OLMKit-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/OLMKit-macOS/OLMKit-macOS.modulemap";
 				PRODUCT_MODULE_NAME = OLMKit;
@@ -2801,11 +2803,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/GRDB.swift-macOS/GRDB.swift-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/GRDB.swift-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/GRDB.swift-macOS/GRDB.swift-macOS.modulemap";
 				PRODUCT_MODULE_NAME = GRDB;
@@ -2836,11 +2834,7 @@
 				INFOPLIST_FILE = "Target Support Files/OLMKit-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OLMKit-iOS/OLMKit-iOS.modulemap";
 				PRODUCT_MODULE_NAME = OLMKit;
 				PRODUCT_NAME = OLMKit;
@@ -2859,6 +2853,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2911,8 +2906,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -2935,18 +2929,14 @@
 				INFOPLIST_FILE = "Target Support Files/OHHTTPStubs-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OHHTTPStubs-iOS/OHHTTPStubs-iOS.modulemap";
 				PRODUCT_MODULE_NAME = OHHTTPStubs;
 				PRODUCT_NAME = OHHTTPStubs;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2971,11 +2961,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-iOS/Pods-EntropyKit-iOS.modulemap";
 				OTHER_LDFLAGS = "";
@@ -3011,11 +2997,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-macOS/Alamofire-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Alamofire-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
@@ -3023,7 +3005,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3033,6 +3015,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3113,11 +3096,7 @@
 				INFOPLIST_FILE = "Target Support Files/GRDB.swift-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/GRDB.swift-iOS/GRDB.swift-iOS.modulemap";
 				PRODUCT_MODULE_NAME = GRDB;
 				PRODUCT_NAME = GRDB;
@@ -3149,11 +3128,7 @@
 				INFOPLIST_FILE = "Target Support Files/GRDB.swift-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/GRDB.swift-iOS/GRDB.swift-iOS.modulemap";
 				PRODUCT_MODULE_NAME = GRDB;
 				PRODUCT_NAME = GRDB;
@@ -3185,11 +3160,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-iOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-iOSTests/Pods-EntropyKit-iOSTests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -3223,11 +3194,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OHHTTPStubs-macOS/OHHTTPStubs-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OHHTTPStubs-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/OHHTTPStubs-macOS/OHHTTPStubs-macOS.modulemap";
 				PRODUCT_MODULE_NAME = OHHTTPStubs;
@@ -3235,7 +3202,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3260,11 +3227,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-macOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-macOSTests/Pods-EntropyKit-macOSTests.modulemap";
@@ -3298,11 +3261,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-iOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-iOSTests/Pods-EntropyKit-iOSTests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -3337,11 +3296,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/GRDB.swift-macOS/GRDB.swift-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/GRDB.swift-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/GRDB.swift-macOS/GRDB.swift-macOS.modulemap";
 				PRODUCT_MODULE_NAME = GRDB;
@@ -3372,18 +3327,14 @@
 				INFOPLIST_FILE = "Target Support Files/OHHTTPStubs-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OHHTTPStubs-iOS/OHHTTPStubs-iOS.modulemap";
 				PRODUCT_MODULE_NAME = OHHTTPStubs;
 				PRODUCT_NAME = OHHTTPStubs;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3408,11 +3359,7 @@
 				INFOPLIST_FILE = "Target Support Files/OLMKit-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OLMKit-iOS/OLMKit-iOS.modulemap";
 				PRODUCT_MODULE_NAME = OLMKit;
 				PRODUCT_NAME = OLMKit;
@@ -3444,11 +3391,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OHHTTPStubs-macOS/OHHTTPStubs-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OHHTTPStubs-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = "Target Support Files/OHHTTPStubs-macOS/OHHTTPStubs-macOS.modulemap";
 				PRODUCT_MODULE_NAME = OHHTTPStubs;
@@ -3456,7 +3399,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3481,11 +3424,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-macOS/Pods-EntropyKit-macOS.modulemap";
@@ -3518,18 +3457,14 @@
 				INFOPLIST_FILE = "Target Support Files/Alamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
 				PRODUCT_NAME = Alamofire;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3556,11 +3491,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-macOS/Alamofire-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Alamofire-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
@@ -3568,7 +3499,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3592,11 +3523,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-iOS/Pods-EntropyKit-iOS.modulemap";
 				OTHER_LDFLAGS = "";
@@ -3631,11 +3558,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-macOS/Pods-EntropyKit-macOS.modulemap";
@@ -3670,11 +3593,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-EntropyKit-macOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MODULEMAP_FILE = "Target Support Files/Pods-EntropyKit-macOSTests/Pods-EntropyKit-macOSTests.modulemap";
@@ -3707,18 +3626,14 @@
 				INFOPLIST_FILE = "Target Support Files/Alamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
 				PRODUCT_NAME = Alamofire;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

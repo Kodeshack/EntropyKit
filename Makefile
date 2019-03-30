@@ -16,5 +16,5 @@ clean:
 format:
 	@echo "+ $@"
 	@./Pods/SwiftFormat/CommandLineTool/swiftformat \
-		--swiftversion '4.2' \
+		--swiftversion '5.0' \
 		Sources Tests

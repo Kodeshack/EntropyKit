@@ -32,15 +32,15 @@ class CCCryptor {
     private var bytesMoved = 0
 
     init(operation: CCCryptorOperation, iv: Data, key: Data) throws {
-        let statusCode = iv.withUnsafeBytes { (ivBytes: UnsafePointer<Int8>) -> CCCryptorStatus in
-            key.withUnsafeBytes { (keyBytes: UnsafePointer<Int8>) -> CCCryptorStatus in
+        let statusCode = iv.withUnsafeBytes { ivBytes -> CCCryptorStatus in
+            key.withUnsafeBytes { keyBytes -> CCCryptorStatus in
                 CCCryptorCreateWithMode(
                     operation.raw,
                     CCMode(kCCModeCTR),
                     CCAlgorithm(kCCAlgorithmAES),
                     CCPadding(ccNoPadding),
-                    ivBytes,
-                    keyBytes,
+                    ivBytes.baseAddress,
+                    keyBytes.baseAddress,
                     kCCKeySizeAES256,
                     nil, 0, 0,
                     CCModeOptions(kCCModeOptionCTR_BE),
@@ -69,7 +69,7 @@ class CCCryptor {
     ///   - dataOut: Buffer to which the encrypted data will be written.
     ///   - dataOutAvailable: The size of the dataOut buffer in bytes.
     /// - Returns: The number of bytes that were "moved" from the input to the output buffer.
-    func update(dataIn: UnsafePointer<UInt8>, dataInLength: Int, dataOut: UnsafeMutablePointer<UInt8>, dataOutAvailable: Int) -> Result<Int> {
+    func update(dataIn: UnsafeRawPointer, dataInLength: Int, dataOut: UnsafeMutableRawPointer, dataOutAvailable: Int) -> Result<Int> {
         let statusCode = CCCryptorUpdate(reference, dataIn, dataInLength, dataOut, dataOutAvailable, &bytesMoved)
         let status = CryptorStatus(rawValue: statusCode)!
 

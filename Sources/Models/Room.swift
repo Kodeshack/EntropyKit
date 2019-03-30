@@ -14,8 +14,8 @@ public class Room: Record, Hashable, Equatable {
     var rotationPeriodMessages: UInt?
     var announced: Bool
 
-    public var hashValue: Int {
-        return id.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
     public static func == (lhs: Room, rhs: Room) -> Bool {

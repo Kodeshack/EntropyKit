@@ -8,8 +8,8 @@ class SHA256Tests: XCTestCase {
 
         let hasher = SHA256()
 
-        try plaintext.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) throws -> Void in
-            hasher.update(data: bytes, length: plaintext.count)
+        try plaintext.withUnsafeBytes { bytes throws -> Void in
+            hasher.update(data: bytes.baseAddress!, length: plaintext.count)
         }
 
         let computedHash = hasher.finalize()

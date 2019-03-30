@@ -14,10 +14,11 @@ class SHA256 {
     func finalize() -> Data {
         var buffer = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
 
-        _ = buffer.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) in
+        _ = buffer.withUnsafeMutableBytes { bytes in
+            let md = bytes.baseAddress?.assumingMemoryBound(to: UInt8.self)
             // According to https://opensource.apple.com/source/CommonCrypto/CommonCrypto-60118.30.2/lib/CommonDigest.c.auto.html
             // this will always be 1, so we just ignore it.
-            CC_SHA256_Final(bytes, &context)
+            CC_SHA256_Final(md, &context)
         }
 
         return buffer

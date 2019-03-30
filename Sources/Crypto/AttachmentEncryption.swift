@@ -27,8 +27,8 @@ class AttachmentEncryption {
         // bits of the IV are zero, so the counter will only wrap if the file is 2^64 bytes.
         var iv = Data(count: kCCBlockSizeAES128)
 
-        let status = iv.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Int8>) -> Int32 in
-            SecRandomCopyBytes(kSecRandomDefault, kCCBlockSizeAES128 / 2, bytes)
+        let status = iv.withUnsafeMutableBytes { bytes -> Int32 in
+            SecRandomCopyBytes(kSecRandomDefault, kCCBlockSizeAES128 / 2, bytes.baseAddress!)
         }
 
         if status != errSecSuccess {
@@ -40,8 +40,8 @@ class AttachmentEncryption {
 
     private static func generateKeyForAES256() -> Result<Data> {
         var key = Data(count: kCCKeySizeAES256)
-        let status = key.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Int8>) -> Int32 in
-            SecRandomCopyBytes(kSecRandomDefault, kCCKeySizeAES256, bytes)
+        let status = key.withUnsafeMutableBytes { bytes -> Int32 in
+            SecRandomCopyBytes(kSecRandomDefault, kCCKeySizeAES256, bytes.baseAddress!)
         }
 
         if status != errSecSuccess {
@@ -55,15 +55,17 @@ class AttachmentEncryption {
         var outputData = Data(capacity: inputData.count)
         var outputBuffer = Data(count: inputData.count)
         return Result {
-            try inputData.withUnsafeBytes { (inputBytes: UnsafePointer<UInt8>) throws -> Void in
+            try inputData.withUnsafeBytes { inputBytes throws -> Void in
                 let outputBufferLength = outputBuffer.count
-                try outputBuffer.withUnsafeMutableBytes { (outputBytes: UnsafeMutablePointer<UInt8>) throws -> Void in
-                    let bytesMoved = try cryptor.update(dataIn: inputBytes, dataInLength: inputData.count, dataOut: outputBytes, dataOutAvailable: outputBufferLength).dematerialize()
-                    outputData.append(outputBytes, count: bytesMoved)
+                try outputBuffer.withUnsafeMutableBytes { outputBytes throws -> Void in
+                    let bytesMoved = try cryptor.update(dataIn: inputBytes.baseAddress!, dataInLength: inputData.count, dataOut: outputBytes.baseAddress!, dataOutAvailable: outputBufferLength).dematerialize()
+
+                    let outputBytesBase = outputBytes.baseAddress!.assumingMemoryBound(to: UInt8.self)
+                    outputData.append(outputBytesBase, count: bytesMoved)
                     if encrypting {
-                        sha256Hasher.update(data: outputBytes, length: bytesMoved)
+                        sha256Hasher.update(data: outputBytes.baseAddress!, length: bytesMoved)
                     } else {
-                        sha256Hasher.update(data: inputBytes, length: bytesMoved)
+                        sha256Hasher.update(data: inputBytes.baseAddress!, length: bytesMoved)
                     }
                 }
             }

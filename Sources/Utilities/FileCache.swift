@@ -112,6 +112,6 @@ class FileCache<Value>: Cache<Value> {
     }
 }
 
-protocol FileCacheDelegate: class {
+protocol FileCacheDelegate: AnyObject {
     func wroteCacheFile<V>(_ cache: FileCache<V>, key: String, value: V?) -> Void
 }

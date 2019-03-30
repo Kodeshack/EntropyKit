@@ -221,7 +221,7 @@ class E2EEService {
     func fetchNonBlockedDevices(for roomID: RoomID, without deviceID: DeviceID) -> Result<[Device]> {
         return Result {
             let devices = try Device.fetchNotBlocked(forRoom: roomID, database: database).dematerialize()
-            return devices.filter({ $0.id != deviceID })
+            return devices.filter { $0.id != deviceID }
         }
     }
 

@@ -1,4 +1,4 @@
-protocol CryptoEngineDelegate: class {
+protocol CryptoEngineDelegate: AnyObject {
     /// Called once when the crypto engine has been initialised.
     func handleError(_ sender: CryptoEngine, _ error: Error)
     #if DEBUG

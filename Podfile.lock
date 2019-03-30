@@ -1,25 +1,25 @@
 PODS:
-  - Alamofire (4.8.1)
-  - GRDB.swift (3.6.2)
-  - OHHTTPStubs/Core (6.1.0)
-  - OHHTTPStubs/Default (6.1.0):
+  - Alamofire (4.8.2)
+  - GRDB.swift (3.7.0)
+  - OHHTTPStubs/Core (7.0.0)
+  - OHHTTPStubs/Default (7.0.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (6.1.0):
+  - OHHTTPStubs/JSON (7.0.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (6.1.0):
+  - OHHTTPStubs/NSURLSession (7.0.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (6.1.0)
-  - OHHTTPStubs/Swift (6.1.0):
+  - OHHTTPStubs/OHPathHelpers (7.0.0)
+  - OHHTTPStubs/Swift (7.0.0):
     - OHHTTPStubs/Default
   - OLMKit (3.0.0):
     - OLMKit/olmc (= 3.0.0)
     - OLMKit/olmcpp (= 3.0.0)
   - OLMKit/olmc (3.0.0)
   - OLMKit/olmcpp (3.0.0)
-  - SwiftFormat/CLI (0.39.3)
+  - SwiftFormat/CLI (0.40.4)
 
 DEPENDENCIES:
   - Alamofire
@@ -37,12 +37,12 @@ SPEC REPOS:
     - SwiftFormat
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  GRDB.swift: e10787d857b6b8135354b9e08fb23b4bb8e2fab7
-  OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  GRDB.swift: 51cc9e57ae8ff7083a9d674c97925aa1de06aac5
+  OHHTTPStubs: ef33a2c353110d306bb98f695435ec56ff5a26c3
   OLMKit: 88eda69110489f817d59bcb4353b7c247570aa4f
-  SwiftFormat: 2e67b7f1dd387e2ff8fe05e0846229361abe1c13
+  SwiftFormat: cc36377840cffa5d0634782875dccf34dc02ff39
 
-PODFILE CHECKSUM: 23941cc7f9046c1062094188b32d46d4dfbeda7b
+PODFILE CHECKSUM: 5c0c90cb1a808a44fd063d507e7efaad8085174c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

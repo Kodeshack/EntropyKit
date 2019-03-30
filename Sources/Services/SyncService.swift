@@ -2,7 +2,7 @@ import Foundation
 import GRDB
 import os.log
 
-protocol SyncServiceDelegate: class {
+protocol SyncServiceDelegate: AnyObject {
     func syncStarted()
     func syncEnded(_ result: Result<SyncService.SyncResult>)
 }

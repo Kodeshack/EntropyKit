@@ -15,6 +15,10 @@ target 'EntropyKit-iOS' do
   target 'EntropyKit-iOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Alamofire' # Workaround for CocoaPods 1.6
+    pod 'GRDB.swift' # Workaround for CocoaPods 1.6
+    pod 'OLMKit', :inhibit_warnings => true # Workaround for CocoaPods 1.6
+
     pod 'OHHTTPStubs/Swift'
   end
 
@@ -26,6 +30,10 @@ target 'EntropyKit-macOS' do
   target 'EntropyKit-macOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Alamofire' # Workaround for CocoaPods 1.6
+    pod 'GRDB.swift' # Workaround for CocoaPods 1.6
+    pod 'OLMKit', :inhibit_warnings => true # Workaround for CocoaPods 1.6
+    
     pod 'OHHTTPStubs/Swift'
   end
 

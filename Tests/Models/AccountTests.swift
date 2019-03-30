@@ -39,7 +39,7 @@ class AccountTests: XCTestCase {
         let account1 = try Account.create(userID: "@NotBob:kodeshack1", accessToken: "456", deviceID: "bar", database: database)
 
         try database.dbQueue.read { db in
-            let count = try Account.fetchAll(db).filter({ $0.userID == account1.userID }).count
+            let count = try Account.fetchAll(db).filter { $0.userID == account1.userID }.count
             XCTAssertEqual(count, 1)
         }
     }

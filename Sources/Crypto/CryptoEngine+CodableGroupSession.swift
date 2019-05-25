@@ -68,7 +68,7 @@ extension CryptoEngine {
 
         init(session: OLMInboundGroupSession, roomID: String, database: Database) throws {
             let dbRoom = try database.dbQueue.inDatabase { db in
-                try Room.fetchOne(db, "SELECT * FROM \(Database.v0.rooms.table) WHERE \(Database.v0.rooms.id) = ?", arguments: [roomID])
+                try Room.fetchOne(db, sql: "SELECT * FROM \(Database.v0.rooms.table) WHERE \(Database.v0.rooms.id) = ?", arguments: [roomID])
             }
 
             guard let room = dbRoom else {
@@ -199,7 +199,7 @@ extension CryptoEngine {
 
         init(session: OLMOutboundGroupSession, roomID: RoomID, database: Database) throws {
             let dbRoom = try database.dbQueue.inDatabase { db in
-                try Room.fetchOne(db, "SELECT * FROM \(Database.v0.rooms.table) WHERE \(Database.v0.rooms.id) = ?", arguments: [roomID])
+                try Room.fetchOne(db, sql: "SELECT * FROM \(Database.v0.rooms.table) WHERE \(Database.v0.rooms.id) = ?", arguments: [roomID])
             }
 
             guard let room = dbRoom else {

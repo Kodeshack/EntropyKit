@@ -18,6 +18,8 @@
 #import "OLMPkDecryption.h"
 #import "OLMPkEncryption.h"
 #import "OLMPkMessage.h"
+#import "OLMPkSigning.h"
+#import "OLMSAS.h"
 #import "OLMSerializable.h"
 #import "OLMSession.h"
 #import "OLMUtility.h"

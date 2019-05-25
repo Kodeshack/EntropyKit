@@ -15,7 +15,7 @@ public class ObservablePersistedList<T: Record> {
     private var observerTokens = Set<ObserverToken>()
     private var counter = UInt(0)
 
-    init(database: Database, sql: String, arguments: StatementArguments?, adapater: RowAdapter?, callbackQueue: DispatchQueue = DispatchQueue.main) throws {
+    init(database: Database, sql: String, arguments: StatementArguments, adapater: RowAdapter?, callbackQueue: DispatchQueue = DispatchQueue.main) throws {
         self.database = database
         recordsController = try FetchedRecordsController(database.dbQueue, sql: sql, arguments: arguments, adapter: adapater, queue: callbackQueue)
         try setup()

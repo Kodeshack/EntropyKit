@@ -141,7 +141,7 @@ class EventPersistenceTests: XCTestCase {
 
         try database.dbQueue.inDatabase { db in
             let (sql, arguments, adapter) = Message.completeRequest(roomID: "message_room", offset: 0, limit: 1)
-            let msg = try Message.fetchOne(db, sql, arguments: arguments, adapter: adapter)
+            let msg = try Message.fetchOne(db, sql: sql, arguments: arguments, adapter: adapter)
 
             XCTAssertNotNil(msg)
             XCTAssertEqual(msg?.id, "test_event_id_message")

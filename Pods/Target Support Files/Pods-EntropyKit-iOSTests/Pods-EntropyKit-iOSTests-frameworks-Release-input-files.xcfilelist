@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-EntropyKit-iOSTests/Pods-EntropyKit-iOSTests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/GRDB.swift-iOS/GRDB.framework
+${BUILT_PRODUCTS_DIR}/OLMKit-iOS/OLMKit.framework
+${BUILT_PRODUCTS_DIR}/OHHTTPStubs-iOS/OHHTTPStubs.framework

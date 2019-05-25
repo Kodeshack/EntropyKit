@@ -62,7 +62,7 @@ class MessageTests: XCTestCase {
 
         try database.dbQueue.inDatabase { db in
             let (sql, arguments, adapter) = Message.completeRequest(roomID: "The Calm Humans", offset: 0, limit: 1)
-            let messages = try Message.fetchAll(db, sql, arguments: arguments, adapter: adapter)
+            let messages = try Message.fetchAll(db, sql: sql, arguments: arguments, adapter: adapter)
 
             XCTAssertEqual(messages.count, 1)
             let message = messages[0]

@@ -61,7 +61,7 @@ extension Device {
                 let verificationStatus = Database.v0.devices.verificationStatus
 
                 let sqlRequest = SQLRequest<Device>(
-                    "SELECT \(devicesTable).* FROM \(usersRoomsTable) " +
+                    sql: "SELECT \(devicesTable).* FROM \(usersRoomsTable) " +
                         "JOIN \(devicesTable) ON \(usersRoomsTable).\(usersRoomsUserID) = \(devicesTable).\(devicesUserID) " +
                         "WHERE \(usersRoomsTable).\(usersRoomsRoomID) = ? " +
                         "AND NOT \(devicesTable).\(verificationStatus) = ?",

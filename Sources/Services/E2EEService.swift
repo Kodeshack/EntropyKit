@@ -24,7 +24,7 @@ class E2EEService {
                 let usersRoomsRoomID = Database.v0.users_rooms.roomID
 
                 let sqlRequest = SQLRequest<Void>(
-                    "SELECT \(roomsTable).\(roomID),\(usersRoomsTable).\(usersRoomsUserID) FROM \(usersRoomsTable) " +
+                    sql: "SELECT \(roomsTable).\(roomID),\(usersRoomsTable).\(usersRoomsUserID) FROM \(usersRoomsTable) " +
                         "JOIN \(roomsTable) ON \(roomsTable).\(roomID) = \(usersRoomsTable).\(usersRoomsRoomID) " +
                         "WHERE \(roomsTable).\(roomsEncrypted) = ? AND \(roomsTable).\(roomsAnnounced) = ?",
                     arguments: [true, false]
@@ -183,7 +183,7 @@ class E2EEService {
                     "(SELECT id FROM \(Database.v0.devices.table) " +
                     "WHERE \(Database.v0.devices.id) NOT IN (\(deviceQs)))"
 
-                try db.execute(deleteQuery, arguments: StatementArguments(userIDs + devices.map { $0.id }))
+                try db.execute(sql: deleteQuery, arguments: StatementArguments(userIDs + devices.map { $0.id }))
             }
         }
     }

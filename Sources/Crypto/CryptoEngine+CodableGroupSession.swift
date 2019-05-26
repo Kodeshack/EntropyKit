@@ -48,11 +48,11 @@ extension CryptoEngine {
         private let lock = NSLock()
 
         required init?(coder aDecoder: NSCoder) {
-            session = aDecoder.decodeObject(forKey: CodingKeys.session.rawValue) as! OLMInboundGroupSession
-            messageIndicies = aDecoder.decodeObject(forKey: CodingKeys.messageIndicies.rawValue) as! [UInt]
+            session = aDecoder.decodeObject(of: OLMInboundGroupSession.self, forKey: CodingKeys.session.rawValue)!
+            messageIndicies = aDecoder.decodeObject(of: NSArray.self, forKey: CodingKeys.messageIndicies.rawValue)! as! [UInt]
             super.init(
                 remainingMessagesCount: aDecoder.decodeInteger(forKey: CodingKeys.remainingMessagesCount.rawValue),
-                validUntil: aDecoder.decodeObject(forKey: CodingKeys.validUnit.rawValue) as! Date
+                validUntil: aDecoder.decodeObject(of: NSDate.self, forKey: CodingKeys.validUnit.rawValue)! as Date
             )
         }
 
@@ -174,11 +174,11 @@ extension CryptoEngine {
         }
 
         required init?(coder aDecoder: NSCoder) {
-            session = aDecoder.decodeObject(forKey: CodingKeys.session.rawValue) as! OLMOutboundGroupSession
+            session = aDecoder.decodeObject(of: OLMOutboundGroupSession.self, forKey: CodingKeys.session.rawValue)!
             forceRotation = aDecoder.decodeBool(forKey: CodingKeys.forceRotation.rawValue)
             super.init(
                 remainingMessagesCount: aDecoder.decodeInteger(forKey: CodingKeys.remainingMessagesCount.rawValue),
-                validUntil: aDecoder.decodeObject(forKey: CodingKeys.validUnit.rawValue) as! Date
+                validUntil: aDecoder.decodeObject(of: NSDate.self, forKey: CodingKeys.validUnit.rawValue)! as Date
             )
         }
 

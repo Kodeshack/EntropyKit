@@ -14,13 +14,13 @@ struct CryptoBlob: FetchableRecord, PersistableRecord, Codable {
     let type: BlobType
     let blob: Data
 
-    func unwrap<T>() throws -> T {
-        return NSKeyedUnarchiver.unarchiveObject(with: blob) as! T
+    func unwrap<T: NSObject & NSCoding>() throws -> T {
+        return try! NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: blob)!
     }
 
     init(id: String, type: BlobType, data: NSSecureCoding) {
         self.id = id
         self.type = type
-        blob = NSKeyedArchiver.archivedData(withRootObject: data)
+        blob = try! NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: true)
     }
 }

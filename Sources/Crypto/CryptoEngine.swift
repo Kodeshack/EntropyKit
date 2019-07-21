@@ -202,9 +202,9 @@ extension CryptoEngine {
         var retVal: (State, CryptoEngineTask)!
         e2eeService.uploadKeys(account: account, request: keysUploadRequest, queue: backgroundQueue) { result in
             defer { sem.signal() }
-            guard result.isValue else {
-                retVal = (.fatalError, .error(result.error!))
-                self.notifyDelegate(result.error!)
+            guard result.isSuccess else {
+                retVal = (.fatalError, .error(result.failure!))
+                self.notifyDelegate(result.failure!)
                 return
             }
 
@@ -263,7 +263,7 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func encrypt(task: (event: Event, roomID: RoomID, cb: (Result<Event>) -> Void)) -> (State, CryptoEngineTask) {
+    private func encrypt(task: (event: Event, roomID: RoomID, cb: (Result<Event, Error>) -> Void)) -> (State, CryptoEngineTask) {
         if let session = self.megolmOutboundSessions[task.roomID], !session.needsRotation {
             return (.needToEncrypt, .event(event: task.event, roomID: task.roomID, cb: task.cb))
         } else {
@@ -275,9 +275,9 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func fetchNonBlockedDevicesAndOTK(roomID: RoomID) -> Result<[DeviceID: Device]> {
+    private func fetchNonBlockedDevicesAndOTK(roomID: RoomID) -> Result<[DeviceID: Device], Error> {
         return Result {
-            let devices = try e2eeService.fetchNonBlockedDevices(for: roomID, without: account.deviceID).dematerialize()
+            let devices = try e2eeService.fetchNonBlockedDevices(for: roomID, without: account.deviceID).get()
 
             let sessions = olmSessions.keys
 
@@ -311,8 +311,8 @@ extension CryptoEngine {
 
     private func claimDeviceOTKs(roomID: RoomID) -> (State, CryptoEngineTask) {
         let deviceFetchResult = fetchNonBlockedDevicesAndOTK(roomID: roomID)
-        guard let devicesByID = deviceFetchResult.value else {
-            notifyDelegate(deviceFetchResult.error!)
+        guard let devicesByID = deviceFetchResult.success else {
+            notifyDelegate(deviceFetchResult.failure!)
             return (.ready, .none)
         }
 
@@ -322,25 +322,25 @@ extension CryptoEngine {
         let keyClaimRequest = KeysClaimRequest(devices: devicesByID.values.map { $0 })
         MatrixAPI.default.claimKeys(accessToken: account.accessToken, keysClaimRequest: keyClaimRequest, queue: backgroundQueue) { result in
             defer { sem.signal() }
-            guard let oneTimeKeys = result.value else {
-                retVal = (.fatalError, .error(result.error!))
+            guard let oneTimeKeys = result.success else {
+                retVal = (.fatalError, .error(result.failure!))
                 return
             }
 
             let sessionData = self.sessionData(from: oneTimeKeys, using: devicesByID)
 
-            var newSessions: [(curve25519Key: Curve25519Key, sessionResult: Result<OLMSession>)]!
+            var newSessions: [(curve25519Key: Curve25519Key, sessionResult: Result<OLMSession, Error>)]!
             DispatchQueue.main.sync {
                 newSessions = sessionData.map { (curve25519Key: $0.curve25519Key, sessionResult: self.account.createOLMSession(for: $0.curve25519Key, oneTimeKey: $0.oneTimeKey)) }
             }
 
             newSessions.compactMap { newSession -> (curve25519Key: Curve25519Key, session: OLMSession)? in
-                if let error = newSession.sessionResult.error {
+                if let error = newSession.sessionResult.failure {
                     print(error)
                     self.notifyDelegate(error)
                     return nil
                 }
-                return (curve25519Key: newSession.curve25519Key, session: newSession.sessionResult.value!)
+                return (curve25519Key: newSession.curve25519Key, session: newSession.sessionResult.success!)
             }.forEach { newSession in
                 self.olmSessions[newSession.curve25519Key] = newSession.session
             }
@@ -415,7 +415,7 @@ extension CryptoEngine {
         let sessionInfo = E2EEService.SessionInfo(roomID: roomID, session: session)
         e2eeService.publishGroupSessionKeys(for: account, sessionInfo: sessionInfo, olmEncrypt: olmEncrypt, queue: backgroundQueue) { result in
             defer { sem.signal() }
-            if let error = result.error {
+            if let error = result.failure {
                 // @TODO: proper logging
                 print(error)
                 self.notifyDelegate(error)
@@ -427,7 +427,7 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func encryptEvent(task: (event: Event, roomID: String, cb: (Result<Event>) -> Void)) -> State {
+    private func encryptEvent(task: (event: Event, roomID: String, cb: (Result<Event, Error>) -> Void)) -> State {
         task.cb(Result {
             let session = self.megolmOutboundSessions[task.roomID]!
             let ciphertext = try session.encryptMessage(task.event.stringValue)
@@ -451,18 +451,18 @@ extension CryptoEngine {
 }
 
 extension CryptoEngine {
-    private func decrypt(task: (event: Event, roomID: String, cb: (Result<Event>) -> Void)) -> State {
+    private func decrypt(task: (event: Event, roomID: String, cb: (Result<Event, Error>) -> Void)) -> State {
         let event = task.event
 
         guard let encryptedContent = event.content.encrypted else {
-            task.cb(.Error(CryptoEngineError.triedToDecryptUnecryptedEvent))
+            task.cb(.failure(CryptoEngineError.triedToDecryptUnecryptedEvent))
             return .ready
         }
         guard encryptedContent.algorithm == .megolm else {
             fatalError("Found OLM Event, not good!")
         }
 
-        let result = Result<Event> {
+        let result = Result<Event, Error> {
             let senderKey = encryptedContent.senderKey
             let sessionID = encryptedContent.sessionID!
             let ciphertext = encryptedContent.ciphertext.megolmCiphertext!
@@ -475,7 +475,7 @@ extension CryptoEngine {
 
             let json = try session.decryptMessage(ciphertext)
 
-            var decryptedEvent = try Event.decode(json.data(using: .utf8)).dematerialize()
+            var decryptedEvent = try Event.decode(json.data(using: .utf8)).get()
             decryptedEvent.id = event.id
             decryptedEvent.date = event.date
             decryptedEvent.senderID = event.senderID
@@ -487,10 +487,10 @@ extension CryptoEngine {
         return .ready
     }
 
-    private func decryptOLMJSON(encryptedContent: EncryptedJSON) -> Result<String> {
+    private func decryptOLMJSON(encryptedContent: EncryptedJSON) -> Result<String, Error> {
         let curve25519Key = account.identityKeys.curve25519
         guard let ciphertext = encryptedContent.ciphertext.olmCiphertext?[curve25519Key] else {
-            return .Error(CryptoEngine.CryptoEngineError.noMessageForMe)
+            return .failure(CryptoEngine.CryptoEngineError.noMessageForMe)
         }
 
         return Result {
@@ -501,10 +501,10 @@ extension CryptoEngine {
             if type == .preKey {
                 if let session = self.olmSessions[encryptedContent.senderKey] {
                     if !session.matchesInboundSession(from: senderKey, oneTimeKeyMessage: body) {
-                        self.olmSessions[senderKey] = try account.createOLMSession(from: body, with: senderKey).dematerialize()
+                        self.olmSessions[senderKey] = try account.createOLMSession(from: body, with: senderKey).get()
                     }
                 } else {
-                    self.olmSessions[senderKey] = try account.createOLMSession(from: body, with: senderKey).dematerialize()
+                    self.olmSessions[senderKey] = try account.createOLMSession(from: body, with: senderKey).get()
                 }
             }
 
@@ -520,7 +520,7 @@ extension CryptoEngine {
         }
     }
 
-    private func decryptToDeviceEvent(task: (event: SyncResponse.ToDeviceEvent, cb: (Result<SyncResponse.ToDeviceEvent>) -> Void)) -> State {
+    private func decryptToDeviceEvent(task: (event: SyncResponse.ToDeviceEvent, cb: (Result<SyncResponse.ToDeviceEvent, Error>) -> Void)) -> State {
         let event = task.event
 
         task.cb(Result {
@@ -528,18 +528,18 @@ extension CryptoEngine {
                 throw CryptoEngine.CryptoEngineError.invalidToDeviceEvent(event)
             }
 
-            let json = try self.decryptOLMJSON(encryptedContent: encryptedContent).dematerialize()
+            let json = try self.decryptOLMJSON(encryptedContent: encryptedContent).get()
 
-            let cryptoInfo = try OLMCryptoInfo.decode(json.data(using: .utf8)).dematerialize()
+            let cryptoInfo = try OLMCryptoInfo.decode(json.data(using: .utf8)).get()
 
             // very important checks
-            guard let senderDevice = try Device.fetchOne(userID: cryptoInfo.senderID, deviceID: cryptoInfo.senderDeviceID, database: self.database).dematerialize() else { throw CryptoEngineError.unknownDevice(deviceID: cryptoInfo.senderDeviceID) }
+            guard let senderDevice = try Device.fetchOne(userID: cryptoInfo.senderID, deviceID: cryptoInfo.senderDeviceID, database: self.database).get() else { throw CryptoEngineError.unknownDevice(deviceID: cryptoInfo.senderDeviceID) }
             guard cryptoInfo.senderID == event.senderID else { throw CryptoEngineError.validationFailed(mismatch: "sender") }
             guard cryptoInfo.recipientID == account.userID else { throw CryptoEngineError.validationFailed(mismatch: "recipientID") }
             guard cryptoInfo.keys[CryptoKeys.ed25519.rawValue] == senderDevice.ed25519Key else { throw CryptoEngineError.validationFailed(mismatch: "senderKeys") }
             guard cryptoInfo.recipientKeys[CryptoKeys.ed25519.rawValue] == account.identityKeys.ed25519 else { throw CryptoEngineError.validationFailed(mismatch: "recipientKeys") }
 
-            var decryptedEvent = try SyncResponse.ToDeviceEvent.decode(json.data(using: .utf8)).dematerialize()
+            var decryptedEvent = try SyncResponse.ToDeviceEvent.decode(json.data(using: .utf8)).get()
             decryptedEvent.senderKey = encryptedContent.senderKey
             return decryptedEvent
         })
@@ -588,7 +588,7 @@ extension CryptoEngine {
         var nextState: State!
         e2eeService.getDevices(account: account, userIDs: userIDs, queue: backgroundQueue) { result in
             defer { sem.signal() }
-            if let error = result.error {
+            if let error = result.failure {
                 // @TODO: proper logging
                 print(error)
                 self.notifyDelegate(error)
@@ -629,7 +629,7 @@ extension CryptoEngine {
         let keysUploadRequest = KeysUploadRequest(deviceKeys: nil, oneTimeKeys: otkObjects)
         e2eeService.uploadKeys(account: account, request: keysUploadRequest, queue: backgroundQueue) { result in
             defer { sem.signal() }
-            if let error = result.error {
+            if let error = result.failure {
                 // @TODO: proper logging
                 print(error)
                 self.notifyDelegate(error)

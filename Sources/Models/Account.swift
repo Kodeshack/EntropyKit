@@ -187,7 +187,7 @@ extension Account {
 // MARK: OLM
 
 extension Account {
-    func createOLMSession(from body: String, with senderKey: CryptoEngine.Curve25519Key) -> Result<OLMSession> {
+    func createOLMSession(from body: String, with senderKey: CryptoEngine.Curve25519Key) -> Result<OLMSession, Error> {
         return Result {
             let session = try OLMSession(inboundSessionWith: self.olmAccount, theirIdentityKey: senderKey, oneTimeKeyMessage: body)
             self.olmAccount.removeOneTimeKeys(for: session)
@@ -195,7 +195,7 @@ extension Account {
         }
     }
 
-    func createOLMSession(for identityKey: CryptoEngine.Curve25519Key, oneTimeKey: String) -> Result<OLMSession> {
+    func createOLMSession(for identityKey: CryptoEngine.Curve25519Key, oneTimeKey: String) -> Result<OLMSession, Error> {
         return Result {
             try OLMSession(outboundSessionWith: self.olmAccount, theirIdentityKey: identityKey, theirOneTimeKey: oneTimeKey)
         }
@@ -210,15 +210,15 @@ extension Account {
         cryptoEngine?.setup(account: self, db: database, load: load)
     }
 
-    func encrypt(event: Event, in roomID: String, completionHandler: @escaping (Result<Event>) -> Void) {
+    func encrypt(event: Event, in roomID: String, completionHandler: @escaping (Result<Event, Error>) -> Void) {
         cryptoEngine?.enqueue(.event(event: event, roomID: roomID, cb: completionHandler))
     }
 
-    func decrypt(event: Event, completionHandler: @escaping (Result<Event>) -> Void) {
+    func decrypt(event: Event, completionHandler: @escaping (Result<Event, Error>) -> Void) {
         cryptoEngine?.enqueue(.encryptedEvent(event: event, roomID: event.roomID!, cb: completionHandler))
     }
 
-    func decrypt(toDeviceEvent: SyncResponse.ToDeviceEvent, completionHandler: @escaping (Result<SyncResponse.ToDeviceEvent>) -> Void) {
+    func decrypt(toDeviceEvent: SyncResponse.ToDeviceEvent, completionHandler: @escaping (Result<SyncResponse.ToDeviceEvent, Error>) -> Void) {
         cryptoEngine?.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, cb: completionHandler))
     }
 

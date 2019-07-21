@@ -4,7 +4,7 @@ import os.log
 
 protocol SyncServiceDelegate: AnyObject {
     func syncStarted()
-    func syncEnded(_ result: Result<SyncService.SyncResult>)
+    func syncEnded(_ result: Result<SyncService.SyncResult, Error>)
 }
 
 class SyncService {
@@ -40,7 +40,7 @@ class SyncService {
         e2eeService = E2EEService(database: database)
     }
 
-    private func transformResponse(_ syncResponse: SyncResponse) -> Result<SyncResult> {
+    private func transformResponse(_ syncResponse: SyncResponse) -> Result<SyncResult, Error> {
         let roomEvents = syncResponse.rooms.join.flatMap { item -> [Event] in
             let roomID = item.key
             let joinedRoom = item.value
@@ -74,9 +74,9 @@ class SyncService {
                     defer { decryptGroup.leave() }
 
                     switch decryptionResult {
-                    case let .Value(event):
+                    case let .success(event):
                         deviceEvents.append(event)
-                    case let .Error(error):
+                    case let .failure(error):
                         // @TODO: error handling
                         print(error)
                     }
@@ -91,7 +91,7 @@ class SyncService {
 
         let events = roomEvents
 
-        return .Value(SyncResult(
+        return .success(SyncResult(
             nextBatch: syncResponse.nextBatch,
             // deduplicate and ensure the order (events do actually come out of order!!)
             events: Set(events).sorted { $0.date! <= $1.date! },
@@ -114,9 +114,9 @@ class SyncService {
         MatrixAPI.default.sync(timeout: timeout, nextBatch: account.nextBatch, accessToken: account.accessToken, queue: dispatchQueue) { syncResponseResult in
             self.logger?.log("response received", type: .info)
 
-            guard let syncResponse = syncResponseResult.value else {
-                self.logger?.log("syncResponseResult.error", type: .error, error: syncResponseResult.error)
-                self.delegate?.syncEnded(.Error(syncResponseResult.error!))
+            guard let syncResponse = syncResponseResult.success else {
+                self.logger?.log("syncResponseResult.error", type: .error, error: syncResponseResult.failure)
+                self.delegate?.syncEnded(.failure(syncResponseResult.failure!))
                 return
             }
 
@@ -124,9 +124,9 @@ class SyncService {
             var result = self.transformResponse(syncResponse)
 
             switch result {
-            case let .Error(error):
+            case let .failure(error):
                 self.logger?.log("after transform", type: .error, error: error)
-            case let .Value(value):
+            case let .success(value):
                 result = self.writeResultToDB(value)
                 if value.events.first(where: { e in e.type == .encryption }) != nil {
                     self.e2eeService.announceDevice(account: self.account)
@@ -138,7 +138,7 @@ class SyncService {
         }
     }
 
-    private func writeResultToDB(_ result: SyncResult) -> Result<SyncResult> {
+    private func writeResultToDB(_ result: SyncResult) -> Result<SyncResult, Error> {
         var result = result
 
         if !result.devicesChanged.isEmpty {
@@ -157,9 +157,9 @@ class SyncService {
                 defer { decryptGroup.leave() }
 
                 switch decryptResult {
-                case let .Value(event):
+                case let .success(event):
                     result.events.append(event)
-                case let .Error(error):
+                case let .failure(error):
                     // @TODO: error handling
                     print(error)
                 }
@@ -171,7 +171,7 @@ class SyncService {
         do {
             try database.dbQueue.inTransaction { db in
                 try result.events.forEach { event in
-                    try event.persist(db).dematerialize()
+                    try event.persist(db).get()
                 }
 
                 DispatchQueue.main.sync {
@@ -185,7 +185,7 @@ class SyncService {
         } catch {
             print(error)
             logger?.log("while trying to save to the database", type: .error, error: error)
-            return .Error(error)
+            return .failure(error)
         }
 
         result.events.filter { $0.type == .member }.forEach { event in
@@ -196,6 +196,6 @@ class SyncService {
             account.updateOTKCount(otkCount)
         }
 
-        return .Value(result)
+        return .success(result)
     }
 }

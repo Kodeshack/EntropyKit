@@ -32,7 +32,7 @@ class EventPersistenceTests: XCTestCase {
 
         XCTAssertTrue(database.dbQueue.inDatabase { db in
             event.persist(db)
-        }.isValue)
+        }.isSuccess)
 
         try database.dbQueue.inDatabase { db in
             XCTAssertNotNil(try Room.fetchOne(db, key: event.roomID))
@@ -55,7 +55,7 @@ class EventPersistenceTests: XCTestCase {
 
         XCTAssertNil(database.dbQueue.inDatabase { db in
             event.persist(db)
-        }.error)
+        }.failure)
 
         try database.dbQueue.inDatabase { db in
             let room = try Room.fetchOne(db, key: event.roomID)
@@ -79,7 +79,7 @@ class EventPersistenceTests: XCTestCase {
 
         XCTAssertNil(database.dbQueue.inDatabase { db in
             event.persist(db)
-        }.error)
+        }.failure)
 
         try database.dbQueue.inDatabase { db in
             let room = try Room.fetchOne(db, key: event.roomID)
@@ -105,7 +105,7 @@ class EventPersistenceTests: XCTestCase {
 
         XCTAssertNil(database.dbQueue.inDatabase { db in
             event.persist(db)
-        }.error)
+        }.failure)
 
         try database.dbQueue.inDatabase { db in
             let room = try Room.fetchOne(db, key: event.roomID)
@@ -137,7 +137,7 @@ class EventPersistenceTests: XCTestCase {
 
         XCTAssertNil(database.dbQueue.inDatabase { db in
             event.persist(db)
-        }.error)
+        }.failure)
 
         try database.dbQueue.inDatabase { db in
             let (sql, arguments, adapter) = Message.completeRequest(roomID: "message_room", offset: 0, limit: 1)
@@ -181,8 +181,8 @@ class EventPersistenceTests: XCTestCase {
         )
 
         database.dbQueue.inDatabase { db in
-            XCTAssertNil(event1.persist(db).error)
-            XCTAssertNil(event2.persist(db).error)
+            XCTAssertNil(event1.persist(db).failure)
+            XCTAssertNil(event2.persist(db).failure)
         }
 
         try database.dbQueue.inDatabase { db in

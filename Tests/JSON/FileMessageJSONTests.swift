@@ -10,7 +10,7 @@ class FileMessageJSONTests: XCTestCase {
         }
 
         let data = try Data(contentsOf: url)
-        let message = try FileMessageJSON.decode(data).dematerialize()
+        let message = try FileMessageJSON.decode(data).get()
 
         XCTAssertEqual(message.info.thumbnailInfo?.mimetype, "image/png")
     }

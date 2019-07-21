@@ -39,8 +39,8 @@ class UserServiceTests: XCTestCase {
 
         let user = User(id: "@test:user")
         UserService.loadAvatar(userID: user.id, forceDownload: true) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value!)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success!)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -56,8 +56,8 @@ class UserServiceTests: XCTestCase {
 
         let user = User(id: "@test:user")
         UserService.loadAvatar(userID: user.id, forceDownload: true) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNil(result.value!)
+            XCTAssertNil(result.failure)
+            XCTAssertNil(result.success!)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)

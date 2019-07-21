@@ -69,14 +69,14 @@ class CCCryptor {
     ///   - dataOut: Buffer to which the encrypted data will be written.
     ///   - dataOutAvailable: The size of the dataOut buffer in bytes.
     /// - Returns: The number of bytes that were "moved" from the input to the output buffer.
-    func update(dataIn: UnsafeRawPointer, dataInLength: Int, dataOut: UnsafeMutableRawPointer, dataOutAvailable: Int) -> Result<Int> {
+    func update(dataIn: UnsafeRawPointer, dataInLength: Int, dataOut: UnsafeMutableRawPointer, dataOutAvailable: Int) -> Result<Int, Error> {
         let statusCode = CCCryptorUpdate(reference, dataIn, dataInLength, dataOut, dataOutAvailable, &bytesMoved)
         let status = CryptorStatus(rawValue: statusCode)!
 
         guard status == .success else {
-            return .Error(status)
+            return .failure(status)
         }
 
-        return .Value(bytesMoved)
+        return .success(bytesMoved)
     }
 }

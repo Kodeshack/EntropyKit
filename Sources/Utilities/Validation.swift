@@ -18,7 +18,7 @@ public class Validation {
     /// Will prepend `https://` when no scheme is specified in the homeserver string.
     ///
     /// - Returns: Cleaned and validated inputs.
-    public static func validateLoginCredentials(username: String?, password: String?, homeserver: String?) -> Result<Credentials> {
+    public static func validateLoginCredentials(username: String?, password: String?, homeserver: String?) -> Result<Credentials, Error> {
         return Result {
             (
                 username: try validate(username: username),

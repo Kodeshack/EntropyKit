@@ -45,9 +45,9 @@ class RoomServiceTests: XCTestCase {
         let exp = expectation(description: "send message")
 
         RoomService.send(message: msg, to: room.id, encrypted: false, account: account, database: database) { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value?.id, "vaccines_cause_autism")
-            if let id = result.value?.id {
+            XCTAssertNil(result.failure)
+            XCTAssertEqual(result.success?.id, "vaccines_cause_autism")
+            if let id = result.success?.id {
                 try! self.database.dbQueue.inDatabase { db in
                     let message = try Message.fetchOne(db, key: id)
                     XCTAssertEqual(message?.senderID, "NotBob@kodeshack")
@@ -102,9 +102,9 @@ class RoomServiceTests: XCTestCase {
         let exp = expectation(description: "sent media message")
 
         RoomService.sendMedia(filename: "testimage.png", data: data, info: info, roomID: room.id, account: account, database: database) { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value?.id, "message_sent")
-            if let id = result.value?.id {
+            XCTAssertNil(result.failure)
+            XCTAssertEqual(result.success?.id, "message_sent")
+            if let id = result.success?.id {
                 try! self.database.dbQueue.inDatabase { db in
                     let message = try Message.fetchOne(db, key: id)
                     XCTAssertEqual(message?.senderID, "NotBob@kodeshack")

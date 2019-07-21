@@ -28,11 +28,11 @@ class SessionServiceTests: XCTestCase {
 
         let exp = expectation(description: "login request")
         SessionService.login(username: "NotBob", password: "psswd", database: database) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
-            XCTAssertEqual(result.value?.userID, "@NotBob:kodeshack")
-            XCTAssertEqual(result.value?.accessToken, "foo")
-            XCTAssertEqual(result.value?.deviceID, "bar")
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
+            XCTAssertEqual(result.success?.userID, "@NotBob:kodeshack")
+            XCTAssertEqual(result.success?.accessToken, "foo")
+            XCTAssertEqual(result.success?.deviceID, "bar")
             exp.fulfill()
         }
 

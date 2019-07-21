@@ -18,7 +18,7 @@ class EventTests: XCTestCase {
             }
         """.data(using: .utf8)
 
-        let event = try Event.decode(json).dematerialize()
+        let event = try Event.decode(json).get()
         XCTAssertEqual(event.id, "$1444812213350496Caaaa:example.com")
         XCTAssertEqual(event.senderID, "@alice:example.com")
         XCTAssertEqual(event.type, .message)

@@ -1,8 +1,8 @@
 class SessionService {
-    static func login(username: String, password: String, database: Database, completionHandler: @escaping (Result<Account>) -> Void) {
+    static func login(username: String, password: String, database: Database, completionHandler: @escaping (Result<Account, Error>) -> Void) {
         MatrixAPI.default.login(username: username, password: password) { loginResponseResult in
             completionHandler(Result {
-                let loginResponse = try loginResponseResult.dematerialize()
+                let loginResponse = try loginResponseResult.get()
                 return try Account.create(userID: loginResponse.userID, accessToken: loginResponse.accessToken, deviceID: loginResponse.deviceID, cryptoEngine: CryptoEngine(), database: database) { account in
                     account.nextBatch = ""
                 }

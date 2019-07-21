@@ -1,19 +1,17 @@
 import Foundation
 
 protocol JSONDecodable: Decodable {
-    static func decode(_ data: Data?) -> Result<Self>
+    static func decode(_ data: Data?) -> Result<Self, Error>
 }
 
 extension JSONDecodable {
-    static func decode(_ data: Data?) -> Result<Self> {
+    static func decode(_ data: Data?) -> Result<Self, Error> {
         guard let data = data else {
-            return .Error(JSONError.emptyJSON)
+            return .failure(JSONError.emptyJSON)
         }
 
-        do {
-            return .Value(try JSONDecoder().decode(Self.self, from: data))
-        } catch {
-            return .Error(error)
+        return Result {
+            try JSONDecoder().decode(Self.self, from: data)
         }
     }
 }

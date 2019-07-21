@@ -34,8 +34,6 @@
 		006D55CF20CD328E00C1E7BE /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55CD20CD328E00C1E7BE /* Entropy.swift */; };
 		006D55D520CD3A9C00C1E7BE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D420CD3A9C00C1E7BE /* Validation.swift */; };
 		006D55D620CD3A9C00C1E7BE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D420CD3A9C00C1E7BE /* Validation.swift */; };
-		006D55D820CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
-		006D55D920CD3AF900C1E7BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D55D720CD3AF900C1E7BE /* Result.swift */; };
 		00AEA0892169304A00346816 /* MIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA0882169304A00346816 /* MIMEType.swift */; };
 		00AEA08A2169304A00346816 /* MIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA0882169304A00346816 /* MIMEType.swift */; };
 		00AEA08C2169317700346816 /* MIMETypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA08B2169317700346816 /* MIMETypeTests.swift */; };
@@ -58,6 +56,8 @@
 		B773C78CC27B14EF60B6B33B /* Pods_EntropyKit_macOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745F133DB1DEBFBBDD51297F /* Pods_EntropyKit_macOSTests.framework */; };
 		D202664420E2984200925486 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202664320E2984200925486 /* ImageService.swift */; };
 		D202664520E2984200925486 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202664320E2984200925486 /* ImageService.swift */; };
+		D23C74F222B9600100925486 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C74F122B9600100925486 /* Result.swift */; };
+		D23C74F322B9600100925486 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C74F122B9600100925486 /* Result.swift */; };
 		D259E67520D51B8600925486 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E67420D51B8600925486 /* Database.swift */; };
 		D259E67620D51B8B00925486 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E67420D51B8600925486 /* Database.swift */; };
 		D259E67A20D51E9F00925486 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259E67920D51E9F00925486 /* Bundle.swift */; };
@@ -268,7 +268,6 @@
 		006D55C620CD318400C1E7BE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		006D55CD20CD328E00C1E7BE /* Entropy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
 		006D55D420CD3A9C00C1E7BE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		006D55D720CD3AF900C1E7BE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		00AEA0882169304A00346816 /* MIMEType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIMEType.swift; sourceTree = "<group>"; };
 		00AEA08B2169317700346816 /* MIMETypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIMETypeTests.swift; sourceTree = "<group>"; };
 		00F52E4D212C06C400A337B6 /* AttachmentEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEncryption.swift; sourceTree = "<group>"; };
@@ -287,6 +286,7 @@
 		BE6C28D975CDD64CDD4D0B76 /* Pods-EntropyKit-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EntropyKit-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EntropyKit-iOS/Pods-EntropyKit-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C167472563A410DA350574EC /* Pods-EntropyKit-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EntropyKit-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EntropyKit-iOSTests/Pods-EntropyKit-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D202664320E2984200925486 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		D23C74F122B9600100925486 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D259E67420D51B8600925486 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		D259E67920D51E9F00925486 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		D259E67D20D51FB700925486 /* MatrixAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixAPI.swift; sourceTree = "<group>"; };
@@ -511,6 +511,7 @@
 				D259E67920D51E9F00925486 /* Bundle.swift */,
 				D268E69120DE894800075875 /* FileManager.swift */,
 				D259E71920D525D100925486 /* OSLog.swift */,
+				D23C74F122B9600100925486 /* Result.swift */,
 				D2887CDF20DF910D00925486 /* String.swift */,
 				D2887CE220DF918300925486 /* UnicodeScalar.swift */,
 			);
@@ -714,7 +715,6 @@
 				D268E68820DE873300075875 /* MemoryCache.swift */,
 				00AEA0882169304A00346816 /* MIMEType.swift */,
 				0051AEAB20DCFF5C0061A7B8 /* ObservablePersistedList.swift */,
-				006D55D720CD3AF900C1E7BE /* Result.swift */,
 				006D55D420CD3A9C00C1E7BE /* Validation.swift */,
 				00F52E53212C55FE00A337B6 /* SHA256.swift */,
 				0051AEAE20DE45130061A7B8 /* Scheduler.swift */,
@@ -1018,7 +1018,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				006D55D820CD3AF900C1E7BE /* Result.swift in Sources */,
 				D259E6BD20D5242F00925486 /* CryptoEngine+FSM.swift in Sources */,
 				D268E68920DE873300075875 /* CacheHierarchy.swift in Sources */,
 				D259E71420D5256200925486 /* Deque.swift in Sources */,
@@ -1051,6 +1050,7 @@
 				D259E6E020D524A500925486 /* EncryptedJSON.swift in Sources */,
 				D259E6D220D524A500925486 /* JSONSignable.swift in Sources */,
 				D259E68620D5225100925486 /* UploadResponse.swift in Sources */,
+				D23C74F222B9600100925486 /* Result.swift in Sources */,
 				D2887CE320DF918300925486 /* UnicodeScalar.swift in Sources */,
 				D259E6B920D5242F00925486 /* CryptoEngine.swift in Sources */,
 				D268E68320DE86E500075875 /* UserService.swift in Sources */,
@@ -1138,7 +1138,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				006D55D920CD3AF900C1E7BE /* Result.swift in Sources */,
 				D259E6BE20D5242F00925486 /* CryptoEngine+FSM.swift in Sources */,
 				D259E71520D5256200925486 /* Deque.swift in Sources */,
 				D259E70520D524C400925486 /* LoginResponse.swift in Sources */,
@@ -1171,6 +1170,7 @@
 				D259E68720D5225100925486 /* UploadResponse.swift in Sources */,
 				D259E6BA20D5242F00925486 /* CryptoEngine.swift in Sources */,
 				D259E71820D525A800925486 /* ThreadSafeDictionary.swift in Sources */,
+				D23C74F322B9600100925486 /* Result.swift in Sources */,
 				D2887CE420DF918300925486 /* UnicodeScalar.swift in Sources */,
 				D259E6B220D523E600925486 /* UserRoom.swift in Sources */,
 				D259E6C620D5247100925486 /* SyncService.swift in Sources */,

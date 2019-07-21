@@ -50,7 +50,7 @@ class Device: Record {
 }
 
 extension Device {
-    static func fetchNotBlocked(forRoom roomID: RoomID, database: Database) -> Result<[Device]> {
+    static func fetchNotBlocked(forRoom roomID: RoomID, database: Database) -> Result<[Device], Error> {
         return Result {
             try database.dbQueue.inDatabase { db -> [Device] in
                 let usersRoomsTable = Database.v0.users_rooms.table
@@ -73,7 +73,7 @@ extension Device {
         }
     }
 
-    static func fetchOne(userID: UserID, deviceID: DeviceID, database: Database) -> Result<Device?> {
+    static func fetchOne(userID: UserID, deviceID: DeviceID, database: Database) -> Result<Device?, Error> {
         return Result {
             try database.dbQueue.inDatabase { db -> Device? in
                 try Device.fetchOne(db, key: [Database.v0.devices.id: deviceID, Database.v0.devices.userID: userID])

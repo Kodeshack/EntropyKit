@@ -40,8 +40,8 @@ class ImageServiceTests: XCTestCase {
         message.attachment = Attachment(event: event)
 
         ImageService.loadThumbnail(for: message) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -53,7 +53,7 @@ class ImageServiceTests: XCTestCase {
         let message = Message(id: "msgID", roomID: "roomID", date: Date(), senderID: "senderID", type: .image, body: "body")
 
         ImageService.loadThumbnail(for: message) { result in
-            XCTAssertEqual(result.error as? Attachment.AttachmentError, Attachment.AttachmentError.missingAttachment)
+            XCTAssertEqual(result.failure as? Attachment.AttachmentError, Attachment.AttachmentError.missingAttachment)
             exp.fulfill()
         }
         waitForExpectations(timeout: 1)
@@ -79,8 +79,8 @@ class ImageServiceTests: XCTestCase {
         message.attachment = Attachment(event: event)
 
         ImageService.loadImage(for: message) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -92,7 +92,7 @@ class ImageServiceTests: XCTestCase {
         let message = Message(id: "msgID", roomID: "roomID", date: Date(), senderID: "senderID", type: .image, body: "body")
 
         ImageService.loadImage(for: message) { result in
-            XCTAssertEqual(result.error as? Attachment.AttachmentError, Attachment.AttachmentError.missingAttachment)
+            XCTAssertEqual(result.failure as? Attachment.AttachmentError, Attachment.AttachmentError.missingAttachment)
             exp.fulfill()
         }
         waitForExpectations(timeout: 1)
@@ -110,8 +110,8 @@ class ImageServiceTests: XCTestCase {
         let avatar = try Data(contentsOf: URL(string: "file://\(path)")!)
 
         ImageService.uploadImage(filename: "testimage.png", mimeType: "image/png", data: avatar, accessToken: "token") { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
+            XCTAssertNil(result.failure)
+            XCTAssertEqual(result.success, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)

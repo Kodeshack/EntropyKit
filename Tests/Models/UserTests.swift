@@ -50,7 +50,7 @@ class UserTests: XCTestCase {
         event.senderID = user.id
 
         try database.dbQueue.inDatabase { db in
-            try event.persist(db).dematerialize()
+            try event.persist(db).get()
             try User(event: event)?.insert(db)
         }
 

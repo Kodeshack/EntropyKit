@@ -12,7 +12,7 @@ class E2EEService {
         self.database = database
     }
 
-    private func fetchAllUserRooms(without userID: UserID) -> Result<[UserID: [String]]> {
+    private func fetchAllUserRooms(without userID: UserID) -> Result<[UserID: [String]], Error> {
         return Result {
             let userRoomPairs: [(userID: UserID, roomID: String)] = try database.dbQueue.inDatabase { db -> [Row] in
                 let roomsTable = Database.v0.rooms.table
@@ -51,22 +51,22 @@ class E2EEService {
         }
     }
 
-    func announceDevice(account: Account, completionHandler: @escaping (Result<Void>) -> Void = { _ in }) {
+    func announceDevice(account: Account, completionHandler: @escaping (Result<Void, Error>) -> Void = { _ in }) {
         let userRoomsResult = fetchAllUserRooms(without: account.userID)
-        guard let userRooms = userRoomsResult.value else {
-            completionHandler(.Error(userRoomsResult.error!))
+        guard let userRooms = userRoomsResult.success else {
+            completionHandler(.failure(userRoomsResult.failure!))
             return
         }
 
         guard !userRooms.isEmpty else {
-            completionHandler(.Value(()))
+            completionHandler(.success(()))
             return
         }
 
         let announcement = DeviceAnnouncementRequest(deviceID: account.deviceID, userRooms: userRooms, signUsing: account)
         MatrixAPI.default.announceDevice(accessToken: account.accessToken, transactionID: account.nextTransactionID(), deviceAnnouncementRequest: announcement) { result in
             completionHandler(Result {
-                _ = try result.dematerialize()
+                _ = try result.get()
 
                 let rooms = Set(userRooms.flatMap { $1 }).map { Room(id: $0) }
 
@@ -82,7 +82,7 @@ class E2EEService {
     }
 
     // set request to nil to check key count <- this is pretty stupid
-    func uploadKeys(account: Account, request: KeysUploadRequest?, queue: DispatchQueue, completionHandler: @escaping (Result<UInt>) -> Void = { _ in }) {
+    func uploadKeys(account: Account, request: KeysUploadRequest?, queue: DispatchQueue, completionHandler: @escaping (Result<UInt, Error>) -> Void = { _ in }) {
         MatrixAPI.default.uploadKeys(accessToken: account.accessToken, deviceID: account.deviceID, keysUploadRequest: request, queue: queue, completionHandler: completionHandler)
     }
 
@@ -93,7 +93,7 @@ class E2EEService {
     /// "The client should check if the user_id/device_id correspond to a device it had seen
     /// previously. If it did, the client must check that the Ed25519 key hasn't changed.
     /// Again, if it has changed, no further processing should be done on the device."
-    private func extractNew(devices: [Device]) -> Result<[Device]> {
+    private func extractNew(devices: [Device]) -> Result<[Device], Error> {
         return Result {
             try database.dbQueue.inDatabase { db in
                 let deviceKeys = devices.map { d -> [String: String] in
@@ -166,7 +166,7 @@ class E2EEService {
     /// Removes devices from the database which don't seem to be active anymore (not sending any keys) by comparing
     /// a given device list with known devices in the DB.
     /// ∀ d ∈ DB \ devices, delete d
-    private func removeOldDevices(userIDs: [UserID], devices: [Device]) -> Result<Void> {
+    private func removeOldDevices(userIDs: [UserID], devices: [Device]) -> Result<Void, Error> {
         return Result {
             guard !userIDs.isEmpty, !devices.isEmpty else {
                 return
@@ -189,12 +189,12 @@ class E2EEService {
     }
 
     /// Pls note, this also saves to DB
-    func getDevices(account: Account, userIDs: [UserID], queue: DispatchQueue, completionHandler: @escaping (Result<[Device]>) -> Void) {
+    func getDevices(account: Account, userIDs: [UserID], queue: DispatchQueue, completionHandler: @escaping (Result<[Device], Error>) -> Void) {
         let keysQueryRequest = KeysQueryRequest(deviceKeys: Dictionary(uniqueKeysWithValues: userIDs.map { ($0, []) }))
 
         MatrixAPI.default.queryKeys(accessToken: account.accessToken, keysQueryRequest: keysQueryRequest, queue: queue) { result in
             completionHandler(Result {
-                let keysQueryReponse = try result.dematerialize()
+                let keysQueryReponse = try result.get()
 
                 let devices = self.flattenKeysQueryResponse(keysQueryReponse)
 
@@ -203,9 +203,9 @@ class E2EEService {
                 // previously. If it did, the client must check that the Ed25519 key hasn't changed.
                 // Again, if it has changed, no further processing should be done on the device."
                 // We ignore devices that already exist in the database.
-                let newDevices = try self.extractNew(devices: devices).dematerialize()
+                let newDevices = try self.extractNew(devices: devices).get()
 
-                _ = try self.removeOldDevices(userIDs: userIDs, devices: devices).dematerialize()
+                _ = try self.removeOldDevices(userIDs: userIDs, devices: devices).get()
 
                 try self.database.dbQueue.inDatabase { db in
                     try newDevices.forEach { device in
@@ -218,9 +218,9 @@ class E2EEService {
         }
     }
 
-    func fetchNonBlockedDevices(for roomID: RoomID, without deviceID: DeviceID) -> Result<[Device]> {
+    func fetchNonBlockedDevices(for roomID: RoomID, without deviceID: DeviceID) -> Result<[Device], Error> {
         return Result {
-            let devices = try Device.fetchNotBlocked(forRoom: roomID, database: database).dematerialize()
+            let devices = try Device.fetchNotBlocked(forRoom: roomID, database: database).get()
             return devices.filter { $0.id != deviceID }
         }
     }
@@ -300,13 +300,13 @@ class E2EEService {
         }
     }
 
-    func publishGroupSessionKeys(for account: Account, sessionInfo: SessionInfo, olmEncrypt: (String, CryptoEngine.Curve25519Key) -> (String, OLMMessageType)?, queue: DispatchQueue, completionHandler: @escaping (Result<Void>) -> Void) {
+    func publishGroupSessionKeys(for account: Account, sessionInfo: SessionInfo, olmEncrypt: (String, CryptoEngine.Curve25519Key) -> (String, OLMMessageType)?, queue: DispatchQueue, completionHandler: @escaping (Result<Void, Error>) -> Void) {
         let devices: [Device]
         switch fetchNonBlockedDevices(for: sessionInfo.roomID, without: account.deviceID) {
-        case let .Value(ds):
+        case let .success(ds):
             devices = ds
-        case let .Error(error):
-            completionHandler(.Error(error))
+        case let .failure(error):
+            completionHandler(.failure(error))
             return
         }
 

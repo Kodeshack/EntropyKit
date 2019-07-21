@@ -7,7 +7,7 @@ extension Event {
         case persistenceFunctionNotFound(Event)
     }
 
-    func persist(_ db: GRDB.Database) -> Result<Void> {
+    func persist(_ db: GRDB.Database) -> Result<Void, Error> {
         return Result {
             switch self.type {
             case .create:

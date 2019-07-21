@@ -46,7 +46,7 @@ class E2EEServiceTests: XCTestCase {
         let account = Account(userID: "NotBob", accessToken: "token", deviceID: "tests", nextBatch: "")
 
         E2EEService(database: database).announceDevice(account: account) { result in
-            XCTAssertTrue(result.isValue)
+            XCTAssertTrue(result.isSuccess)
 
             self.database.dbQueue.inDatabase { db in
                 let rooms = try! Room.fetchAll(db, keys: ["foo", "bar"])
@@ -82,8 +82,8 @@ class E2EEServiceTests: XCTestCase {
         let keysUploadRequest = KeysUploadRequest(deviceKeys: deviceKeys, oneTimeKeys: account.getOneTimeKeys())
 
         E2EEService(database: database).uploadKeys(account: account, request: keysUploadRequest, queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
-            XCTAssertEqual(result.value, 50)
+            XCTAssertTrue(result.isSuccess)
+            XCTAssertEqual(result.success, 50)
             exp.fulfill()
         }
 
@@ -102,7 +102,7 @@ class E2EEServiceTests: XCTestCase {
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", database: database)
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
+            XCTAssertTrue(result.isSuccess)
             exp.fulfill()
         }
 
@@ -127,7 +127,7 @@ class E2EEServiceTests: XCTestCase {
         let exp = expectation(description: "getDevices")
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            if case let .deviceEd25519KeyMismatch(device)? = result.error as? E2EEService.E2EEError {
+            if case let .deviceEd25519KeyMismatch(device)? = result.failure as? E2EEService.E2EEError {
                 XCTAssertEqual(device.id, "LPUUCBBOJP")
             } else {
                 XCTFail()
@@ -155,7 +155,7 @@ class E2EEServiceTests: XCTestCase {
         let exp = expectation(description: "getDevices")
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
+            XCTAssertTrue(result.isSuccess)
 
             self.database.dbQueue.inDatabase { db in
                 try! XCTAssertNil(Device.fetchOne(db, key: [Database.v0.devices.id: "foo", Database.v0.devices.userID: "@NotBob:kodeshack"]))
@@ -181,8 +181,8 @@ class E2EEServiceTests: XCTestCase {
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", database: database)
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
-            XCTAssertEqual(result.value?.count, 0)
+            XCTAssertTrue(result.isSuccess)
+            XCTAssertEqual(result.success?.count, 0)
 
             self.database.dbQueue.inDatabase { db in
                 try! XCTAssertEqual(Device.fetchCount(db), 0)
@@ -208,8 +208,8 @@ class E2EEServiceTests: XCTestCase {
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", database: database)
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
-            XCTAssertEqual(result.value?.count, 0)
+            XCTAssertTrue(result.isSuccess)
+            XCTAssertEqual(result.success?.count, 0)
 
             self.database.dbQueue.inDatabase { db in
                 try! XCTAssertEqual(Device.fetchCount(db), 0)
@@ -235,8 +235,8 @@ class E2EEServiceTests: XCTestCase {
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", database: database)
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
-            XCTAssertEqual(result.value?.count, 0)
+            XCTAssertTrue(result.isSuccess)
+            XCTAssertEqual(result.success?.count, 0)
 
             self.database.dbQueue.inDatabase { db in
                 try! XCTAssertEqual(Device.fetchCount(db), 0)
@@ -262,8 +262,8 @@ class E2EEServiceTests: XCTestCase {
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", database: database)
 
         E2EEService(database: database).getDevices(account: account, userIDs: ["@NotBob:kodeshack"], queue: DispatchQueue.main) { result in
-            XCTAssertTrue(result.isValue)
-            XCTAssertEqual(result.value?.count, 0)
+            XCTAssertTrue(result.isSuccess)
+            XCTAssertEqual(result.success?.count, 0)
 
             self.database.dbQueue.inDatabase { db in
                 try! XCTAssertEqual(Device.fetchCount(db), 0)
@@ -323,7 +323,7 @@ class E2EEServiceTests: XCTestCase {
             olmEncrypt: olmEncrypt,
             queue: DispatchQueue.main
         ) { result in
-            XCTAssertNil(result.error)
+            XCTAssertNil(result.failure)
             exp.fulfill()
         }
 

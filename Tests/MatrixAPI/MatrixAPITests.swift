@@ -27,8 +27,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.downloadImage(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
 
@@ -47,8 +47,8 @@ class MatrixAPITests: XCTestCase {
         let avatar = try Data(contentsOf: URL(string: "file://\(path)")!)
 
         MatrixAPI.default.upload(filename: "testimage.png", mimeType: "image/png", data: avatar, accessToken: "") { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
+            XCTAssertNil(result.failure)
+            XCTAssertEqual(result.success, "mxc://example.com/AQwafuaFswefuhsfAFAgsw")
             exp.fulfill()
         }
 
@@ -69,8 +69,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.downloadFile(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
 
@@ -98,7 +98,7 @@ class MatrixAPITests: XCTestCase {
         let file = EncryptedAttachment(version: .v2, mxcURL: URL(string: "mxc://testimage.png")!, mimeType: "image/png", size: data.count, iv: iv, key: key, hashes: hashes)
         let cryptoInfo = Attachment.Info.CryptoInfo(for: file)
         MatrixAPI.default.downloadFile(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!, cryptoInfo: cryptoInfo) { result in
-            XCTAssertEqual(result.value, data)
+            XCTAssertEqual(result.success, data)
             exp.fulfill()
         }
 
@@ -116,8 +116,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.getAvatarURL(userID: "@test:user") { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
 
@@ -136,8 +136,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.downloadAvatar(mxcURL: URL(string: "mxc://matrix.org/SDGdghriugerRg")!) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
 
@@ -155,11 +155,11 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.login(username: "NotBob", password: "psswd") { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
-            XCTAssertEqual(result.value?.userID, "@NotBob:kodeshack")
-            XCTAssertEqual(result.value?.accessToken, "foo")
-            XCTAssertEqual(result.value?.deviceID, "bar")
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
+            XCTAssertEqual(result.success?.userID, "@NotBob:kodeshack")
+            XCTAssertEqual(result.success?.accessToken, "foo")
+            XCTAssertEqual(result.success?.deviceID, "bar")
             exp.fulfill()
         }
 
@@ -205,8 +205,8 @@ class MatrixAPITests: XCTestCase {
         let msg = PlainMessageJSON(body: "Hello.", type: .text)
 
         MatrixAPI.default.send(body: msg, eventType: .message, to: "!wakeful_pigs:kodeshack", accessToken: "togepi", transactionID: 5) { result in
-            XCTAssertNil(result.error)
-            XCTAssertEqual(result.value?.eventID, "vaccines_cause_autism")
+            XCTAssertNil(result.failure)
+            XCTAssertEqual(result.success?.eventID, "vaccines_cause_autism")
             exp.fulfill()
         }
 
@@ -227,8 +227,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.sync(timeout: 0, nextBatch: "foo", accessToken: "bar", queue: DispatchQueue.main) { result in
-            XCTAssertNil(result.error)
-            XCTAssertNotNil(result.value)
+            XCTAssertNil(result.failure)
+            XCTAssertNotNil(result.success)
             exp.fulfill()
         }
 
@@ -249,8 +249,8 @@ class MatrixAPITests: XCTestCase {
         }
 
         MatrixAPI.default.requestLinkPreviewInfo(for: URL(string: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")!, accessToken: "secret") { result in
-            guard let info = result.value else {
-                XCTAssertNil(result.error)
+            guard let info = result.success else {
+                XCTAssertNil(result.failure)
                 return
             }
 

@@ -167,15 +167,15 @@ class CryptoEngineTests: XCTestCase {
         let cryptoExpectation = expectation(description: "cryptoExpectation")
         let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
         cryptoEngine.enqueue(.event(event: event, roomID: "roomID", cb: { result in
-            XCTAssertNil(result.error)
-            guard let cipher = result.value else {
+            XCTAssertNil(result.failure)
+            guard let cipher = result.success else {
                 XCTFail()
                 return
             }
 
             cryptoEngine.enqueue(.encryptedEvent(event: cipher, roomID: "roomID", cb: { decryptionResult in
-                XCTAssertNil(decryptionResult.error)
-                let outputEvent = decryptionResult.value
+                XCTAssertNil(decryptionResult.failure)
+                let outputEvent = decryptionResult.success
                 XCTAssertEqual(event.content.message?.body, outputEvent?.content.message?.body)
                 XCTAssertEqual(event.roomID, outputEvent?.roomID)
                 XCTAssertEqual(outputEvent?.senderID, "@NotNotBob:kodeshack")
@@ -258,7 +258,7 @@ class CryptoEngineTests: XCTestCase {
 
             let json = try! JSONSerialization.jsonObject(with: request.ohhttpStubs_httpBody!, options: []) as! [String: [String: [String: Any]]]
             let eventJSON = try! JSONSerialization.data(withJSONObject: json["messages"]!["@UserB:kodeshack"]!["DEVICE_B"]!, options: [])
-            let event = try! EncryptedJSON.decode(eventJSON).dematerialize()
+            let event = try! EncryptedJSON.decode(eventJSON).get()
 
             toDeviceEvent = SyncResponse.ToDeviceEvent(senderID: "@UserA:kodeshack", type: .encrypted, content: .encrypted(event))
 
@@ -276,11 +276,11 @@ class CryptoEngineTests: XCTestCase {
         let cryptoExpectation = expectation(description: "cryptoExpectation")
         let event = Event(type: .message, roomID: "roomID", content: .message(PlainMessageJSON(body: "hi", type: .text)))
         cryptoEngineA.enqueue(.event(event: event, roomID: "roomID", cb: { result in
-            XCTAssertNil(result.error)
+            XCTAssertNil(result.failure)
 
             cryptoEngineB.enqueue(.encryptedToDeviceEvent(event: toDeviceEvent, cb: { decryptionResult in
-                XCTAssertNil(decryptionResult.error)
-                let outputEvent = decryptionResult.value!
+                XCTAssertNil(decryptionResult.failure)
+                let outputEvent = decryptionResult.success!
 
                 XCTAssertEqual(outputEvent.senderID, "@UserA:kodeshack")
                 XCTAssertEqual(outputEvent.type, .roomKey) // Event.EventsType.roomKey
@@ -525,12 +525,12 @@ class CryptoEngineTests: XCTestCase {
 
             account.decrypt(toDeviceEvent: toDeviceEvent) { result in
                 guard let error = error else {
-                    XCTAssertNil(result.error)
+                    XCTAssertNil(result.failure)
                     exp.fulfill()
                     return
                 }
 
-                XCTAssertEqual("\(result.error!)", "\(error)")
+                XCTAssertEqual("\(result.failure!)", "\(error)")
                 exp.fulfill()
             }
         }

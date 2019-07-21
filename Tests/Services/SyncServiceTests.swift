@@ -44,8 +44,8 @@ class SyncServiceTests: XCTestCase {
 
         let delegate = SyncServiceTestsDelegate(cbSyncStart: {}, cbSyncEnd: { result in
             defer { exp.fulfill() }
-            guard case let .Value(value) = result else {
-                XCTFail(result.error!.localizedDescription)
+            guard case let .success(value) = result else {
+                XCTFail(result.failure!.localizedDescription)
                 return
             }
 
@@ -70,9 +70,9 @@ class SyncServiceTests: XCTestCase {
 
 private class SyncServiceTestsDelegate: SyncServiceDelegate {
     private let cbSyncStart: () -> Void
-    private let cbSyncEnd: (Result<SyncService.SyncResult>) -> Void
+    private let cbSyncEnd: (Result<SyncService.SyncResult, Error>) -> Void
 
-    public init(cbSyncStart: @escaping () -> Void, cbSyncEnd: @escaping (Result<SyncService.SyncResult>) -> Void) {
+    public init(cbSyncStart: @escaping () -> Void, cbSyncEnd: @escaping (Result<SyncService.SyncResult, Error>) -> Void) {
         self.cbSyncStart = cbSyncStart
         self.cbSyncEnd = cbSyncEnd
     }
@@ -81,7 +81,7 @@ private class SyncServiceTestsDelegate: SyncServiceDelegate {
         cbSyncStart()
     }
 
-    func syncEnded(_ result: Result<SyncService.SyncResult>) {
+    func syncEnded(_ result: Result<SyncService.SyncResult, Error>) {
         cbSyncEnd(result)
     }
 }

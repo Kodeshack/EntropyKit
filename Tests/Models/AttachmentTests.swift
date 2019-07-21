@@ -54,7 +54,7 @@ class AttachmentTests: XCTestCase {
         }
         XCTAssertNotNil(dbAttachment)
 
-        let decrypted = try AttachmentEncryption.decrypt(ciphertext: Data(base64Encoded: encryptedData)!, info: dbAttachment!.info.cryptoInfo!).dematerialize()
+        let decrypted = try AttachmentEncryption.decrypt(ciphertext: Data(base64Encoded: encryptedData)!, info: dbAttachment!.info.cryptoInfo!).get()
 
         XCTAssertEqual(data, decrypted)
     }

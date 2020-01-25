@@ -13,7 +13,7 @@ class Account: Record {
     private var olmAccount: OLMAccount
 
     var blob: CryptoBlob {
-        return CryptoBlob(id: userID, type: .olmAccount, data: olmAccount)
+        CryptoBlob(id: userID, type: .olmAccount, data: olmAccount)
     }
 
     init(userID: UserID, accessToken: String, deviceID: DeviceID, nextBatch: String, cryptoEngine: CryptoEngine? = nil) {
@@ -44,7 +44,7 @@ class Account: Record {
     }
 
     override class var databaseTableName: String {
-        return Database.v0.accounts.table
+        Database.v0.accounts.table
     }
 
     override func encode(to container: inout PersistenceContainer) {
@@ -142,7 +142,7 @@ extension Account {
     }
 
     var maxOneTimeKeyCount: UInt {
-        return olmAccount.maxOneTimeKeys()
+        olmAccount.maxOneTimeKeys()
     }
 
     struct IdentityKeys {
@@ -159,7 +159,7 @@ extension Account {
     }
 
     func signature(for data: JSONEncodable) -> String {
-        return olmAccount.signMessage(data.encoded)!
+        olmAccount.signMessage(data.encoded)!
     }
 
     private func generateOneTimeKeys(numberOfKeys: Int) {
@@ -188,7 +188,7 @@ extension Account {
 
 extension Account {
     func createOLMSession(from body: String, with senderKey: CryptoEngine.Curve25519Key) -> Result<OLMSession, Error> {
-        return Result {
+        Result {
             let session = try OLMSession(inboundSessionWith: self.olmAccount, theirIdentityKey: senderKey, oneTimeKeyMessage: body)
             self.olmAccount.removeOneTimeKeys(for: session)
             return session
@@ -196,7 +196,7 @@ extension Account {
     }
 
     func createOLMSession(for identityKey: CryptoEngine.Curve25519Key, oneTimeKey: String) -> Result<OLMSession, Error> {
-        return Result {
+        Result {
             try OLMSession(outboundSessionWith: self.olmAccount, theirIdentityKey: identityKey, theirOneTimeKey: oneTimeKey)
         }
     }

@@ -1,9 +1,9 @@
 /// SQLQueryGenerator is able to generate an SQL SELECT query.
 struct SQLQueryGenerator {
-    fileprivate let relation: SQLQualifiedRelation
+    fileprivate private(set) var relation: SQLQualifiedRelation
     private let isDistinct: Bool
     private let groupPromise: DatabasePromise<[SQLExpression]>?
-    private let havingExpression: SQLExpression?
+    private let havingExpressions: [SQLExpression]
     private let limit: SQLLimit?
     
     init(_ query: SQLQuery) {
@@ -34,9 +34,9 @@ struct SQLQueryGenerator {
         //
         // This turns `GROUP BY id` INTO `GROUP BY book.id`, and
         // `HAVING MAX(year) < 2000` INTO `HAVING MAX(book.year) < 2000`.
-        let alias = relation.alias
-        groupPromise = query.groupPromise?.map { [alias] in $0.map { $0.qualifiedExpression(with: alias) } }
-        havingExpression = query.havingExpression?.qualifiedExpression(with: alias)
+        let alias = relation.sourceAlias
+        groupPromise = query.groupPromise?.map { $0.map { $0.qualifiedExpression(with: alias) } }
+        havingExpressions = query.havingExpressions.map { $0.qualifiedExpression(with: alias) }
         
         // Preserve other flags
         isDistinct = query.isDistinct
@@ -54,31 +54,43 @@ struct SQLQueryGenerator {
         GRDBPrecondition(!selection.isEmpty, "Can't generate SQL with empty selection")
         sql += " " + selection.map { $0.resultColumnSQL(&context) }.joined(separator: ", ")
         
-        sql += try " FROM " + relation.source.sql(db, &context)
+        sql += " FROM "
+        sql += try relation.source.sql(db, &context)
         
         for (_, join) in relation.joins {
-            sql += try " " + join.sql(db, &context, leftAlias: relation.alias)
+            sql += " "
+            sql += try join.sql(db, &context, leftAlias: relation.sourceAlias)
         }
         
-        if let filter = try relation.filterPromise.resolve(db) {
-            sql += " WHERE " + filter.expressionSQL(&context)
+        let filters = try relation.filtersPromise.resolve(db)
+        if filters.isEmpty == false {
+            sql += " WHERE "
+            sql += filters.joined(operator: .and).expressionSQL(&context, wrappedInParenthesis: false)
         }
         
         if let groupExpressions = try groupPromise?.resolve(db), !groupExpressions.isEmpty {
-            sql += " GROUP BY " + groupExpressions.map { $0.expressionSQL(&context) }.joined(separator: ", ")
+            sql += " GROUP BY "
+            sql += groupExpressions
+                .map { $0.expressionSQL(&context, wrappedInParenthesis: false) }
+                .joined(separator: ", ")
         }
         
-        if let havingExpression = havingExpression {
-            sql += " HAVING " + havingExpression.expressionSQL(&context)
+        if havingExpressions.isEmpty == false {
+            sql += " HAVING "
+            sql += havingExpressions.joined(operator: .and).expressionSQL(&context, wrappedInParenthesis: false)
         }
         
         let orderings = try relation.ordering.resolve(db)
         if !orderings.isEmpty {
-            sql += " ORDER BY " + orderings.map { $0.orderingTermSQL(&context) }.joined(separator: ", ")
+            sql += " ORDER BY "
+            sql += orderings
+                .map { $0.orderingTermSQL(&context) }
+                .joined(separator: ", ")
         }
         
         if let limit = limit {
-            sql += " LIMIT " + limit.sql
+            sql += " LIMIT "
+            sql += limit.sql
         }
         
         return sql
@@ -88,10 +100,7 @@ struct SQLQueryGenerator {
         return try (makeSelectStatement(db), rowAdapter(db))
     }
     
-    func databaseRegion(_ db: Database) throws -> DatabaseRegion {
-        let statement = try makeSelectStatement(db)
-        let databaseRegion = statement.databaseRegion
-        
+    private func optimizedDatabaseRegion(_ db: Database, _ databaseRegion: DatabaseRegion) throws -> DatabaseRegion {
         // Can we intersect the region with rowIds?
         //
         // Give up unless request feeds from a single database table
@@ -106,62 +115,196 @@ struct SQLQueryGenerator {
             return databaseRegion
         }
         
-        // Give up unless there is a where clause
-        guard let filter = try relation.filterPromise.resolve(db) else {
+        // The filters knows better
+        let filters = try relation.filtersPromise.resolve(db)
+        guard let rowIds = filters.joined(operator: .and).matchedRowIds(rowIdName: primaryKeyInfo.rowIDColumn) else {
             return databaseRegion
         }
         
-        // The filter knows better
-        guard let rowIds = filter.matchedRowIds(rowIdName: primaryKeyInfo.rowIDColumn) else {
-            return databaseRegion
-        }
-        
-        // Database regions are case-insensitive: use the canonical table name
+        // Database regions are case-sensitive: use the canonical table name
         let canonicalTableName = try db.canonicalTableName(tableName)
         return databaseRegion.tableIntersection(canonicalTableName, rowIds: rowIds)
     }
     
     func makeDeleteStatement(_ db: Database) throws -> UpdateStatement {
-        if let groupExpressions = try groupPromise?.resolve(db), !groupExpressions.isEmpty {
+        switch try grouping(db) {
+        case .none:
+            guard case .table = relation.source else {
+                // Programmer error
+                fatalError("Can't delete without any database table")
+            }
+            
+            guard relation.joins.isEmpty else {
+                return try makeTrivialDeleteStatement(db)
+            }
+            
+            var context = SQLGenerationContext.queryGenerationContext(aliases: relation.allAliases)
+            
+            var sql = try "DELETE FROM " + relation.source.sql(db, &context)
+            
+            let filters = try relation.filtersPromise.resolve(db)
+            if filters.isEmpty == false {
+                sql += " WHERE " + filters.joined(operator: .and).expressionSQL(&context, wrappedInParenthesis: false)
+            }
+            
+            if let limit = limit {
+                let orderings = try relation.ordering.resolve(db)
+                if !orderings.isEmpty {
+                    sql += " ORDER BY " + orderings.map { $0.orderingTermSQL(&context) }.joined(separator: ", ")
+                }
+                sql += " LIMIT " + limit.sql
+            }
+            
+            let statement = try db.makeUpdateStatement(sql: sql)
+            statement.arguments = context.arguments!
+            return statement
+            
+        case .unique:
+            return try makeTrivialDeleteStatement(db)
+            
+        case .nonUnique:
             // Programmer error
             fatalError("Can't delete query with GROUP BY clause")
         }
-        
-        guard havingExpression == nil else {
-            // Programmer error
-            fatalError("Can't delete query with HAVING clause")
-        }
-        
-        guard relation.joins.isEmpty else {
-            // Programmer error
-            fatalError("Can't delete query with JOIN clause")
-        }
-        
-        guard case .table = relation.source else {
+    }
+    
+    /// DELETE FROM table WHERE rowid IN (SELECT rowid FROM table ...)
+    private func makeTrivialDeleteStatement(_ db: Database) throws -> UpdateStatement {
+        guard case let .table(tableName: tableName, alias: _) = relation.source else {
             // Programmer error
             fatalError("Can't delete without any database table")
         }
         
         var context = SQLGenerationContext.queryGenerationContext(aliases: relation.allAliases)
         
-        var sql = try "DELETE FROM " + relation.source.sql(db, &context)
+        // SELECT rowid FROM table ...
+        var generator = self
+        generator.relation = generator.relation.selectOnly([Column.rowID])
+        let selectSQL = try generator.sql(db, &context)
         
-        if let filter = try relation.filterPromise.resolve(db) {
-            sql += " WHERE " + filter.expressionSQL(&context)
-        }
+        // DELETE FROM table WHERE rowid IN (SELECT rowid FROM table ...)
+        let sql = "DELETE FROM \(tableName.quotedDatabaseIdentifier) WHERE rowid IN (\(selectSQL))"
         
-        if let limit = limit {
-            let orderings = try relation.ordering.resolve(db)
-            if !orderings.isEmpty {
-                sql += " ORDER BY " + orderings.map { $0.orderingTermSQL(&context) }.joined(separator: ", ")
+        let statement = try db.makeUpdateStatement(sql: sql)
+        statement.arguments = context.arguments!
+        return statement
+    }
+    
+    /// Returns nil if assignments is empty
+    func makeUpdateStatement(
+        _ db: Database,
+        conflictResolution: Database.ConflictResolution,
+        assignments: [ColumnAssignment])
+        throws -> UpdateStatement?
+    {
+        switch try grouping(db) {
+        case .none:
+            guard case .table = relation.source else {
+                // Programmer error
+                fatalError("Can't update without any database table")
             }
             
-            if Database.sqliteCompileOptions.contains("ENABLE_UPDATE_DELETE_LIMIT") {
-                sql += " LIMIT " + limit.sql
-            } else {
-                fatalError("Can't delete query with limit")
+            guard relation.joins.isEmpty else {
+                return try makeTrivialUpdateStatement(
+                    db,
+                    conflictResolution: conflictResolution,
+                    assignments: assignments)
             }
+            
+            // Check for empty assignments after all programmer errors have
+            // been checked.
+            if assignments.isEmpty {
+                return nil
+            }
+            
+            var context = SQLGenerationContext.queryGenerationContext(aliases: relation.allAliases)
+            
+            var sql = "UPDATE "
+            
+            if conflictResolution != .abort {
+                sql += "OR \(conflictResolution.rawValue) "
+            }
+            
+            sql += try relation.source.sql(db, &context)
+            
+            let assignmentsSQL = assignments
+                .map({ assignment in
+                    assignment.column.expressionSQL(&context, wrappedInParenthesis: false) +
+                        " = " +
+                        assignment.value.sqlExpression.expressionSQL(&context, wrappedInParenthesis: false)
+                })
+                .joined(separator: ", ")
+            sql += " SET " + assignmentsSQL
+            
+            let filters = try relation.filtersPromise.resolve(db)
+            if filters.isEmpty == false {
+                sql += " WHERE " + filters.joined(operator: .and).expressionSQL(&context, wrappedInParenthesis: false)
+            }
+            
+            if let limit = limit {
+                let orderings = try relation.ordering.resolve(db)
+                if !orderings.isEmpty {
+                    sql += " ORDER BY " + orderings.map { $0.orderingTermSQL(&context) }.joined(separator: ", ")
+                }
+                sql += " LIMIT " + limit.sql
+            }
+            
+            let statement = try db.makeUpdateStatement(sql: sql)
+            statement.arguments = context.arguments!
+            return statement
+            
+        case .unique:
+            return try makeTrivialUpdateStatement(db, conflictResolution: conflictResolution, assignments: assignments)
+            
+        case .nonUnique:
+            // Programmer error
+            fatalError("Can't update query with GROUP BY clause")
         }
+    }
+    
+    /// UPDATE table SET ... WHERE rowid IN (SELECT rowid FROM table ...)
+    /// Returns nil if assignments is empty
+    private func makeTrivialUpdateStatement(
+        _ db: Database,
+        conflictResolution: Database.ConflictResolution,
+        assignments: [ColumnAssignment])
+        throws -> UpdateStatement?
+    {
+        guard case let .table(tableName: tableName, alias: _) = relation.source else {
+            // Programmer error
+            fatalError("Can't delete without any database table")
+        }
+        
+        // Check for empty assignments after all programmer errors have
+        // been checked.
+        if assignments.isEmpty {
+            return nil
+        }
+        
+        var context = SQLGenerationContext.queryGenerationContext(aliases: relation.allAliases)
+        
+        // SELECT rowid FROM table ...
+        var generator = self
+        generator.relation = generator.relation.selectOnly([Column.rowID])
+        let selectSQL = try generator.sql(db, &context)
+        
+        var sql = "UPDATE "
+        
+        if conflictResolution != .abort {
+            sql += "OR \(conflictResolution.rawValue) "
+        }
+        
+        sql += tableName.quotedDatabaseIdentifier
+        
+        let assignmentsSQL = assignments
+            .map({ assignment in
+                assignment.column.expressionSQL(&context, wrappedInParenthesis: false) +
+                    " = " +
+                    assignment.value.sqlExpression.expressionSQL(&context, wrappedInParenthesis: false)
+            })
+            .joined(separator: ", ")
+        sql += " SET " + assignmentsSQL
+        sql += " WHERE rowid IN (\(selectSQL))"
         
         let statement = try db.makeUpdateStatement(sql: sql)
         statement.arguments = context.arguments!
@@ -169,7 +312,7 @@ struct SQLQueryGenerator {
     }
     
     /// Returns a select statement
-    private func makeSelectStatement(_ db: Database) throws -> SelectStatement {
+    func makeSelectStatement(_ db: Database) throws -> SelectStatement {
         // Build an SQK generation context with all aliases found in the query,
         // so that we can disambiguate tables that are used several times with
         // SQL aliases.
@@ -181,7 +324,60 @@ struct SQLQueryGenerator {
         // Compile & set arguments
         let statement = try db.makeSelectStatement(sql: sql)
         statement.arguments = context.arguments! // not nil for this kind of context
+        
+        // Optimize databaseRegion
+        statement.databaseRegion = try optimizedDatabaseRegion(db, statement.databaseRegion)
         return statement
+    }
+    
+    /// Informs about the query grouping
+    private enum GroupingInfo {
+        /// No grouping at all: SELECT ... FROM player
+        case none
+        /// Grouped by unique key: SELECT ... FROM player GROUP BY id
+        case unique
+        /// Grouped by some non-unique columnns: SELECT ... FROM player GROUP BY teamId
+        case nonUnique
+    }
+    
+    /// Informs about the query grouping
+    private func grouping(_ db: Database) throws -> GroupingInfo {
+        // Empty group clause: no grouping
+        // SELECT * FROM player
+        guard let groupExpressions = try groupPromise?.resolve(db), groupExpressions.isEmpty == false else {
+            return .none
+        }
+        
+        // Grouping by something which is not a column: assume non
+        // unique grouping.
+        // SELECT * FROM player GROUP BY (score + bonus)
+        let qualifiedColumns = groupExpressions.compactMap { $0 as? QualifiedColumn }
+        if qualifiedColumns.count != groupExpressions.count {
+            return .nonUnique
+        }
+        
+        // Grouping something which is not a table: assume non unique grouping.
+        guard case let .table(tableName: tableName, alias: alias) = relation.source else {
+            return .nonUnique
+        }
+        
+        // Grouping by some column(s) which do not come from the main table:
+        // assume non unique grouping.
+        // SELECT * FROM player JOIN team ... GROUP BY team.id
+        guard qualifiedColumns.allSatisfy({ $0.alias == alias }) else {
+            return .nonUnique
+        }
+        
+        // Grouping by some column(s) which are unique
+        // SELECT * FROM player GROUP BY id
+        let columnNames = qualifiedColumns.map { $0.name }
+        if try db.table(tableName, hasUniqueKey: columnNames) {
+            return .unique
+        }
+        
+        // Grouping by some column(s) which are not unique
+        // SELECT * FROM player GROUP BY score
+        return .nonUnique
     }
     
     /// Returns the row adapter which presents the fetched rows according to the
@@ -216,80 +412,72 @@ struct SQLQueryGenerator {
 
 /// A "qualified" relation, where all tables are identified with a table alias.
 ///
-///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
-///            |        |      |        |         |            |
-///            |        |      |        |         |            • ordering
-///            |        |      |        |         • filterPromise
-///            |        |      |        • joins
-///            |        |      • alias
+///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
+///            |        |        |         |            |
+///            |        |        |         |            • ordering
+///            |        |        |         • filterPromise
+///            |        |        • joins
 ///            |        • source
-///            • fullSelection
+///            • selection
 private struct SQLQualifiedRelation {
-    /// The alias for the relation
-    ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
-    ///                            |
-    ///                            • alias
-    let alias: TableAlias
+    /// The source alias
+    var sourceAlias: TableAlias { return source.alias }
     
     /// All aliases, including aliases of joined relations
     var allAliases: [TableAlias] {
-        var aliases = [alias]
-        for join in joins.values {
-            aliases.append(contentsOf: join.relation.allAliases)
+        return joins.reduce(into: source.allAliases) {
+            $0.append(contentsOf: $1.value.relation.allAliases)
         }
-        aliases.append(contentsOf: source.allAliases)
-        return aliases
     }
     
     /// The source
     ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
+    ///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
     ///                     |
     ///                     • source
     let source: SQLQualifiedSource
     
-    /// The selection, not including selection of joined relations
-    private let ownSelection: [SQLSelectable]
+    /// The selection from source, not including selection of joined relations
+    private var sourceSelection: [SQLSelectable]
     
     /// The full selection, including selection of joined relations
     ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
+    ///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
     ///            |
-    ///            • fullSelection
+    ///            • selection
     var selection: [SQLSelectable] {
-        return joins.reduce(into: ownSelection) {
+        return joins.reduce(into: sourceSelection) {
             $0.append(contentsOf: $1.value.relation.selection)
         }
     }
     
     /// The filtering clause
     ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
-    ///                                               |
-    ///                                               • filterPromise
-    let filterPromise: DatabasePromise<SQLExpression?>
+    ///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
+    ///                                        |
+    ///                                        • filtersPromise
+    let filtersPromise: DatabasePromise<[SQLExpression]>
     
-    /// The ordering, not including ordering of joined relations
-    private let ownOrdering: SQLRelation.Ordering
+    /// The ordering of source, not including ordering of joined relations
+    private let sourceOrdering: SQLRelation.Ordering
     
     /// The full ordering, including orderings of joined relations
     ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
-    ///                                                            |
-    ///                                                            • ordering
+    ///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
+    ///                                                     |
+    ///                                                     • ordering
     var ordering: SQLRelation.Ordering {
-        return joins.reduce(ownOrdering) {
+        return joins.reduce(sourceOrdering) {
             $0.appending($1.value.relation.ordering)
         }
     }
     
     /// The joins
     ///
-    ///     SELECT ... FROM ... AS ... JOIN ... WHERE ... ORDER BY ...
-    ///                                     |
-    ///                                     • joins
-    let joins: OrderedDictionary<String, SQLQualifiedJoin>
+    ///     SELECT ... FROM ... JOIN ... WHERE ... ORDER BY ...
+    ///                              |
+    ///                              • joins
+    private(set) var joins: OrderedDictionary<String, SQLQualifiedJoin>
     
     init(_ relation: SQLRelation) {
         // Qualify the source, so that it be disambiguated with an SQL alias
@@ -298,8 +486,7 @@ private struct SQLQualifiedRelation {
         // SQLGenerationContext, when the SQLSelectQueryGenerator which owns
         // this SQLQualifiedRelation generates SQL.
         source = SQLQualifiedSource(relation.source)
-        let alias = source.alias
-        self.alias = alias
+        let sourceAlias = source.alias
         
         // Qualify all joins, selection, filter, and ordering, so that all
         // identifiers can be correctly disambiguated and qualified.
@@ -320,9 +507,9 @@ private struct SQLQualifiedRelation {
                 condition: child.condition,
                 relation: SQLQualifiedRelation(child.relation))
         }
-        ownSelection = relation.selection.map { $0.qualifiedSelectable(with: alias) }
-        filterPromise = relation.filterPromise.map { [alias] in $0?.qualifiedExpression(with: alias) }
-        ownOrdering = relation.ordering.qualified(with: alias)
+        sourceSelection = relation.selection.map { $0.qualifiedSelectable(with: sourceAlias) }
+        filtersPromise = relation.filtersPromise.map { $0.map { $0.qualifiedExpression(with: sourceAlias) } }
+        sourceOrdering = relation.ordering.qualified(with: sourceAlias)
     }
     
     /// See SQLQueryGenerator.rowAdapter(_:)
@@ -341,15 +528,15 @@ private struct SQLQualifiedRelation {
             return nil
         }
         
-        // The number of columns in own selection. Columns selected by joined
+        // The number of columns in source selection. Columns selected by joined
         // relations are appended after.
-        let selectionWidth = try ownSelection
-            .map { try $0.columnCount(db) }
-            .reduce(0, +)
+        let sourceSelectionWidth = try sourceSelection.reduce(0) {
+            try $0 + $1.columnCount(db)
+        }
         
         // Recursively build adapters for each joined relation with a selection.
         // Name them according to the join keys.
-        var endIndex = startIndex + selectionWidth
+        var endIndex = startIndex + sourceSelectionWidth
         var scopes: [String: RowAdapter] = [:]
         for (key, join) in joins {
             if let (joinAdapter, joinEndIndex) = try join.relation.rowAdapter(db, fromIndex: endIndex) {
@@ -359,7 +546,7 @@ private struct SQLQualifiedRelation {
         }
         
         // (Root relation || empty selection) && no included relation => no need for any adapter
-        if (startIndex == 0 || selectionWidth == 0) && scopes.isEmpty {
+        if (startIndex == 0 || sourceSelectionWidth == 0) && scopes.isEmpty {
             return nil
         }
         
@@ -379,10 +566,18 @@ private struct SQLQualifiedRelation {
         //          row.scopes["author"] // [id:12, name:"Herman Melville"]
         //          let author: Author = row["author"]
         //      }
-        let rangeAdapter = RangeRowAdapter(startIndex ..< (startIndex + selectionWidth))
+        let rangeAdapter = RangeRowAdapter(startIndex ..< (startIndex + sourceSelectionWidth))
         let adapter = rangeAdapter.addingScopes(scopes)
         
         return (adapter: adapter, endIndex: endIndex)
+    }
+    
+    /// Removes all selections from joins
+    func selectOnly(_ selection: [SQLSelectable]) -> SQLQualifiedRelation {
+        var relation = self
+        relation.sourceSelection = selection.map { $0.qualifiedSelectable(with: sourceAlias) }
+        relation.joins = relation.joins.mapValues { $0.selectOnly([]) }
+        return relation
     }
 }
 
@@ -396,7 +591,7 @@ private enum SQLQualifiedSource {
         case .table(_, let alias):
             return alias
         case .query(let query):
-            return query.relation.alias
+            return query.relation.sourceAlias
         }
     }
     
@@ -411,23 +606,23 @@ private enum SQLQualifiedSource {
     
     init(_ source: SQLSource) {
         switch source {
-        case .table(let tableName, let alias):
+        case let .table(tableName, alias):
             let alias = alias ?? TableAlias(tableName: tableName)
             self = .table(tableName: tableName, alias: alias)
-        case .query(let query):
+        case let .query(query):
             self = .query(SQLQueryGenerator(query))
         }
     }
     
     func sql(_ db: Database, _ context: inout SQLGenerationContext) throws -> String {
         switch self {
-        case .table(let tableName, let alias):
+        case let .table(tableName, alias):
             if let aliasName = context.aliasName(for: alias) {
                 return "\(tableName.quotedDatabaseIdentifier) \(aliasName.quotedDatabaseIdentifier)"
             } else {
                 return "\(tableName.quotedDatabaseIdentifier)"
             }
-        case .query(let query):
+        case let .query(query):
             return try "(\(query.sql(db, &context)))"
         }
     }
@@ -439,15 +634,30 @@ private struct SQLQualifiedJoin {
         case leftJoin = "LEFT JOIN"
         case innerJoin = "JOIN"
     }
+    
     let kind: Kind
     let condition: SQLAssociationCondition
     let relation: SQLQualifiedRelation
     
-    func sql(_ db: Database,_ context: inout SQLGenerationContext, leftAlias: TableAlias) throws -> String {
+    func sql(_ db: Database, _ context: inout SQLGenerationContext, leftAlias: TableAlias) throws -> String {
         return try sql(db, &context, leftAlias: leftAlias, allowingInnerJoin: true)
     }
     
-    private func sql(_ db: Database,_ context: inout SQLGenerationContext, leftAlias: TableAlias, allowingInnerJoin allowsInnerJoin: Bool) throws -> String {
+    /// Removes all selections from joins
+    func selectOnly(_ selection: [SQLSelectable]) -> SQLQualifiedJoin {
+        return SQLQualifiedJoin(
+            kind: kind,
+            condition: condition,
+            relation: relation.selectOnly(selection))
+    }
+    
+    private func sql(
+        _ db: Database,
+        _ context: inout SQLGenerationContext,
+        leftAlias: TableAlias,
+        allowingInnerJoin allowsInnerJoin: Bool)
+        throws -> String
+    {
         var allowsInnerJoin = allowsInnerJoin
         var sql = ""
         
@@ -455,25 +665,26 @@ private struct SQLQualifiedJoin {
         case .innerJoin:
             guard allowsInnerJoin else {
                 // TODO: chainOptionalRequired
+                //
+                // When we eventually implement this, make sure we both support:
+                // - joining(optional: assoc.joining(required: ...))
+                // - having(assoc.joining(required: ...).isEmpty)
                 fatalError("Not implemented: chaining a required association behind an optional association")
             }
         case .leftJoin:
             allowsInnerJoin = false
         }
-        sql += kind.rawValue
-        sql += try " " + relation.source.sql(db, &context)
+        sql += try "\(kind.rawValue) \(relation.source.sql(db, &context))"
         
-        let rightAlias = relation.alias
-        let filters = try [
-            condition.joinExpression(db, leftAlias: leftAlias, rightAlias: rightAlias),
-            relation.filterPromise.resolve(db)
-            ].compactMap { $0 }
-        if !filters.isEmpty {
-            sql += " ON " + filters.joined(operator: .and).expressionSQL(&context)
+        let rightAlias = relation.sourceAlias
+        let filters = try condition.expressions(db, leftAlias: leftAlias, rightAlias: rightAlias)
+            + relation.filtersPromise.resolve(db)
+        if filters.isEmpty == false {
+            sql += " ON \(filters.joined(operator: .and).expressionSQL(&context, wrappedInParenthesis: false))"
         }
         
         for (_, join) in relation.joins {
-            sql += try " " + join.sql(db, &context, leftAlias: rightAlias, allowingInnerJoin: allowsInnerJoin)
+            sql += try " \(join.sql(db, &context, leftAlias: rightAlias, allowingInnerJoin: allowsInnerJoin))"
         }
         
         return sql

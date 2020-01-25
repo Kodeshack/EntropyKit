@@ -163,7 +163,7 @@ class CryptoEngine {
 extension CryptoEngine {
     private func error(_: Error) -> State {
         // @TODO: Log this shit!
-        return .fatalError
+        .fatalError
     }
 }
 
@@ -264,7 +264,7 @@ extension CryptoEngine {
 
 extension CryptoEngine {
     private func encrypt(task: (event: Event, roomID: RoomID, cb: (Result<Event, Error>) -> Void)) -> (State, CryptoEngineTask) {
-        if let session = self.megolmOutboundSessions[task.roomID], !session.needsRotation {
+        if let session = megolmOutboundSessions[task.roomID], !session.needsRotation {
             return (.needToEncrypt, .event(event: task.event, roomID: task.roomID, cb: task.cb))
         } else {
             // requeue the event to be decrypted "later". To keep the flow of the automata clean.
@@ -276,7 +276,7 @@ extension CryptoEngine {
 
 extension CryptoEngine {
     private func fetchNonBlockedDevicesAndOTK(roomID: RoomID) -> Result<[DeviceID: Device], Error> {
-        return Result {
+        Result {
             let devices = try e2eeService.fetchNonBlockedDevices(for: roomID, without: account.deviceID).get()
 
             let sessions = olmSessions.keys
@@ -290,7 +290,7 @@ extension CryptoEngine {
     }
 
     private func sessionData(from oneTimeKeys: KeysClaimResponse, using devicesByID: [DeviceID: Device]) -> [(curve25519Key: Curve25519Key, oneTimeKey: String)] {
-        return oneTimeKeys.oneTimeKeys.flatMap { userDevices in
+        oneTimeKeys.oneTimeKeys.flatMap { userDevices in
             userDevices.value.compactMap { deviceItem in
                 guard let deviceOneTimeKey = deviceItem.value.first?.value else {
                     return nil

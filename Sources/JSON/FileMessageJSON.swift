@@ -7,7 +7,7 @@ struct FileMessageJSON: MessageJSON {
     let url: URL?
 
     var eventContent: Event.Content {
-        return .fileMessage(self)
+        .fileMessage(self)
     }
 
     init(type: Message.MessageType, filename: String, info: Info, file: EncryptedAttachment) {

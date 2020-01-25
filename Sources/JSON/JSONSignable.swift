@@ -37,7 +37,7 @@ extension JSONSignable {
     ///   - deviceID: ID of the device to validate against
     ///   - ed25519Key: ed25519 key of the device to validate against
     func validate(deviceID: DeviceID, userID: UserID, ed25519Key: CryptoEngine.Ed25519Key) -> Bool {
-        guard let signature = self.signatures?[userID]?["ed25519:\(deviceID)"] else {
+        guard let signature = signatures?[userID]?["ed25519:\(deviceID)"] else {
             return false
         }
 

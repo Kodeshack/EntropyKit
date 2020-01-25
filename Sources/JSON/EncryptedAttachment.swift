@@ -62,7 +62,7 @@ extension EncryptedAttachment {
         }
 
         static func v2KeyInfo(key: Data) -> EncryptedAttachmentKey {
-            return EncryptedAttachmentKey(
+            EncryptedAttachmentKey(
                 algorithm: .A256CTR,
                 external: true,
                 operations: ["encrypt", "decrypt"],

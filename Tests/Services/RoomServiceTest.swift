@@ -16,7 +16,7 @@ class RoomServiceTests: XCTestCase {
 
     override func tearDown() {
         try! FileManager.default.removeItem(at: dbPath)
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -29,12 +29,12 @@ class RoomServiceTests: XCTestCase {
 
             return
                 request.url?.absoluteString == "https://entropy.kodeshack.com/_matrix/client/r0/rooms/!wakeful_pigs:kodeshack/send/m.room.message/0?access_token=togepi"
-                && request.httpMethod == "PUT"
-                && event == expected
+                    && request.httpMethod == "PUT"
+                    && event == expected
 
         }) { _ in
             let eventResp = ["event_id": "vaccines_cause_autism"]
-            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
         }
 
         let account = try Account.create(userID: "NotBob@kodeshack", accessToken: "togepi", deviceID: "bar", database: database)
@@ -84,7 +84,7 @@ class RoomServiceTests: XCTestCase {
             return event == expected
         }) { _ in
             let eventResp = ["event_id": "message_sent"]
-            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
         }
 
         stub(condition: { request in
@@ -93,7 +93,7 @@ class RoomServiceTests: XCTestCase {
                 && request.httpMethod == "POST"
         }) { _ in
             let eventResp = ["content_uri": "mxc://example.com/MTcwMzE5OTU"]
-            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
         }
 
         let account = try! Account.create(userID: "NotBob@kodeshack", accessToken: "togepi", deviceID: "bar", database: database)

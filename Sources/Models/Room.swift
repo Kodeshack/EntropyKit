@@ -19,13 +19,13 @@ public class Room: Record, Hashable, Equatable {
     }
 
     public static func == (lhs: Room, rhs: Room) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     /// The room's smart name. Either the room name or a concatenation of the users' displaynames if the room name is `nil`. Returns "Empty Room" if no users are present.
     /// - Bug: [Issue #5](https://github.com/Kodeshack/EntropyKit/issues/5).
     public var smartName: String {
-        return name ?? "Empty Room"
+        name ?? "Empty Room"
     }
 
     init(id: RoomID) {
@@ -53,7 +53,7 @@ public class Room: Record, Hashable, Equatable {
     }
 
     public override class var databaseTableName: String {
-        return Database.v0.rooms.table
+        Database.v0.rooms.table
     }
 
     public override func encode(to container: inout PersistenceContainer) {

@@ -82,26 +82,26 @@ class MIMEType {
     }
 
     static func isImage(fileExtension: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeImage)
+        utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeImage)
     }
 
     static func isImage(mime: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeImage)
+        utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeImage)
     }
 
     static func isAudio(fileExtension: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeAudio)
+        utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeAudio)
     }
 
     static func isAudio(mime: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeAudio)
+        utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeAudio)
     }
 
     static func isMPEG4Video(fileExtension: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeMPEG4)
+        utTypeConformsTo(tagClass: kUTTagClassFilenameExtension, identifier: fileExtension, conformTagClass: kUTTypeMPEG4)
     }
 
     static func isMPEG4Video(mime: String) -> Bool {
-        return utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeMPEG4)
+        utTypeConformsTo(tagClass: kUTTagClassMIMEType, identifier: mime, conformTagClass: kUTTypeMPEG4)
     }
 }

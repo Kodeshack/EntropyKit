@@ -9,7 +9,7 @@ struct Base64: Codable, Hashable {
     let data: Data
 
     var string: String {
-        return data.base64EncodedString()
+        data.base64EncodedString()
     }
 
     init(data: Data) {
@@ -77,7 +77,7 @@ struct Base64: Codable, Hashable {
 struct Base64URL: Codable, Hashable {
     let data: Data
     var string: String {
-        return Base64.base64ToBase64url(data.base64EncodedString())
+        Base64.base64ToBase64url(data.base64EncodedString())
     }
 
     init(data: Data) {

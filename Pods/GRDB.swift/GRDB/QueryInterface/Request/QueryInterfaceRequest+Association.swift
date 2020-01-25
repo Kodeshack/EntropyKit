@@ -1,65 +1,11 @@
 extension QueryInterfaceRequest where RowDecoder: TableRecord {
-    // MARK: - Associations
-    
-    /// Creates a request that prefetches an association.
-    public func including<A: AssociationToMany>(all association: A) -> QueryInterfaceRequest where A.OriginRowDecoder == RowDecoder {
-        return mapQuery {
-            $0.mapRelation {
-                $0.including(all: association.sqlAssociation)
-            }
-        }
-    }
-
-    /// Creates a request that includes an association. The columns of the
-    /// associated record are selected. The returned request does not
-    /// require that the associated database table contains a matching row.
-    public func including<A: Association>(optional association: A) -> QueryInterfaceRequest where A.OriginRowDecoder == RowDecoder {
-        return mapQuery {
-            $0.mapRelation {
-                $0.including(optional: association.sqlAssociation)
-            }
-        }
-    }
-    
-    /// Creates a request that includes an association. The columns of the
-    /// associated record are selected. The returned request requires
-    /// that the associated database table contains a matching row.
-    public func including<A: Association>(required association: A) -> QueryInterfaceRequest where A.OriginRowDecoder == RowDecoder {
-        return mapQuery {
-            $0.mapRelation {
-                $0.including(required: association.sqlAssociation)
-            }
-        }
-    }
-    
-    /// Creates a request that joins an association. The columns of the
-    /// associated record are not selected. The returned request does not
-    /// require that the associated database table contains a matching row.
-    public func joining<A: Association>(optional association: A) -> QueryInterfaceRequest where A.OriginRowDecoder == RowDecoder {
-        return mapQuery {
-            $0.mapRelation {
-                $0.joining(optional: association.sqlAssociation)
-            }
-        }
-    }
-    
-    /// Creates a request that joins an association. The columns of the
-    /// associated record are not selected. The returned request requires
-    /// that the associated database table contains a matching row.
-    public func joining<A: Association>(required association: A) -> QueryInterfaceRequest where A.OriginRowDecoder == RowDecoder {
-        return mapQuery {
-            $0.mapRelation {
-                $0.joining(required: association.sqlAssociation)
-            }
-        }
-    }
     
     // MARK: - Association Aggregates
     
     private func annotated(with aggregate: AssociationAggregate<RowDecoder>) -> QueryInterfaceRequest {
         let (request, expression) = aggregate.prepare(self)
-        if let alias = aggregate.alias {
-            return request.annotated(with: [expression.aliased(alias)])
+        if let key = aggregate.key {
+            return request.annotated(with: [expression.forKey(key)])
         } else {
             return request.annotated(with: [expression])
         }
@@ -74,7 +20,7 @@ extension QueryInterfaceRequest where RowDecoder: TableRecord {
     public func annotated(with aggregates: AssociationAggregate<RowDecoder>...) -> QueryInterfaceRequest {
         return annotated(with: aggregates)
     }
-
+    
     /// Creates a request which appends *aggregates* to the current selection.
     ///
     ///     // SELECT player.*, COUNT(DISTINCT book.rowid) AS bookCount

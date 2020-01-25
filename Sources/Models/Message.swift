@@ -12,7 +12,7 @@ public class Message: Record {
     public var attachment: Attachment?
 
     var timestamp: UInt {
-        return UInt(date.timeIntervalSince1970 * 1000)
+        UInt(date.timeIntervalSince1970 * 1000)
     }
 
     init(id: String, roomID: RoomID, date: Date, senderID: UserID, type: MessageType, body: String) {
@@ -72,7 +72,7 @@ public class Message: Record {
     }
 
     public override class var databaseTableName: String {
-        return Database.v0.messages.table
+        Database.v0.messages.table
     }
 
     public override func encode(to container: inout PersistenceContainer) {
@@ -85,7 +85,7 @@ public class Message: Record {
     }
 
     var messageJSON: PlainMessageJSON {
-        return PlainMessageJSON(body: body, type: type)
+        PlainMessageJSON(body: body, type: type)
     }
 }
 
@@ -171,6 +171,6 @@ extension Message: Hashable, Equatable {
     }
 
     public static func == (lhs: Message, rhs: Message) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 }

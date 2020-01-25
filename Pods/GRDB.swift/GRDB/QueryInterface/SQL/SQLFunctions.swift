@@ -158,7 +158,7 @@ extension SQLSpecificExpressible {
     public var capitalized: SQLExpression {
         return DatabaseFunction.capitalize.apply(sqlExpression)
     }
-
+    
     /// Returns an SQL expression that applies the Swift's built-in
     /// lowercased String property. It is NULL for non-String arguments.
     ///
@@ -168,7 +168,7 @@ extension SQLSpecificExpressible {
     public var lowercased: SQLExpression {
         return DatabaseFunction.lowercase.apply(sqlExpression)
     }
-
+    
     /// Returns an SQL expression that applies the Swift's built-in
     /// uppercased String property. It is NULL for non-String arguments.
     ///
@@ -188,7 +188,7 @@ extension SQLSpecificExpressible {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedCapitalized)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(OSX 10.11, watchOS 3.0, *)
+    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
     public var localizedCapitalized: SQLExpression {
         return DatabaseFunction.localizedCapitalize.apply(sqlExpression)
     }
@@ -199,7 +199,7 @@ extension SQLSpecificExpressible {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedLowercased)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(OSX 10.11, watchOS 3.0, *)
+    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
     public var localizedLowercased: SQLExpression {
         return DatabaseFunction.localizedLowercase.apply(sqlExpression)
     }
@@ -210,7 +210,7 @@ extension SQLSpecificExpressible {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedUppercased)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(OSX 10.11, watchOS 3.0, *)
+    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
     public var localizedUppercased: SQLExpression {
         return DatabaseFunction.localizedUppercase.apply(sqlExpression)
     }

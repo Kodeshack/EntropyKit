@@ -17,6 +17,12 @@ struct OrderedDictionary<Key: Hashable, Value> {
         return keys.map { dictionary[$0]! }
     }
     
+    private init(keys: [Key], dictionary: [Key: Value]) {
+        assert(Set(keys) == Set(dictionary.keys))
+        self.keys = keys
+        self.dictionary = dictionary
+    }
+    
     /// Creates an empty ordered dictionary.
     init() {
         keys = []
@@ -29,7 +35,7 @@ struct OrderedDictionary<Key: Hashable, Value> {
         keys.reserveCapacity(minimumCapacity)
         dictionary = Dictionary(minimumCapacity: minimumCapacity)
     }
-
+    
     /// Returns the value associated with key, or nil.
     @usableFromInline
     subscript(_ key: Key) -> Value? {
@@ -42,14 +48,14 @@ struct OrderedDictionary<Key: Hashable, Value> {
             }
         }
     }
-
+    
     /// Returns the value associated with key, or the default value.
     @inlinable
     subscript(_ key: Key, default defaultValue: Value) -> Value {
         get { return dictionary[key] ?? defaultValue }
         set { self[key] = newValue }
     }
-
+    
     /// Appends the given value for the given key.
     ///
     /// - precondition: There is no value associated with key yet.
@@ -108,10 +114,17 @@ struct OrderedDictionary<Key: Hashable, Value> {
             }
         }
     }
+    
+    func filter(_ isIncluded: ((key: Key, value: Value)) throws -> Bool) rethrows -> OrderedDictionary<Key, Value> {
+        let dictionary = try self.dictionary.filter(isIncluded)
+        let keys = self.keys.filter(dictionary.keys.contains)
+        return OrderedDictionary(keys: keys, dictionary: dictionary)
+    }
 }
 
 extension OrderedDictionary: Collection {
-    @usableFromInline typealias Index = Int
+    @usableFromInline
+    typealias Index = Int
     
     @usableFromInline var startIndex: Int {
         return 0
@@ -121,18 +134,21 @@ extension OrderedDictionary: Collection {
         return keys.count
     }
     
-    @usableFromInline func index(after i: Int) -> Int {
+    @usableFromInline
+    func index(after i: Int) -> Int {
         return i + 1
     }
     
-    @usableFromInline  subscript(position: Int) -> (key: Key, value: Value) {
+    @usableFromInline
+    subscript(position: Int) -> (key: Key, value: Value) {
         let key = keys[position]
         return (key: key, value: dictionary[key]!)
     }
 }
 
 extension OrderedDictionary: ExpressibleByDictionaryLiteral {
-    @usableFromInline init(dictionaryLiteral elements: (Key, Value)...) {
+    @usableFromInline
+    init(dictionaryLiteral elements: (Key, Value)...) {
         self.keys = elements.map { $0.0 }
         self.dictionary = Dictionary(uniqueKeysWithValues: elements)
     }

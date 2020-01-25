@@ -21,7 +21,7 @@ class UserRoom: Record {
     }
 
     override class var databaseTableName: String {
-        return Database.v0.users_rooms.table
+        Database.v0.users_rooms.table
     }
 
     override func encode(to container: inout PersistenceContainer) {

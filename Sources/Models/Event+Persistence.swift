@@ -8,7 +8,7 @@ extension Event {
     }
 
     func persist(_ db: GRDB.Database) -> Result<Void, Error> {
-        return Result {
+        Result {
             switch self.type {
             case .create:
                 try self.persistRoomCreate(db)
@@ -130,7 +130,7 @@ extension Event {
     private func persistMembership(_ db: GRDB.Database) throws {
         let userRoom = UserRoom(event: self)
 
-        if let membership = self.content.member?.membership {
+        if let membership = content.member?.membership {
             switch membership {
             case .join:
                 try User(event: self)?.insert(db)

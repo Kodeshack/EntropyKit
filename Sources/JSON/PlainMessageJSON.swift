@@ -5,7 +5,7 @@ struct PlainMessageJSON: MessageJSON {
     let type: Message.MessageType
 
     var eventContent: Event.Content {
-        return .message(self)
+        .message(self)
     }
 
     private enum CodingKeys: String, CodingKey {

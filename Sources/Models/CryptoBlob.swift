@@ -15,7 +15,7 @@ struct CryptoBlob: FetchableRecord, PersistableRecord, Codable {
     let blob: Data
 
     func unwrap<T: NSObject & NSCoding>() throws -> T {
-        return try! NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: blob)!
+        try! NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: blob)!
     }
 
     init(id: String, type: BlobType, data: NSSecureCoding) {

@@ -2,7 +2,7 @@ import Foundation
 
 extension String {
     public var isEmojiOnly: Bool {
-        return unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
+        unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
     }
 
     /// All the urls and their corresponding ranges contained in this String.
@@ -25,7 +25,7 @@ extension String {
         public func unescapingHTMLEntities() -> String {
             // @TODO: Add support for iOS.
             // Not sure whether this can fail.
-            return NSAttributedString(html: Data(utf8), options: [.characterEncoding: Encoding.utf8.rawValue], documentAttributes: nil)!.string
+            NSAttributedString(html: Data(utf8), options: [.characterEncoding: Encoding.utf8.rawValue], documentAttributes: nil)!.string
         }
     #endif
 }

@@ -5,7 +5,7 @@ class MemoryCache<Value>: Cache<Value> {
      The name of the cache.
      */
     var name: String {
-        return cache.name
+        cache.name
     }
 
     /**
@@ -18,7 +18,7 @@ class MemoryCache<Value>: Cache<Value> {
      */
     var countLimit: Int {
         get {
-            return cache.countLimit
+            cache.countLimit
         }
         set(countLimit) {
             cache.countLimit = countLimit
@@ -41,7 +41,7 @@ class MemoryCache<Value>: Cache<Value> {
      */
     var totalCostLimit: Int {
         get {
-            return cache.totalCostLimit
+            cache.totalCostLimit
         }
         set(totalCostLimit) {
             cache.totalCostLimit = totalCostLimit
@@ -77,7 +77,7 @@ class MemoryCache<Value>: Cache<Value> {
      - returns: The value associated with key, or nil if no value is associated with key.
      */
     override func get(_ key: String, meta _: Any? = nil) -> Value? {
-        return cache.object(forKey: key as NSString) as? Value
+        cache.object(forKey: key as NSString) as? Value
     }
 
     /**

@@ -19,7 +19,7 @@ class CryptoEngineTests: XCTestCase {
     override func tearDown() {
         database.dbQueue.releaseMemory()
         database = nil
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         try! FileManager.default.removeItem(at: dbPath)
         super.tearDown()
     }
@@ -31,7 +31,7 @@ class CryptoEngineTests: XCTestCase {
 
         let keysUploadStub = stub(condition: pathStartsWith("/_matrix/client/r0/keys/upload")) { _ in
             let resp = KeysUploadResponse(oneTimeKeyCounts: [CryptoEngine.CryptoKeys.signedCurve25519.rawValue: 50])
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -40,7 +40,7 @@ class CryptoEngineTests: XCTestCase {
 
         let keysQueryStub = stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
             let resp = KeysQueryResponse(failures: [:], deviceKeys: [:])
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -71,8 +71,8 @@ class CryptoEngineTests: XCTestCase {
             fatalError("unexpected waiter result")
         }
 
-        OHHTTPStubs.removeStub(keysUploadStub)
-        OHHTTPStubs.removeStub(keysQueryStub)
+        HTTPStubs.removeStub(keysUploadStub)
+        HTTPStubs.removeStub(keysQueryStub)
 
         return (account, ce)
     }
@@ -80,7 +80,7 @@ class CryptoEngineTests: XCTestCase {
     func testSetup() throws {
         let keysUploadStub = stub(condition: pathStartsWith("/_matrix/client/r0/keys/upload")) { _ in
             let resp = KeysUploadResponse(oneTimeKeyCounts: [CryptoEngine.CryptoKeys.signedCurve25519.rawValue: 50])
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -88,7 +88,7 @@ class CryptoEngineTests: XCTestCase {
         }
 
         let keysQueryStub = stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -114,8 +114,8 @@ class CryptoEngineTests: XCTestCase {
         _ = try Account.create(userID: "@NotBob:kodeshack", accessToken: "token", deviceID: "tests", cryptoEngine: ce, database: database)
 
         waitForExpectations(timeout: 1)
-        OHHTTPStubs.removeStub(keysUploadStub)
-        OHHTTPStubs.removeStub(keysQueryStub)
+        HTTPStubs.removeStub(keysUploadStub)
+        HTTPStubs.removeStub(keysQueryStub)
     }
 
     func testEncryptDecrypt() throws {
@@ -146,11 +146,11 @@ class CryptoEngineTests: XCTestCase {
             XCTAssertEqual((toDeviceEvent["ciphertext"] as! [String: [String: Any]]).first!.value["type"] as! Int, 0)
             XCTAssertEqual(toDeviceEvent["sender_key"] as! String, account.identityKeys.curve25519)
 
-            return OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/claim")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_keys_claim_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -245,7 +245,7 @@ class CryptoEngineTests: XCTestCase {
                 ],
             ])
 
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: keysClaimResponse.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -262,7 +262,7 @@ class CryptoEngineTests: XCTestCase {
 
             toDeviceEvent = SyncResponse.ToDeviceEvent(senderID: "@UserA:kodeshack", type: .encrypted, content: .encrypted(event))
 
-            return OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
 
         // set delegate
@@ -318,7 +318,7 @@ class CryptoEngineTests: XCTestCase {
         _ = try UserRoom.create(userID: "@NotBob:kodeshack", roomID: "roomID", database: database)
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_keys_claim_response_query_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -327,7 +327,7 @@ class CryptoEngineTests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/r0/sendToDevice/m.room.encrypted")) { request in
             XCTAssertFalse(request.ohhttpStubs_httpBody!.isEmpty)
-            return OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
 
         // set delegate
@@ -340,7 +340,7 @@ class CryptoEngineTests: XCTestCase {
         // Send message to create initial sessions
         stub(condition: pathStartsWith("/_matrix/client/r0/rooms/roomID/send/m.room.encrypted")) { _ in
             let resp = EventResponse(eventID: "foo")
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -348,7 +348,7 @@ class CryptoEngineTests: XCTestCase {
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/claim")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_keys_claim_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -387,7 +387,7 @@ class CryptoEngineTests: XCTestCase {
         // Send another message to confirm that the sessions were rotated
         stub(condition: pathStartsWith("/_matrix/client/r0/rooms/roomID/send/m.room.encrypted")) { _ in
             let resp = EventResponse(eventID: "bar")
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -409,7 +409,7 @@ class CryptoEngineTests: XCTestCase {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/upload")) { _ in
             XCTFail()
             let resp = KeysUploadResponse(oneTimeKeyCounts: [CryptoEngine.CryptoKeys.signedCurve25519.rawValue: 50])
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -539,7 +539,7 @@ class CryptoEngineTests: XCTestCase {
     }
 
     private func constructImportantChecksPayload(senderID: UserID, deviceID: DeviceID, ed25519Key: CryptoEngine.Ed25519Key, recipientID: UserID, recipientEd25519Key: CryptoEngine.Ed25519Key, type: Event.EventsType, content: JSONEncodable) -> String {
-        return """
+        """
         {
             "sender": "\(senderID)",
             "sender_device": "\(deviceID)",

@@ -46,7 +46,7 @@ public class Attachment: Record {
     }
 
     public override class var databaseTableName: String {
-        return Database.v0.attachments.table
+        Database.v0.attachments.table
     }
 
     public override func encode(to container: inout PersistenceContainer) {

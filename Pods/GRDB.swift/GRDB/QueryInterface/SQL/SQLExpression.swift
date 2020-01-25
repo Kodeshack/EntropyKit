@@ -5,25 +5,18 @@
 /// SQLExpression is the protocol for types that represent an SQL expression, as
 /// described at https://www.sqlite.org/lang_expr.html
 ///
-/// GRDB ships with a variety of types that already adopt this protocol, and
-/// allow to represent many SQLite expressions:
-///
-/// - Column
-/// - DatabaseValue
-/// - SQLExpressionLiteral
-/// - SQLExpressionUnary
-/// - SQLExpressionBinary
-/// - SQLExpressionExists
-/// - SQLExpressionFunction
-/// - SQLExpressionCollate
-///
 /// :nodoc:
-public protocol SQLExpression : SQLSpecificExpressible, SQLSelectable, SQLOrderingTerm {
+public protocol SQLExpression: SQLSpecificExpressible, SQLSelectable, SQLOrderingTerm {
     
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     ///
     /// Returns an SQL string that represents the expression.
-    func expressionSQL(_ context: inout SQLGenerationContext) -> String
+    ///
+    /// - parameter context: An SQL generation context which accepts
+    ///   statement arguments.
+    /// - parameter wrappedInParenthesis: If true, the returned SQL should be
+    ///   wrapped inside parenthesis.
+    func expressionSQL(_ context: inout SQLGenerationContext, wrappedInParenthesis: Bool) -> String
     
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     ///
@@ -126,15 +119,18 @@ extension SQLExpression {
 
 // MARK: - SQLExpressionNot
 
-struct SQLExpressionNot : SQLExpression {
+struct SQLExpressionNot: SQLExpression {
     let expression: SQLExpression
     
     init(_ expression: SQLExpression) {
         self.expression = expression
     }
     
-    func expressionSQL(_ context: inout SQLGenerationContext) -> String {
-        return "NOT \(expression.expressionSQL(&context))"
+    func expressionSQL(_ context: inout SQLGenerationContext, wrappedInParenthesis: Bool) -> String {
+        if wrappedInParenthesis {
+            return "(\(expressionSQL(&context, wrappedInParenthesis: false)))"
+        }
+        return "NOT \(expression.expressionSQL(&context, wrappedInParenthesis: true))"
     }
     
     var negated: SQLExpression {

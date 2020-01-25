@@ -17,7 +17,7 @@ class UserServiceTests: XCTestCase {
 
     override func tearDown() {
         try! FileManager.default.removeItem(at: dbPath)
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -26,11 +26,11 @@ class UserServiceTests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/")) { _ in
             let avatarResponse = ["avatar_url": "mxc://matrix.org/SDGdghriugerRg"]
-            return OHHTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
         }
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -51,7 +51,7 @@ class UserServiceTests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/")) { _ in
             let avatarResponse = [String: String]()
-            return OHHTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
         }
 
         let user = User(id: "@test:user")

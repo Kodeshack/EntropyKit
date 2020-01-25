@@ -31,7 +31,7 @@ public protocol SQLExpressible {
 /// On the other side, Int adopts SQLExpressible (via DatabaseValueConvertible).
 ///
 /// :nodoc:
-public protocol SQLSpecificExpressible : SQLExpressible {
+public protocol SQLSpecificExpressible: SQLExpressible {
     // SQLExpressible can be adopted by Swift standard types, and user
     // types, through the DatabaseValueConvertible protocol which inherits
     // from SQLExpressible.
@@ -65,7 +65,7 @@ extension SQLExpressible where Self: SQLOrderingTerm {
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     /// :nodoc:
     public func orderingTermSQL(_ context: inout SQLGenerationContext) -> String {
-        return sqlExpression.expressionSQL(&context)
+        return sqlExpression.expressionSQL(&context, wrappedInParenthesis: false)
     }
 }
 
@@ -76,13 +76,13 @@ extension SQLExpressible where Self: SQLSelectable {
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     /// :nodoc:
     public func resultColumnSQL(_ context: inout SQLGenerationContext) -> String {
-        return sqlExpression.expressionSQL(&context)
+        return sqlExpression.expressionSQL(&context, wrappedInParenthesis: false)
     }
     
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     /// :nodoc:
     public func countedSQL(_ context: inout SQLGenerationContext) -> String {
-        return sqlExpression.expressionSQL(&context)
+        return sqlExpression.expressionSQL(&context, wrappedInParenthesis: false)
     }
     
     /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)

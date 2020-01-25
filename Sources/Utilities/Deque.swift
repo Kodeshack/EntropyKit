@@ -36,11 +36,11 @@ struct Deque<T> {
     }
 
     var isEmpty: Bool {
-        return count == 0
+        count == 0
     }
 
     var count: Int {
-        return array.count - head
+        array.count - head
     }
 
     mutating func enqueue(_ element: T) {

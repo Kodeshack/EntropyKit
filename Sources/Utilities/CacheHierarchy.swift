@@ -29,7 +29,7 @@ class CacheHierarchy<V>: Cache<V> {
 
     override func get(_ key: String, meta: Any? = nil) -> V? {
         for i in 0 ..< caches.count {
-            if let value = self.caches[i][key, meta] {
+            if let value = caches[i][key, meta] {
                 // if value is found in a cache further down the chain, propagate the value up
                 // to the other caches that come before it in the hierachy.
                 for j in 0 ..< i { // possible future optimisation: make async

@@ -19,7 +19,7 @@ public class Validation {
     ///
     /// - Returns: Cleaned and validated inputs.
     public static func validateLoginCredentials(username: String?, password: String?, homeserver: String?) -> Result<Credentials, Error> {
-        return Result {
+        Result {
             (
                 username: try validate(username: username),
                 password: try validate(password: password),

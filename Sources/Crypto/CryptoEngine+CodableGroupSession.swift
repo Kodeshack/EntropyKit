@@ -26,7 +26,7 @@ extension CryptoEngine {
         /// compatability with other (less well behaved) clients.
         /// Cool kidz send their values 😎.
         var needsRotation: Bool {
-            return remainingMessagesCount <= 0 || Date() > validUntil
+            remainingMessagesCount <= 0 || Date() > validUntil
         }
 
         init(remainingMessagesCount: Int, validUntil: Date) {
@@ -136,19 +136,19 @@ extension CryptoEngine {
         private let lock = NSLock()
 
         var sessionIdentifier: String {
-            return session.sessionIdentifier()
+            session.sessionIdentifier()
         }
 
         var sessionKey: String {
-            return session.sessionKey()
+            session.sessionKey()
         }
 
         var messageIndex: UInt {
-            return self.session.messageIndex()
+            self.session.messageIndex()
         }
 
         override var needsRotation: Bool {
-            return super.needsRotation || forceRotation
+            super.needsRotation || forceRotation
         }
 
         /// Waits for all other operations on this session to be completed before running.

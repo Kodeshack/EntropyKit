@@ -18,7 +18,7 @@ class E2EEServiceTests: XCTestCase {
     override func tearDown() {
         database.dbQueue.releaseMemory()
         database = nil
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         try! FileManager.default.removeItem(at: dbPath)
         super.tearDown()
     }
@@ -39,7 +39,7 @@ class E2EEServiceTests: XCTestCase {
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/sendToDevice/m.new_device")) { _ in
-            OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
         let exp = expectation(description: "announceDevice")
 
@@ -61,7 +61,7 @@ class E2EEServiceTests: XCTestCase {
     func testUploadKeys() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/upload")) { _ in
             let resp = KeysUploadResponse(oneTimeKeyCounts: [CryptoEngine.CryptoKeys.signedCurve25519.rawValue: 50])
-            return OHHTTPStubsResponse(
+            return HTTPStubsResponse(
                 data: resp.encoded,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -92,7 +92,7 @@ class E2EEServiceTests: XCTestCase {
 
     func testGetDevices() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -118,7 +118,7 @@ class E2EEServiceTests: XCTestCase {
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -146,7 +146,7 @@ class E2EEServiceTests: XCTestCase {
         }
 
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -170,7 +170,7 @@ class E2EEServiceTests: XCTestCase {
     /// Security relevant test
     func testGetDevicesUserIDMismatch() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response_user_id_mismatch.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -197,7 +197,7 @@ class E2EEServiceTests: XCTestCase {
     /// Security relevant test
     func testGetDevicesDeviceIDMismatch() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response_device_id_mismatch.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -224,7 +224,7 @@ class E2EEServiceTests: XCTestCase {
     /// Security relevant test
     func testGetDevicesSignatureMismatch() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response_signature_mismatch.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -251,7 +251,7 @@ class E2EEServiceTests: XCTestCase {
     /// Security relevant test
     func testGetDevicesMissingSignature() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/keys/query")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/e2ee_query_keys_response_missing_keys.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -300,7 +300,7 @@ class E2EEServiceTests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/r0/sendToDevice/m.room.encrypted")) { request in
             XCTAssertFalse(request.ohhttpStubs_httpBody!.isEmpty)
-            return OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
         let exp = expectation(description: "publishGroupSessionKeys")
 

@@ -16,7 +16,7 @@ class SyncServiceTests: XCTestCase {
 
     override func tearDown() {
         try! FileManager.default.removeItem(at: dbPath)
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -28,7 +28,7 @@ class SyncServiceTests: XCTestCase {
 
     func testSync() {
         stub(condition: isHost("entropy.kodeshack.com")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/simple_sync.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]

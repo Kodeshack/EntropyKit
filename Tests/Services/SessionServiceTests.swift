@@ -16,14 +16,14 @@ class SessionServiceTests: XCTestCase {
 
     override func tearDown() {
         try! FileManager.default.removeItem(at: dbPath)
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
     func testLogin() {
         stub(condition: pathStartsWith("/_matrix/client/r0/login")) { _ in
             let loginResp = ["user_id": "@NotBob:kodeshack", "access_token": "foo", "device_id": "bar"]
-            return OHHTTPStubsResponse(jsonObject: loginResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: loginResp, statusCode: 200, headers: nil)
         }
 
         let exp = expectation(description: "login request")
@@ -41,7 +41,7 @@ class SessionServiceTests: XCTestCase {
 
     func testLogout() throws {
         stub(condition: pathStartsWith("/_matrix/client/r0/logout")) { _ in
-            OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
         let exp = expectation(description: "logout request")
         let account = try Account.create(userID: "@NotBob:kodeshack", accessToken: "foo", deviceID: "bar", database: database)

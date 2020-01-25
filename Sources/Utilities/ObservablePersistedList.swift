@@ -65,7 +65,7 @@ extension ObservablePersistedList {
 
     public class ObserverToken: Equatable, Hashable {
         public static func == (lhs: ObserverToken, rhs: ObserverToken) -> Bool {
-            return lhs.id == rhs.id
+            lhs.id == rhs.id
         }
 
         public func hash(into hasher: inout Hasher) {
@@ -108,7 +108,7 @@ extension ObservablePersistedList {
 extension ObservablePersistedList {
     #if canImport(UIKit)
         public func addObserver<V: UITableViewCell>(for tableView: UITableView, configureCell: @escaping (V, IndexPath) -> Void) -> ObserverToken {
-            return addObserver(
+            addObserver(
                 willChange: { [unowned tableView] in
                     tableView.beginUpdates()
                 },
@@ -137,7 +137,7 @@ extension ObservablePersistedList {
 
     #elseif canImport(AppKit)
         public func addObserver<V: NSTableCellView>(for tableView: NSTableView, configureCell: @escaping (V, Int) -> Void) -> ObserverToken {
-            return addObserver(
+            addObserver(
                 willChange: { [unowned tableView] in
                     tableView.beginUpdates()
                 },
@@ -176,19 +176,19 @@ extension ObservablePersistedList {
 
 extension ObservablePersistedList: RandomAccessCollection {
     public func index(after i: Int) -> Int {
-        return recordsController.fetchedRecords.index(after: i)
+        recordsController.fetchedRecords.index(after: i)
     }
 
     public var startIndex: Int {
-        return recordsController.fetchedRecords.startIndex
+        recordsController.fetchedRecords.startIndex
     }
 
     public var endIndex: Int {
-        return recordsController.fetchedRecords.endIndex
+        recordsController.fetchedRecords.endIndex
     }
 
     public subscript(key: Int) -> T {
-        return recordsController.record(at: IndexPath(item: key, section: 0))
+        recordsController.record(at: IndexPath(item: key, section: 0))
     }
 }
 

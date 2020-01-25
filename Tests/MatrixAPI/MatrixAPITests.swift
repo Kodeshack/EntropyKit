@@ -9,7 +9,7 @@ class MatrixAPITests: XCTestCase {
     }
 
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -19,7 +19,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "downloadImage")
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -40,7 +40,7 @@ class MatrixAPITests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
             let response = ["content_uri": "mxc://example.com/AQwafuaFswefuhsfAFAgsw"]
-            return OHHTTPStubsResponse(jsonObject: response, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: response, statusCode: 200, headers: nil)
         }
 
         let path = OHPathForFile("Fixtures/testimage.png", type(of: self))!
@@ -61,7 +61,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "downloadFile")
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -84,7 +84,7 @@ class MatrixAPITests: XCTestCase {
         let encryptedData = "LgyZH4o2wqxw59Ggb0foZHSq3X7rTrs/1bvgl9SPAPxfxy+ecZbP1pxjahiWG9IJoMulxCxAN2zTiNPEF0I+8oIJXNRXH9rxHT4hBYBQONrH/w=="
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 data: Data(base64Encoded: encryptedData)!,
                 statusCode: 200,
                 headers: nil
@@ -112,7 +112,7 @@ class MatrixAPITests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/")) { _ in
             let avatarResponse = ["avatar_url": "mxc://matrix.org/SDGdghriugerRg"]
-            return OHHTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: avatarResponse, statusCode: 200, headers: nil)
         }
 
         MatrixAPI.default.getAvatarURL(userID: "@test:user") { result in
@@ -128,7 +128,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "downloadAvatar")
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -151,7 +151,7 @@ class MatrixAPITests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/client/r0/login")) { _ in
             let loginResp = ["user_id": "@NotBob:kodeshack", "access_token": "foo", "device_id": "bar"]
-            return OHHTTPStubsResponse(jsonObject: loginResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: loginResp, statusCode: 200, headers: nil)
         }
 
         MatrixAPI.default.login(username: "NotBob", password: "psswd") { result in
@@ -170,7 +170,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "logout")
 
         stub(condition: pathStartsWith("/_matrix/client/r0/logout")) { _ in
-            OHHTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
+            HTTPStubsResponse(jsonObject: [:], statusCode: 200, headers: nil)
         }
 
         MatrixAPI.default.logout(accessToken: "foo") { error in
@@ -194,12 +194,12 @@ class MatrixAPITests: XCTestCase {
 
             return
                 request.url?.absoluteString == "https://entropy.kodeshack.com/_matrix/client/r0/rooms/!wakeful_pigs:kodeshack/send/m.room.message/5?access_token=togepi"
-                && request.httpMethod == "PUT"
-                && event == expected
+                    && request.httpMethod == "PUT"
+                    && event == expected
 
         }) { _ in
             let eventResp = ["event_id": "vaccines_cause_autism"]
-            return OHHTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: eventResp, statusCode: 200, headers: nil)
         }
 
         let msg = PlainMessageJSON(body: "Hello.", type: .text)
@@ -219,7 +219,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "sync")
 
         stub(condition: isHost("entropy.kodeshack.com")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/simple_sync.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
@@ -241,7 +241,7 @@ class MatrixAPITests: XCTestCase {
         let exp = expectation(description: "preview")
 
         stub(condition: isHost("entropy.kodeshack.com")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/preview.json", type(of: self))!,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]

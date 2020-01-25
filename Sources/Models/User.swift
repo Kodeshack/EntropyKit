@@ -33,7 +33,7 @@ public class User: Record {
     }
 
     public override class var databaseTableName: String {
-        return Database.v0.users.table
+        Database.v0.users.table
     }
 
     public override func encode(to container: inout PersistenceContainer) {
@@ -73,7 +73,7 @@ extension User {
 extension User {
     // @TODO: caching
     func fetchDevices(database: Database) throws -> [Device] {
-        return try database.dbQueue.inDatabase { db in
+        try database.dbQueue.inDatabase { db in
             let userID = Column(Database.v0.devices.userID)
             return try Device.filter(userID == self.id).fetchAll(db)
         }

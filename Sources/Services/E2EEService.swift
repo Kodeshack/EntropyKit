@@ -13,7 +13,7 @@ class E2EEService {
     }
 
     private func fetchAllUserRooms(without userID: UserID) -> Result<[UserID: [String]], Error> {
-        return Result {
+        Result {
             let userRoomPairs: [(userID: UserID, roomID: String)] = try database.dbQueue.inDatabase { db -> [Row] in
                 let roomsTable = Database.v0.rooms.table
                 let roomID = Database.v0.rooms.id
@@ -94,7 +94,7 @@ class E2EEService {
     /// previously. If it did, the client must check that the Ed25519 key hasn't changed.
     /// Again, if it has changed, no further processing should be done on the device."
     private func extractNew(devices: [Device]) -> Result<[Device], Error> {
-        return Result {
+        Result {
             try database.dbQueue.inDatabase { db in
                 let deviceKeys = devices.map { d -> [String: String] in
                     [Database.v0.devices.id: d.id, Database.v0.devices.userID: d.userID]
@@ -126,7 +126,7 @@ class E2EEService {
     ///
     /// - Returns: All the devices that are contained in the reponse.
     private func flattenKeysQueryResponse(_ keysQueryReponse: KeysQueryResponse) -> [Device] {
-        return keysQueryReponse.deviceKeys.flatMap { userDevices -> [Device] in
+        keysQueryReponse.deviceKeys.flatMap { userDevices -> [Device] in
             userDevices.value.compactMap { item -> Device? in
                 let deviceData = item.value
 
@@ -167,7 +167,7 @@ class E2EEService {
     /// a given device list with known devices in the DB.
     /// ∀ d ∈ DB \ devices, delete d
     private func removeOldDevices(userIDs: [UserID], devices: [Device]) -> Result<Void, Error> {
-        return Result {
+        Result {
             guard !userIDs.isEmpty, !devices.isEmpty else {
                 return
             }
@@ -219,7 +219,7 @@ class E2EEService {
     }
 
     func fetchNonBlockedDevices(for roomID: RoomID, without deviceID: DeviceID) -> Result<[Device], Error> {
-        return Result {
+        Result {
             let devices = try Device.fetchNotBlocked(forRoom: roomID, database: database).get()
             return devices.filter { $0.id != deviceID }
         }
@@ -228,7 +228,7 @@ class E2EEService {
     private func ciphertexts(for devices: [Device], account: Account, sessionInfo: SessionInfo, olmEncrypt: (String, CryptoEngine.Curve25519Key) -> (String, OLMMessageType)?) -> [CryptoEngine.Curve25519Key: [CryptoEngine.Curve25519Key: EncryptedJSON.OlmCiphertext]] {
         // Encrypt the content as an m.room_key event using Olm, as below.
         // Once all of the key-sharing event contents have been assembled, the events should be sent.
-        return Dictionary(uniqueKeysWithValues: devices.compactMap { device -> (CryptoEngine.Curve25519Key, [CryptoEngine.Curve25519Key: EncryptedJSON.OlmCiphertext])? in
+        Dictionary(uniqueKeysWithValues: devices.compactMap { device -> (CryptoEngine.Curve25519Key, [CryptoEngine.Curve25519Key: EncryptedJSON.OlmCiphertext])? in
 
             let keyData = RoomKeyJSON(
                 algorithm: .megolm,
@@ -261,7 +261,7 @@ class E2EEService {
 
     /// - Returns: Encrypted messages grouped by device and then by user
     private func groupSessionKeysMessages(for devices: [Device], ciphertexts: [CryptoEngine.Curve25519Key: [CryptoEngine.Curve25519Key: EncryptedJSON.OlmCiphertext]], curve25519Key: CryptoEngine.Curve25519Key) -> [UserID: [DeviceID: EncryptedJSON]] {
-        return Dictionary(grouping: devices) { $0.userID } // group devices by user id: [UserID: [Device]]
+        Dictionary(grouping: devices) { $0.userID } // group devices by user id: [UserID: [Device]]
             .mapValues { userDevices -> [DeviceID: EncryptedJSON] in
                 Dictionary(uniqueKeysWithValues: userDevices.compactMap { userDevice in // [DeviceID: [EncryptedJSON]]
                     guard let deviceCurve25519Key = userDevice.curve25519Key else {

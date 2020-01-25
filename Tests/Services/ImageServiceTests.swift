@@ -16,7 +16,7 @@ class ImageServiceTests: XCTestCase {
 
     override func tearDown() {
         try! FileManager.default.removeItem(at: dbPath)
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -24,7 +24,7 @@ class ImageServiceTests: XCTestCase {
         let exp = expectation(description: "thumbnail request")
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -63,7 +63,7 @@ class ImageServiceTests: XCTestCase {
         let exp = expectation(description: "image request")
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
-            OHHTTPStubsResponse(
+            HTTPStubsResponse(
                 fileAtPath: OHPathForFile("Fixtures/testimage.png", type(of: self))!,
                 statusCode: 200,
                 headers: nil
@@ -103,7 +103,7 @@ class ImageServiceTests: XCTestCase {
 
         stub(condition: pathStartsWith("/_matrix/media/")) { _ in
             let response = ["content_uri": "mxc://example.com/AQwafuaFswefuhsfAFAgsw"]
-            return OHHTTPStubsResponse(jsonObject: response, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: response, statusCode: 200, headers: nil)
         }
 
         let path = OHPathForFile("Fixtures/testimage.png", type(of: self))!

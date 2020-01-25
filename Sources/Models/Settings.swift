@@ -5,7 +5,7 @@ class Settings {
 
     static var userAgent: String? {
         get {
-            return userDefaults.string(forKey: Keys.userAgent)
+            userDefaults.string(forKey: Keys.userAgent)
         }
         set {
             userDefaults.set(newValue, forKey: Keys.userAgent)
@@ -19,7 +19,7 @@ class Settings {
     }
 
     static func loadHomeserver(from database: Database) throws -> URL? {
-        return try database.dbQueue.read { db -> URL? in
+        try database.dbQueue.read { db -> URL? in
             if let homeserver = try Setting.fetchOne(db, key: Settings.Keys.homeserver) {
                 return URL(string: homeserver.value)
             }
@@ -50,7 +50,7 @@ class Setting: Record {
     }
 
     override class var databaseTableName: String {
-        return Database.v0.settings.table
+        Database.v0.settings.table
     }
 
     override func encode(to container: inout PersistenceContainer) {

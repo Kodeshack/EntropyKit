@@ -5,7 +5,7 @@ class FileCacheTests: XCTestCase {
     private let queue = DispatchQueue(label: "filecachetests", qos: .userInitiated, attributes: .initiallyInactive, autoreleaseFrequency: .workItem, target: nil)
 
     private func getCache() -> FileCache<String> {
-        return try! FileCache<String>(queue: queue, transformForCache: { value in
+        try! FileCache<String>(queue: queue, transformForCache: { value in
             value?.data(using: .utf8) ?? Data()
         }, transformFromCache: { data in
             if let data = data {
@@ -17,7 +17,7 @@ class FileCacheTests: XCTestCase {
     }
 
     private func getDelegate(cb: @escaping FileCacheDeletageStub<String>.FileCacheDeletageStubCB) -> FileCacheDeletageStub<String> {
-        return FileCacheDeletageStub<String>(cb: cb)
+        FileCacheDeletageStub<String>(cb: cb)
     }
 
     func testSetGet() {

@@ -81,7 +81,7 @@ protocol CacheProtocol {
 
 class Cache<V>: CacheProtocol {
     func get(_: String, meta _: Any? = nil) -> V? {
-        return nil
+        nil
     }
 
     func set(_: String, object _: V?, cost _: Int = 0) {}
@@ -90,28 +90,28 @@ class Cache<V>: CacheProtocol {
 
     subscript(key: String) -> V? {
         get {
-            return get(key)
+            get(key)
         }
         set {
-            `set`(key, object: newValue)
+            set(key, object: newValue)
         }
     }
 
     subscript(key: String, meta: Any?) -> V? {
         get {
-            return get(key, meta: meta)
+            get(key, meta: meta)
         }
         set {
-            `set`(key, object: newValue)
+            set(key, object: newValue)
         }
     }
 
     subscript(key: String, cost: Int) -> V? {
         get {
-            return get(key)
+            get(key)
         }
         set {
-            `set`(key, object: newValue, cost: cost)
+            set(key, object: newValue, cost: cost)
         }
     }
 }

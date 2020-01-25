@@ -17,7 +17,7 @@ struct SyncResponse: JSONDecodable {
 
     /// Can be nil when E2EE Stuff is not initialized yet.
     var otkCount: UInt? {
-        return otkCountMap[CryptoEngine.CryptoKeys.signedCurve25519.rawValue]
+        otkCountMap[CryptoEngine.CryptoKeys.signedCurve25519.rawValue]
     }
 }
 

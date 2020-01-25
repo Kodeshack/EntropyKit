@@ -67,7 +67,7 @@ public protocol EncodableRecord {
     /// - dataEncodingStrategy: .base64
     /// - dateEncodingStrategy: .millisecondsSince1970
     /// - nonConformingFloatEncodingStrategy: .throw
-    /// - outputFormatting: .sortedKeys (iOS 11.0+, macOS 10.13+, watchOS 4.0+)
+    /// - outputFormatting: .sortedKeys (iOS 11.0+, macOS 10.13+, tvOS 11.0+, watchOS 4.0+)
     ///
     /// You can override those defaults:
     ///
@@ -129,7 +129,7 @@ extension EncodableRecord {
         encoder.dataEncodingStrategy = .base64
         encoder.dateEncodingStrategy = .millisecondsSince1970
         encoder.nonConformingFloatEncodingStrategy = .throw
-        if #available(watchOS 4.0, OSX 10.13, iOS 11.0, *) {
+        if #available(watchOS 4.0, OSX 10.13, iOS 11.0, tvOS 11.0, *) {
             // guarantee some stability in order to ease record comparison
             encoder.outputFormatting = .sortedKeys
         }
@@ -171,7 +171,8 @@ extension EncodableRecord {
     /// same set of columns in their `encode(to:)` method, only the columns
     /// defined by the receiver record are considered.
     public func databaseChanges<Record: EncodableRecord>(from record: Record) -> [String: DatabaseValue] {
-        return Dictionary(uniqueKeysWithValues: PersistenceContainer(self).changesIterator(from: PersistenceContainer(record)))
+        let changes = PersistenceContainer(self).changesIterator(from: PersistenceContainer(record))
+        return Dictionary(uniqueKeysWithValues: changes)
     }
 }
 

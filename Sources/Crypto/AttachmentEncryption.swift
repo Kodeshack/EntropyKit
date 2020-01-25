@@ -75,7 +75,7 @@ class AttachmentEncryption {
 
     // Adapted and ported from https://github.com/matrix-org/matrix-ios-sdk/blob/v0.11.1/MatrixSDK/Crypto/Data/MXEncryptedAttachments.m#L72
     static func encrypt(plainData: Data, mimeType: String) -> Result<EncryptedAttachmentData, Error> {
-        return Result {
+        Result {
             let iv = try generateIVForAES256().get()
             let key = try generateKeyForAES256().get()
             let cryptor = try CCCryptor(operation: .encrypt, iv: iv, key: key)
@@ -99,7 +99,7 @@ class AttachmentEncryption {
     }
 
     static func decrypt(ciphertext: Data, info: Attachment.Info.CryptoInfo) -> Result<Data, Error> {
-        return Result {
+        Result {
             guard info.algorithm == .A256CTR else {
                 throw AttachmentEncryptionError.unknownAlgorithm
             }

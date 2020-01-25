@@ -35,7 +35,7 @@ class Device: Record {
     }
 
     override class var databaseTableName: String {
-        return Database.v0.devices.table
+        Database.v0.devices.table
     }
 
     override func encode(to container: inout PersistenceContainer) {
@@ -51,7 +51,7 @@ class Device: Record {
 
 extension Device {
     static func fetchNotBlocked(forRoom roomID: RoomID, database: Database) -> Result<[Device], Error> {
-        return Result {
+        Result {
             try database.dbQueue.inDatabase { db -> [Device] in
                 let usersRoomsTable = Database.v0.users_rooms.table
                 let usersRoomsUserID = Database.v0.users_rooms.userID
@@ -74,7 +74,7 @@ extension Device {
     }
 
     static func fetchOne(userID: UserID, deviceID: DeviceID, database: Database) -> Result<Device?, Error> {
-        return Result {
+        Result {
             try database.dbQueue.inDatabase { db -> Device? in
                 try Device.fetchOne(db, key: [Database.v0.devices.id: deviceID, Database.v0.devices.userID: userID])
             }

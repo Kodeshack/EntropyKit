@@ -43,10 +43,10 @@ struct Event: JSONCodable, Hashable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        //try container.encode(self.id, forKey: .id)
+        // try container.encode(self.id, forKey: .id)
         try container.encodeIfPresent(senderID, forKey: .senderID)
         try container.encode(type, forKey: .type)
-        //try container.encode(Int(self.date.timeIntervalSince1970 * 1000), forKey: .date)
+        // try container.encode(Int(self.date.timeIntervalSince1970 * 1000), forKey: .date)
         try container.encodeIfPresent(roomID, forKey: .roomID)
         try container.encode(content, forKey: .content)
     }

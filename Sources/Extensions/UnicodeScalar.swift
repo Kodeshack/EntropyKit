@@ -15,6 +15,6 @@ extension UnicodeScalar {
     }
 
     public var isZeroWidthJoiner: Bool {
-        return value == 8205
+        value == 8205
     }
 }

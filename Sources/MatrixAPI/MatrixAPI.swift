@@ -151,7 +151,7 @@ class MatrixAPI {
     }
 
     private func createRequest(url: URL) -> DataRequest {
-        return sessionManager.request(url).validate()
+        sessionManager.request(url).validate()
     }
 }
 
@@ -398,7 +398,7 @@ extension MatrixAPI {
     ///   - transactionID: Transaction ID for this request.
     ///   - deviceAnnouncementRequest: The device that will be announces (should be the device that this code is running on).
     ///   - completionHandler: Called with the response (or error) when the request has ended (whether successfully or unsuccessfully).
-    func announceDevice(accessToken: String, transactionID: UInt, deviceAnnouncementRequest: DeviceAnnouncementRequest, completionHandler: @escaping (Swift.Result<(), Error>) -> Void) {
+    func announceDevice(accessToken: String, transactionID: UInt, deviceAnnouncementRequest: DeviceAnnouncementRequest, completionHandler: @escaping (Swift.Result<Void, Error>) -> Void) {
         createRequest(for: .newDevice, accessToken: accessToken, transactionID: transactionID, method: .put, payload: deviceAnnouncementRequest)
             .responseData { response in
                 completionHandler(Swift.Result {

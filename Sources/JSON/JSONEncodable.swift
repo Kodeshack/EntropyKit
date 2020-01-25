@@ -25,7 +25,7 @@ extension JSONEncodable {
     }
 
     var stringValue: String {
-        return String(data: encoded, encoding: .utf8)!
+        String(data: encoded, encoding: .utf8)!
     }
 
     #if DEBUG
